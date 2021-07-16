@@ -1,14 +1,14 @@
 import React from "react";
 import TD from "../Global/TD";
 
-export default function TableBody({ species }) {
+export default function TableBody({ colors }) {
   return (
     <>
-      {species.length >= 1 ? (
-        species.map((specie) => (
-          <tr key={specie.type}>
-            <TD name={specie.id} />
-            <TD name={specie.type} />
+      {colors.length >= 1 ? (
+        colors.map((color) => (
+          <tr key={color.type}>
+            <TD name={color.id} />
+            <TD name={color.type} />
             <TD>
               <div className="flex">
                 <button className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded">

@@ -4,7 +4,7 @@ import Layout from '../layout/Layout'
 export default function Home() {
     return (
         <Layout>
-            <p>Hola Mundo</p>
+            <div className="p-8">Actualmente en construccion...</div>
         </Layout>
     )
 }

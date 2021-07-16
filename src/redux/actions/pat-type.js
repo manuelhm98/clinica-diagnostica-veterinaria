@@ -1,35 +1,35 @@
-import { getAllSpecies } from "../../services/species";
+import { getAllPatTypes } from "../../services/pat-type";
 import { types } from "../types";
 
-export const addSpecie = (data) => {
+export const addPatType = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readSpecies())
+    dispatch(readPatTypes())
   };
 };
 
 export function add(data) {
   return {
-    type: types.specieAdd,
+    type: types.patTypeAdd,
     payload: data,
   };
 }
 
-export const readSpecies = () => {
+export const readPatTypes = () => {
   return (dispatch) => {
-    getAllSpecies().then((res) => {
+    getAllPatTypes().then((res) => {
       if (res.msg) {
         dispatch(read([]));
         return;
       }
-      dispatch(read(res.specie));
+      dispatch(read(res.patienType));    
     });
   };
 };
 
 export function read(data) {
   return {
-    type: types.specieRead,
+    type: types.patTypeRead,
     payload: data,
   };
 }

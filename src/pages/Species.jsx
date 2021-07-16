@@ -13,15 +13,14 @@ export default function Species() {
   const dispatch = useDispatch();
   const species = useSelector((state) => state.specie.data);
   useEffect(() => {
-    dispatch(readSpecies());
-    return;
+    return dispatch(readSpecies());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [species]);
+  }, []);
   
   return (
     <Layout>
       <div className="p-8">
-        <Title name="Listado de razas" />
+        <Title name="Listado de especies" />
         <div>
           <input
             className="border w-96 px-4 rounded"

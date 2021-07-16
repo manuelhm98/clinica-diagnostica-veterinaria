@@ -16,7 +16,6 @@ export default function Form({ species,setShowModal }) {
     onSubmit: (values) => {
       addNewBreed(values).then((res) => {
         dispatch(addBreed(values));
-        console.log(res);
         setShowModal(false)
       });
     },

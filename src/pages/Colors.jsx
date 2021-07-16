@@ -1,29 +1,25 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Form from "../components/Breeds/Form";
-import TableContent from "../components/Breeds/TableContent";
+import Form from "../components/Colors/Form";
+import TableContent from "../components/Colors/TableContent";
 import Modal from "../components/Global/Modal";
 import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
-import { readBreeds } from "../redux/actions/breeds";
-import { readSpecies } from "../redux/actions/species";
+import { readColors } from "../redux/actions/colors";
 
-export default function Breeds() {
+export default function Colors() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const breeds = useSelector((state) => state.breed.data);
-  const species = useSelector((state) => state.specie.data);
+  const colors = useSelector((state) => state.color.data);
   useEffect(() => {
-    dispatch(readBreeds());
-    dispatch(readSpecies());
-    return;
+    return dispatch(readColors());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Layout>
       <div className="p-8">
-        <Title name="Listado de razas" />
+        <Title name="Listado de colores" />
         <div>
           <input
             className="border w-96 px-4 rounded"
@@ -40,17 +36,14 @@ export default function Breeds() {
           Agregar
         </button>
         <Modal
-          title="Agregar Raza"
+          title="Agregar Color"
           showModal={showModal}
           setShowModal={setShowModal}
         >
-          <Form
-            setShowModal={setShowModal}
-            species={species}
-          />
+          <Form setShowModal={setShowModal} />
         </Modal>
         <Table>
-          <TableContent breeds={breeds} />
+          <TableContent colors={colors} />
         </Table>
       </div>
     </Layout>

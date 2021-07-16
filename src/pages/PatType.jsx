@@ -1,29 +1,25 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Form from "../components/Breeds/Form";
-import TableContent from "../components/Breeds/TableContent";
+import Form from "../components/PatType/Form";
+import TableContent from "../components/PatType/TableContent";
 import Modal from "../components/Global/Modal";
 import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
-import { readBreeds } from "../redux/actions/breeds";
-import { readSpecies } from "../redux/actions/species";
+import { readPatTypes } from "../redux/actions/pat-type";
 
-export default function Breeds() {
+export default function PatType() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const breeds = useSelector((state) => state.breed.data);
-  const species = useSelector((state) => state.specie.data);
+  const patTypes = useSelector((state)=>state.patType.data)
   useEffect(() => {
-    dispatch(readBreeds());
-    dispatch(readSpecies());
-    return;
+    return dispatch(readPatTypes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Layout>
       <div className="p-8">
-        <Title name="Listado de razas" />
+        <Title name="Listado de tipos de paciente" />
         <div>
           <input
             className="border w-96 px-4 rounded"
@@ -40,17 +36,14 @@ export default function Breeds() {
           Agregar
         </button>
         <Modal
-          title="Agregar Raza"
+          title="Agregar Tipo de paciente"
           showModal={showModal}
           setShowModal={setShowModal}
         >
-          <Form
-            setShowModal={setShowModal}
-            species={species}
-          />
+          <Form setShowModal={setShowModal} />
         </Modal>
         <Table>
-          <TableContent breeds={breeds} />
+          <TableContent patTypes={patTypes} />
         </Table>
       </div>
     </Layout>

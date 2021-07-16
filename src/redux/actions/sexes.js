@@ -1,35 +1,35 @@
-import { getAllSpecies } from "../../services/species";
+import { getAllSexes } from "../../services/sexes";
 import { types } from "../types";
 
-export const addSpecie = (data) => {
+export const addSex = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readSpecies())
+    dispatch(readSexes())
   };
 };
 
 export function add(data) {
   return {
-    type: types.specieAdd,
+    type: types.colorAdd,
     payload: data,
   };
 }
 
-export const readSpecies = () => {
+export const readSexes = () => {
   return (dispatch) => {
-    getAllSpecies().then((res) => {
+    getAllSexes().then((res) => {
       if (res.msg) {
         dispatch(read([]));
         return;
       }
-      dispatch(read(res.specie));
+      dispatch(read(res.sex));
     });
   };
 };
 
 export function read(data) {
   return {
-    type: types.specieRead,
+    type: types.sexesRead,
     payload: data,
   };
 }

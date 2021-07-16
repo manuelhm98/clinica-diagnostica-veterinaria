@@ -2,20 +2,20 @@ import React from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { addSpecie } from "../../redux/actions/species";
-import { addNewSpecie } from "../../services/species";
+import { addNewSex } from "../../services/sexes";
+import { addSex } from "../../redux/actions/sexes";
 
 export default function Form({ setShowModal }) {
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object({
-      type: Yup.string().required("El nombre de la especie es requerido"),
+      type: Yup.string().required("El nombre del sexo es requerido"),
     }),
     onSubmit: (values) => {
-      addNewSpecie(values).then(() => {
-        dispatch(addSpecie(values));
-        setShowModal(false);
+      addNewSex(values).then(() => {
+        dispatch(addSex(values));
+        setShowModal(false)
       });
     },
   });
@@ -28,7 +28,7 @@ export default function Form({ setShowModal }) {
             type="text"
             name="type"
             onChange={formik.handleChange}
-            placeholder="Ingresa el nombre de la especie"
+            placeholder="Ingresa el nombre del sexo"
             className={
               "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.type && formik.touched.type
