@@ -1,17 +1,29 @@
-import React from "react";
+import { useState } from "react";
 import TD from "../Global/TD";
+import Modal from "../Global/Modal";
+import Form from "./Form";
 
 export default function TableBody({ colors }) {
+  const [color, setColor] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const edit = (color) => {
+    setColor(color);
+    setShowModal(true);
+  };
+
   return (
     <>
-      {colors.length >= 1 ? (
-        colors.map((color) => (
+      {colors?.length >= 1 ? (
+        colors?.map((color) => (
           <tr key={color.type}>
             <TD name={color.id} />
             <TD name={color.type} />
             <TD>
               <div className="flex">
-                <button className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded">
+                <button
+                  onClick={() => edit(color)}
+                  className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
+                >
                   Editar
                 </button>
                 <button className="bg-red-500 text-white text-xs px-6 m-1 py-1 rounded">
@@ -28,6 +40,13 @@ export default function TableBody({ colors }) {
           </td>
         </tr>
       )}
+      <Modal
+        title="Actualizar color"
+        setShowModal={setShowModal}
+        showModal={showModal}
+      >
+        <Form color={color} setShowModal={setShowModal} showModal={showModal} />
+      </Modal>
     </>
   );
 }

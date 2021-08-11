@@ -1,7 +1,7 @@
 import { types } from "../types";
 
 const initialState = {
-  data: [],
+  data: {},
 };
 
 export const patientReducer = (state = initialState, action) => {
@@ -9,13 +9,15 @@ export const patientReducer = (state = initialState, action) => {
     case types.patientAdd:
       return {
         ...state,
-        data: [...state.data, action.payload],
+        data: { ...state.data, data: action.payload },
       };
     case types.patientRead:
       return {
         ...state,
         data: action.payload,
       };
+    case types.patientReadById:
+      return { ...state, data: action.payload };
     default:
       return state;
   }

@@ -2,20 +2,30 @@ import React from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { addNewColor } from "../../services/colors";
+import { addNewColor, putColor } from "../../services/colors";
 import { addColor } from "../../redux/actions/colors";
+import { Success } from "../Global/Alerts/Success";
 
-export default function Form({ setShowModal }) {
+export default function Form({ setShowModal, color }) {
   const dispatch = useDispatch();
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(color),
     validationSchema: Yup.object({
       type: Yup.string().required("El nombre del color es requerido"),
     }),
     onSubmit: (values) => {
+      if (color) {
+        putColor(color?.id, values).then(() => {
+          dispatch(addColor(values));
+          setShowModal(false);
+          Success("Se actualizo el color");
+        });
+        return;
+      }
       addNewColor(values).then(() => {
         dispatch(addColor(values));
-        setShowModal(false)
+        setShowModal(false);
+        Success("Se agrego el color");
       });
     },
   });
@@ -29,6 +39,7 @@ export default function Form({ setShowModal }) {
             name="type"
             onChange={formik.handleChange}
             placeholder="Ingresa el nombre del color"
+            defaultValue={color && color.type}
             className={
               "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.type && formik.touched.type
@@ -46,15 +57,15 @@ export default function Form({ setShowModal }) {
           type="submit"
           className="bg-blue-600 mt-4 w-full text-white rounded px-12 py-1 text-xs"
         >
-          Agregar
+          {color ? "Actualizar" : "Agregar"}
         </button>
       </form>
     </div>
   );
 }
 
-function initialValues() {
+function initialValues(color) {
   return {
-    type: "",
+    type: "" || color?.type,
   };
 }

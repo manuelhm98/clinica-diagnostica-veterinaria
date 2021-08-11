@@ -18,23 +18,8 @@ export default function PatType() {
   }, []);
   return (
     <Layout>
-      <div className="p-8">
+      <div className="p-8 flex flex-col">
         <Title name="Listado de tipos de paciente" />
-        <div>
-          <input
-            className="border w-96 px-4 rounded"
-            placeholder="Escribe para buscar"
-          ></input>
-          <button className="bg-green-500 text-white text-xs py-1 px-8 ml-4 rounded">
-            Buscar
-          </button>
-        </div>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-white px-8 ml-4 float-right text-xs py-1 rounded"
-        >
-          Agregar
-        </button>
         <Modal
           title="Agregar Tipo de paciente"
           showModal={showModal}
@@ -45,6 +30,12 @@ export default function PatType() {
         <Table>
           <TableContent patTypes={patTypes} />
         </Table>
+        <button
+          onClick={() => setShowModal(true)}
+          className="bg-blue-600 text-white w-40 px-8 ml-4 float-right text-xs py-1 rounded"
+        >
+          Agregar
+        </button>
       </div>
     </Layout>
   );

@@ -1,7 +1,7 @@
 import { types } from "../types";
 
 const initialState = {
-  data: [],
+  data: {},
 };
 
 export const speciesReducer = (state = initialState, action) => {
@@ -9,9 +9,14 @@ export const speciesReducer = (state = initialState, action) => {
     case types.specieAdd:
       return {
         ...state,
-        data: [...state.data, action.payload],
+        data: { ...state.data, data: action.payload },
       };
     case types.specieRead:
+      return {
+        ...state,
+        data: action.payload,
+      };
+    case types.specieList:
       return {
         ...state,
         data: action.payload,

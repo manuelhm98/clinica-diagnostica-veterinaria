@@ -1,10 +1,10 @@
-import { getAllPatients } from "../../services/patients";
+import { getAllPatients, getPatientById } from "../../services/patients";
 import { types } from "../types";
 
 export const addPatient = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readPatients());
+    dispatch(readPatients(1,"",""));
   };
 };
 
@@ -15,14 +15,17 @@ export function add(data) {
   };
 }
 
-export const readPatients = () => {
+export const readPatients = (page, name, custom) => {
   return (dispatch) => {
-    getAllPatients().then((res) => {
+    if (name !== "" || custom !== "") {
+      page = 1;
+    }
+    getAllPatients(page, name, custom).then((res) => {
       if (res.msg) {
         dispatch(read([]));
         return;
       }
-      dispatch(read(res.patients));
+      dispatch(read(res));
     });
   };
 };
@@ -30,6 +33,24 @@ export const readPatients = () => {
 export function read(data) {
   return {
     type: types.patientRead,
+    payload: data,
+  };
+}
+export const readPatientsById = (id) => {
+  return (dispatch) => {
+    getPatientById(id).then((res) => {
+      if (res.msg) {
+        dispatch(read([]));
+        return;
+      }
+      dispatch(readById(res));
+    });
+  };
+};
+
+export function readById(data) {
+  return {
+    type: types.patientReadById,
     payload: data,
   };
 }

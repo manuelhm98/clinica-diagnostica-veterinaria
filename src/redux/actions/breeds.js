@@ -1,10 +1,10 @@
-import { getAllBreeds } from "../../services/breeds";
+import { getAllBreeds, listBreeds } from "../../services/breeds";
 import { types } from "../types";
 
 export const addBreed = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readBreeds())
+    dispatch(readBreeds());
   };
 };
 
@@ -15,14 +15,17 @@ export function add(data) {
   };
 }
 
-export const readBreeds = () => {
+export const readBreeds = (page = 1, type = "") => {
   return (dispatch) => {
-    getAllBreeds().then((res) => {
+    if (type !== "") {
+      page = 1;
+    }
+    getAllBreeds(page, type).then((res) => {
       if (res.msg) {
-        dispatch(read([]));
+        dispatch(read({}));
         return;
       }
-      dispatch(read(res.breeds));
+      dispatch(read(res));
     });
   };
 };
@@ -30,6 +33,25 @@ export const readBreeds = () => {
 export function read(data) {
   return {
     type: types.breedRead,
+    payload: data,
+  };
+}
+
+export const listBreed = () => {
+  return (dispatch) => {
+    listBreeds().then((res) => {
+      if (res.msg) {
+        dispatch(list({}));
+        return;
+      }
+      dispatch(list(res));
+    });
+  };
+};
+
+export function list(data) {
+  return {
+    type: types.breedList,
     payload: data,
   };
 }

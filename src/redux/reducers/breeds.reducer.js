@@ -1,7 +1,7 @@
 import { types } from "../types";
 
 const initialState = {
-  data: [],
+  data: {},
 };
 
 export const breedReducer = (state = initialState, action) => {
@@ -9,9 +9,14 @@ export const breedReducer = (state = initialState, action) => {
     case types.breedAdd:
       return {
         ...state,
-        data: [...state.data, action.payload],
+        data: { ...state.data, data: action.payload },
       };
     case types.breedRead:
+      return {
+        ...state,
+        data: action.payload,
+      };
+    case types.breedList:
       return {
         ...state,
         data: action.payload,

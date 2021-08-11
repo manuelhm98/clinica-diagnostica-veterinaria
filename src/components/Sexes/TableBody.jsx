@@ -9,16 +9,6 @@ export default function TableBody({ sexes }) {
           <tr key={sex.type}>
             <TD name={sex.id} />
             <TD name={sex.type} />
-            <TD>
-              <div className="flex">
-                <button className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded">
-                  Editar
-                </button>
-                <button className="bg-red-500 text-white text-xs px-6 m-1 py-1 rounded">
-                  Eliminar
-                </button>
-              </div>
-            </TD>
           </tr>
         ))
       ) : (

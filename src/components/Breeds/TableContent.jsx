@@ -2,7 +2,7 @@ import React from "react";
 import TH from "../Global/TH";
 import TableBody from "./TableBody";
 
-export default function TableContent({breeds}) {
+export default function TableContent({ breeds }) {
   return (
     <>
       <thead>
@@ -14,7 +14,7 @@ export default function TableContent({breeds}) {
         </tr>
       </thead>
       <tbody>
-          <TableBody breeds={breeds} />
+        <TableBody breeds={breeds} />
       </tbody>
     </>
   );

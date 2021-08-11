@@ -15,7 +15,7 @@ export default function Breeds() {
   const breeds = useSelector((state) => state.breed.data);
   const species = useSelector((state) => state.specie.data);
   useEffect(() => {
-    dispatch(readBreeds());
+    dispatch(readBreeds(1, ""));
     dispatch(readSpecies());
     return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,10 +28,7 @@ export default function Breeds() {
           <input
             className="border w-96 px-4 rounded"
             placeholder="Escribe para buscar"
-          ></input>
-          <button className="bg-green-500 text-white text-xs py-1 px-8 ml-4 rounded">
-            Buscar
-          </button>
+          />
         </div>
         <button
           onClick={() => setShowModal(true)}
@@ -44,10 +41,7 @@ export default function Breeds() {
           showModal={showModal}
           setShowModal={setShowModal}
         >
-          <Form
-            setShowModal={setShowModal}
-            species={species}
-          />
+          <Form setShowModal={setShowModal} species={species} />
         </Modal>
         <Table>
           <TableContent breeds={breeds} />

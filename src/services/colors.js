@@ -9,7 +9,21 @@ export const addNewColor = async (data) => {
   return response.json();
 };
 
-export const getAllColors = async () => {
-  const response = await fetch(`${API_HOST}/colors`);
+export const getAllColors = async (page, type) => {
+  const response = await fetch(`${API_HOST}/colors?page=${page}&type=${type}`);
+  return response.json();
+};
+
+export const putColor = async (id, data) => {
+  const response = await fetch(`${API_HOST}/colors/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};
+
+export const colorList = async () => {
+  const response = await fetch(`${API_HOST}/colors/list`);
   return response.json();
 };

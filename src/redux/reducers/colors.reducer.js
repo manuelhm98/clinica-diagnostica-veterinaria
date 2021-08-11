@@ -1,7 +1,7 @@
 import { types } from "../types";
 
 const initialState = {
-  data: [],
+  data: {},
 };
 
 export const colorReducer = (state = initialState, action) => {
@@ -9,9 +9,14 @@ export const colorReducer = (state = initialState, action) => {
     case types.colorAdd:
       return {
         ...state,
-        data: [...state.data, action.payload],
+        data: { ...state.data, data: action.payload },
       };
     case types.colorRead:
+      return {
+        ...state,
+        data: action.payload,
+      };
+    case types.colorList:
       return {
         ...state,
         data: action.payload,

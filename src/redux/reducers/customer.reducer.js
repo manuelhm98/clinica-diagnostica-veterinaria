@@ -1,7 +1,7 @@
 import { types } from "../types";
 
 const initialState = {
-  data: [],
+  data: {},
 };
 
 export const customerReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ export const customerReducer = (state = initialState, action) => {
     case types.customerAdd:
       return {
         ...state,
-        data: [...state.data, action.payload],
+        data: {...state.data, data:action.payload},
       };
     case types.customerRead:
       return {

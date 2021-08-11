@@ -1,11 +1,14 @@
 import "./App.css";
-import Routes from "./routes/routes";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { Toaster } from 'react-hot-toast';
+import IsAuth from "./pages/IsAuth";
+
 function App() {
   return (
     <Provider store={store}>
-      <Routes />
+      <IsAuth/>
+      <Toaster position="top-right" />
     </Provider>
   );
 }

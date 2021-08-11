@@ -1,64 +1,65 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Dogs from "../../assets/icons/dogs.svg";
-import CatDog from "../../assets/icons/cat-dog.svg";
-import Home from "../../assets/icons/casa.svg";
-import Colors from "../../assets/icons/colors.svg";
-import Sexes from "../../assets/icons/sexes.svg";
-import PatType from "../../assets/icons/pat-type.svg";
-import Customers from "../../assets/icons/customers.svg";
-import Patiences from "../../assets/icons/patiences.svg"
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faBone, faClipboardList, faHome, faPaw, faSignOutAlt, faTimes, faUserCircle, faUserMd, faUsers } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-export default function NavbarIcons() {
+export default function NavbarIcons({ setOpenMenu, openMenu }) {
   return (
-    <div className="bg-blue-600 h-full  rounded-tl-xl rounded-bl-xl">
+    <div className="bg-blue-600 border-r h-full  rounded-tl-xl rounded-bl-xl">
       <ul>
-        <li className="p-5 border-b border-solid">
+        <li className="border-b flex justify-center content-center items-center py-3 border-solid">
+        {openMenu ? (
           <FontAwesomeIcon
-            className="text-white text-xl cursor-pointer"
-            icon={faBars}
+            className="   text-white text-xl cursor-pointer"
+            icon={faTimes}
+            onClick={() => setOpenMenu(!openMenu)}
           />
+        ) : (
+          <FontAwesomeIcon
+            className="   text-white text-xl cursor-pointer"
+            icon={faBars}
+            onClick={() => setOpenMenu(!openMenu)}
+          />
+        )}
         </li>
         <Link to="/">
-          <li className="border-b flex justify-center content-center items-center py-2 border-solid">
-            <img src={Home} style={{ width: "1.5rem" }} alt="x" />
-          </li>
-        </Link>
-        <Link to="/breeds">
-          <li className="border-b flex justify-center content-center items-center py-2 border-solid">
-            <img src={Dogs} style={{ width: "1.5rem" }} alt="x" />
-          </li>
-        </Link>
-        <Link to="/species">
-          <li className="border-b flex justify-center content-center items-center py-2 border-solid">
-            <img src={CatDog} style={{ width: "1.8rem" }} alt="x" />
-          </li>
-        </Link>
-        <Link to="/colors">
-          <li className="border-b flex justify-center content-center items-center py-2 border-solid">
-            <img src={Colors} style={{ width: "1.5rem" }} alt="x" />
-          </li>
-        </Link>
-        <Link to="/sexes">
-          <li className="border-b flex justify-center content-center items-center py-2 border-solid">
-            <img src={Sexes} style={{ width: "1.5rem" }} alt="x" />
-          </li>
-        </Link>
-        <Link to="/pat-type">
-          <li className="border-b flex justify-center content-center items-center border-solid">
-            <img src={PatType} style={{ width: "2.5rem" }} alt="x" />
+          <li className="border-b text-white flex justify-center content-center items-center py-3 border-solid">
+           <FontAwesomeIcon className="text-xl" icon={faHome}/>
           </li>
         </Link>
         <Link to="/customers">
-          <li className="border-b flex justify-center content-center py-2 items-center border-solid">
-            <img src={Customers} style={{ width: "1.5rem" }} alt="x" />
+          <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
+          <FontAwesomeIcon className="text-xl" icon={faUsers}/>
           </li>
         </Link>
-        <Link to="/patiences">
-          <li className="border-b flex justify-center content-center py-2 items-center border-solid">
-            <img src={Patiences} style={{ width: "1.5rem" }} alt="x" />
+        <Link to="/patients">
+          <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
+          <FontAwesomeIcon className="text-xl" icon={faPaw}/>
+          </li>
+        </Link>
+        <Link to="/">
+          <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
+          <FontAwesomeIcon className="text-xl" icon={faClipboardList}/>
+          </li>
+        </Link>
+        <Link to="/doctors">
+          <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
+          <FontAwesomeIcon className="text-xl" icon={faUserMd}/>
+          </li>
+        </Link>
+        <Link to="/">
+          <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
+          <FontAwesomeIcon className="text-xl" icon={faBone}/>
+          </li>
+        </Link>
+        <Link to="/">
+          <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
+          <FontAwesomeIcon className="text-xl" icon={faUserCircle}/>
+          </li>
+        </Link>
+        <Link to="/">
+          <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
+          <FontAwesomeIcon className="text-xl" icon={faSignOutAlt}/>
           </li>
         </Link>
       </ul>

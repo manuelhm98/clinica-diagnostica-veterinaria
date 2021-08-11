@@ -7,15 +7,18 @@ import TableContent from "../components/Species/TableContent";
 import Layout from "../layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { readSpecies } from "../redux/actions/species";
+import Pagination from "../components/Global/Pagination"
 
 export default function Species() {
-  const [showModal, setShowModal] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [page, setPage] = useState(1);
+  const [type, setType] = useState("")
   const dispatch = useDispatch();
   const species = useSelector((state) => state.specie.data);
   useEffect(() => {
-    return dispatch(readSpecies());
+    return dispatch(readSpecies(page,type));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [page,type]);
   
   return (
     <Layout>
@@ -23,12 +26,10 @@ export default function Species() {
         <Title name="Listado de especies" />
         <div>
           <input
-            className="border w-96 px-4 rounded"
+            className="border text-xs py-1 w-96 px-4 rounded"
             placeholder="Escribe para buscar"
-          ></input>
-          <button className="bg-green-500 text-white text-xs py-1 px-8 ml-4 rounded">
-            Buscar
-          </button>
+            onChange={(e)=>setType(e.currentTarget.value)}
+          />
         </div>
         <button
           onClick={() => setShowModal(true)}
@@ -46,6 +47,7 @@ export default function Species() {
         <Table>
           <TableContent species={species} />
         </Table>
+        <Pagination data={species} method={setPage}/>
       </div>
     </Layout>
   );

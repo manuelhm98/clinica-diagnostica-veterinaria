@@ -2,7 +2,7 @@ import React from "react";
 import TH from "../Global/TH";
 import TableBody from "./TableBody";
 
-export default function TableContent({colors}) {
+export default function TableContent({ colors}) {
   return (
     <>
       <thead>
@@ -13,7 +13,9 @@ export default function TableContent({colors}) {
         </tr>
       </thead>
       <tbody>
-          <TableBody colors={colors} />
+        <TableBody
+          colors={colors}
+        />
       </tbody>
     </>
   );

@@ -3,20 +3,35 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { addBreed } from "../../redux/actions/breeds";
-import { addNewBreed } from "../../services/breeds";
+import { addNewBreed, putBreed } from "../../services/breeds";
+import { Success } from "../Global/Alerts/Success";
 
-export default function Form({ species,setShowModal }) {
+export default function Form({ species, setShowModal, breed }) {
   const dispatch = useDispatch();
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(breed),
     validationSchema: Yup.object({
-      type: Yup.string().required("El nombre de la raza es requerido"),
-      speciesId: Yup.number().required("Debes seleccionar una especie"),
+      type: Yup.string()
+        .required("El nombre de la raza es requerido")
+        .nullable(),
+      speciesId: Yup.number()
+        .required("Debes seleccionar una especie")
+        .nullable(),
     }),
     onSubmit: (values) => {
+      if (breed) {
+        const newBreed = { type: values.type, especieId: values.speciesId };
+        putBreed(breed.id, newBreed).then((res) => {
+          Success("Se Actualizo el registro con exito");
+          dispatch(addBreed(values));
+          setShowModal(false);
+        });
+        return;
+      }
       addNewBreed(values).then((res) => {
+        Success("Se guardo el registro con exito");
         dispatch(addBreed(values));
-        setShowModal(false)
+        setShowModal(false);
       });
     },
   });
@@ -30,8 +45,9 @@ export default function Form({ species,setShowModal }) {
             name="type"
             onChange={formik.handleChange}
             placeholder="Ingresa el nombre de la especie"
+            defaultValue={breed && breed.type}
             className={
-              "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-80 border p-1 text-gray-600 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.type && formik.touched.type
                 ? "border-red-400"
                 : "border-gray-300")
@@ -46,9 +62,9 @@ export default function Form({ species,setShowModal }) {
         <div className="flex flex-col p-1 mt-1">
           <label className="text-sm text-gray-400">Especie</label>
           <select
-            defaultValue={"DEFAULT"}
+            defaultValue={breed ? breed.speciesId : "DEFAULT"}
             className={
-              "border px-4 py-1 rounded hover:border-green-400 outline-none " +
+              "border p-1 text-gray-600 rounded hover:border-green-400 outline-none " +
               (formik.errors.speciesId && formik.touched.speciesId
                 ? "border-red-400"
                 : "border-gray-300")
@@ -82,9 +98,9 @@ export default function Form({ species,setShowModal }) {
   );
 }
 
-function initialValues() {
+function initialValues(breed) {
   return {
-    type: "",
-    speciesId: "",
+    type: breed ? breed.type : "",
+    speciesId: breed ? breed.speciesId : "",
   };
 }

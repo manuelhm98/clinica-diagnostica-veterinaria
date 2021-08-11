@@ -1,4 +1,4 @@
-import { getAllCustomers } from "../../services/customers";
+import { searchCustomer } from "../../services/customers";
 import { types } from "../types";
 
 export const addCustomer = (data) => {
@@ -15,18 +15,20 @@ export function add(data) {
   };
 }
 
-export const readCustomers = () => {
+export const readCustomers = (name = "", last = "", page = 1) => {
   return (dispatch) => {
-    getAllCustomers().then((res) => {
-      if (res.msg) {
-        dispatch(read([]));
+    if (name !== "" || last !== "") {
+      page = 1;
+    }
+    searchCustomer(name, last, page).then((res) => {
+      if (!res.ok) {
+        dispatch(read({}));
         return;
       }
-      dispatch(read(res.customers));
+      dispatch(read(res));
     });
   };
 };
-
 export function read(data) {
   return {
     type: types.customerRead,
