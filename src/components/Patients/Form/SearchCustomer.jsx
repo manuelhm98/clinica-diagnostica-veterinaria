@@ -24,12 +24,9 @@ export default function SearchCustomer({
     return searchCustom();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search,page]);
-  console.log(customers)
   const selectCustom = (custom) => {
     setClientToPet(custom);
-    if(isAdded){
-      setShowModal(false);
-    }
+    setShowModal(false)
   };
   return (
     <div>

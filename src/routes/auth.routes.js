@@ -7,6 +7,7 @@ export default function AuthRoutes() {
     <Router>
       <Switch>
         <Route path="/" exact component={Auth} />
+        <Route path="*" component={Auth} />
       </Switch>
     </Router>
   );

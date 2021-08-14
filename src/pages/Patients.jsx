@@ -7,6 +7,7 @@ import Layout from "../layout/Layout";
 import { readPatients } from "../redux/actions/patiences";
 import Pagination from "../components/Global/Pagination";
 import { Link } from "react-router-dom";
+import InputSearch from "../components/Global/InputSearch";
 
 export default function Patients() {
   //react states logic
@@ -22,7 +23,7 @@ export default function Patients() {
   //redux dispatch states
   useEffect(() => {
     setReload(false);
-    dispatch(readPatients(page, name, custom));
+    dispatch(readPatients(page, name, custom, 3));
     return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, name, custom, reload]);
@@ -30,19 +31,19 @@ export default function Patients() {
     <Layout>
       <div className="p-8">
         <Title name="Listado de Pacientes" />
-        <div>
-          <input
-            className="border text-xs py-1 w-72 px-4 rounded"
-            placeholder="Escribe el nombre de la mascota para buscar"
-            onChange={(e) => setName(e.currentTarget.value)}
+        <div className="grid grid-cols-2 gap-4">
+          <InputSearch
+            label="Buscar por el nombre de la mascota"
+            placeholder="Escribe el nombre de la mascota para buscar..."
+            handleChange={(e)=>setName(e.currentTarget.value)}
           />
-          <input
-            className="border text-xs py-1 ml-2 w-72 px-4 rounded"
-            placeholder="Escribe el nombre del dueño para buscar"
-            onChange={(e) => setCustom(e.currentTarget.value)}
+          <InputSearch
+            label="Buscar por el dueño de la mascota"
+            placeholder="Escribe el nombre del dueño de la mascota para buscar..."
+            handleChange={(e)=>setName(e.currentTarget.value)}
           />
         </div>
-        <button className="bg-blue-600 text-white px-8 ml-4 float-right text-xs py-1 rounded">
+        <button className="bg-blue-600 text-white mt-3 px-8 ml-4 float-right text-xs py-1 rounded">
           <Link to="/new-patient">Agregar</Link>
         </button>
         <Table>

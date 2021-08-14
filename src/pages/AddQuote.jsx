@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { useFormik } from "formik";
@@ -36,7 +36,9 @@ const AddQuote = () => {
   const socket = io(serverURL, {
     withCredentials: true,
   });
-
+  const callSocket = useCallback(() => {
+    socket.emit("new", "A new order is added");
+  }, [socket]);
   //react router dom logic
   const router = useHistory();
 
@@ -59,7 +61,7 @@ const AddQuote = () => {
               doctorsId: doctorToQuote?.id,
             };
             addNewQuote(newData).then(() => {
-              socket.emit("new", "A new order is added");
+              callSocket();
               Success("Se guardo el registro");
               dispatch(addQuote(newData));
               router.push("/quotes");
@@ -78,20 +80,10 @@ const AddQuote = () => {
 
   //react useEffect logic
   useEffect(() => {
-    dispatch(readPatients(1, "", ""));
+    dispatch(readPatients(1, "", "", 3));
     dispatch(readDoctors());
     return;
   }, [dispatch, search, page]);
-  useEffect(() => {
-    socket.on("connect", () => {
-      console.log("socket conectado");
-    });
-    return () => {
-      socket.on("disconnect", () => {
-        console.log("socket desconectado");
-      });
-    };
-  }, [socket]);
   return (
     <Layout>
       <div className="p-10">

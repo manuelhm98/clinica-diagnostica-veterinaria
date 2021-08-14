@@ -8,12 +8,14 @@ import Form from "./Form";
 
 export default function TableBody({ serviceTypes }) {
   const [showModal, setShowModal] = useState(false);
-  const [showModalDelete, setShowModalDelete] = useState(true)
+  const [showModalDelete, setShowModalDelete] = useState(false)
   const [serviceTypeEdit, setServiceTypeEdit] = useState();
   const edit = (sType) => {
     setServiceTypeEdit(sType);
     setShowModal(true);
   };
+
+  //Junta de vigilancia de la profesion medica veterinaria
   return (
     <>
       {serviceTypes?.clinicalStype &&

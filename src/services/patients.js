@@ -9,9 +9,9 @@ export const addNewPatient = async (data) => {
   return response.json();
 };
 
-export const getAllPatients = async (page, name, customer) => {
+export const getAllPatients = async (page, name, customer,limit) => {
   const response = await fetch(
-    `${API_HOST}/patients?page=${page}&names=${name}&nameCustomer=${customer}`
+    `${API_HOST}/patients?page=${page}&names=${name}&nameCustomer=${customer}&limit=${limit}`
   );
   return response.json();
 };

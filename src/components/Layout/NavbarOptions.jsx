@@ -2,12 +2,17 @@ import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { newLoggout } from "../../redux/actions/auth";
 const NavbarOptions = () => {
   const [showDpdw, setShowDpdw] = useState(false);
   const [showHistDpdw, setShowHistDpdw] = useState(false);
   const [showEmpDpdw, setShowEmpDpdw] = useState(false);
   const [showDocDpdw, setShowDocDpdw] = useState(false);
-
+  const dispatch = useDispatch();
+  const handleLoggout = () => {
+    dispatch(newLoggout());
+  };
   return (
     <>
       <ul className="w-full">
@@ -128,7 +133,7 @@ const NavbarOptions = () => {
           </ul>
         </li>
         <li className="text-white  flex flex-col justify-items-center py-3 ml-4 border-solid cursor-pointer">
-          <span className="text-sm font-bold pt-1">
+          <span className="text-sm font-bold">
             <Link to="/doctors">Doctores</Link>
             {showDocDpdw ? (
               <FontAwesomeIcon
@@ -158,10 +163,10 @@ const NavbarOptions = () => {
           </ul>
         </li>
         <li className=" text-white flex py-3 ml-4 border-solid cursor-pointer">
-          <span className="text-sm mt-2 font-bold">PetShop</span>
+          <span className="text-sm font-bold">PetShop</span>
         </li>
         <li className=" text-white  flex flex-col justify-items-center py-3 ml-4 border-solid cursor-pointer">
-          <span className="text-sm font-bold pt-1">
+          <span className="text-sm font-bold">
             <Link to="/employees">Empleados</Link>
             {showEmpDpdw ? (
               <FontAwesomeIcon
@@ -196,7 +201,9 @@ const NavbarOptions = () => {
           </ul>
         </li>
         <li className=" text-white flex py-3 ml-4 border-solid cursor-pointer">
-          <span className="text-sm font-bold mt-1">Cerrar Sesion</span>
+          <span onClick={handleLoggout} className="text-sm font-bold mt-1">
+            Cerrar Sesion
+          </span>
         </li>
       </ul>
     </>

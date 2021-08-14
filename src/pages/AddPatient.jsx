@@ -18,7 +18,7 @@ import { Info } from "../components/Global/Alerts/Info";
 import { Error } from "../components/Global/Alerts/Error";
 import { addNewPatient, uploadPetPhoto } from "../services/patients";
 import { addPatient } from "../redux/actions/patiences";
-import {useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function AddPatient() {
   //react states
@@ -115,6 +115,7 @@ export default function AddPatient() {
   //set age to the pet with birthday
   const setAgeToInput = (e) => {
     setAge(getAge(e));
+    setBirthDay(e);
   };
 
   //set birthday to the pet with age
