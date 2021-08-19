@@ -19,22 +19,24 @@ export default function Shifts() {
     <Layout>
       <div className="p-8 flex flex-col">
         <Title name="Listado de turnos" />
+        <div>
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-blue-600 w-44 text-white px-8 ml-4 float-right text-xs py-1 rounded"
+          >
+            Agregar
+          </button>
+        </div>
         <Table>
-           <TableContent shifts={shifts}/> 
+          <TableContent shifts={shifts} />
         </Table>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-blue-600 w-44 text-white px-8 ml-4 float-right text-xs py-1 rounded"
-        >
-          Agregar
-        </button>
       </div>
       <Modal
         title="Agregar turno"
         showModal={showModal}
         setShowModal={setShowModal}
       >
-          <Form setShowModal={setShowModal}/>
+        <Form setShowModal={setShowModal} />
       </Modal>
     </Layout>
   );

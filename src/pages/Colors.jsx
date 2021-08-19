@@ -8,6 +8,7 @@ import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { readColors } from "../redux/actions/colors";
 import Pagination from "../components/Global/Pagination";
+import InputSearch from "../components/Global/InputSearch";
 
 export default function Colors() {
   const [showModal, setShowModal] = useState(false);
@@ -24,19 +25,22 @@ export default function Colors() {
     <Layout>
       <div className="p-8">
         <Title name="Listado de colores" />
-        <div>
-          <input
-            className="border w-96 px-4 rounded"
-            placeholder="Escribe para buscar"
-            onChange={(e) => setType(e.currentTarget.value)}
-          />
+        <div className="flex">
+          <div style={{ width: "70%" }}>
+            <InputSearch
+              label="Buscar por el nombre del color"
+              placeholder="Escribe el nombre del color....."
+              handleChange={(e) => setType(e.currentTarget.value)}
+            />
+          </div>
+          
         </div>
         <button
-          onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-white px-8 ml-4 float-right text-xs py-1 rounded"
-        >
-          Agregar
-        </button>
+            onClick={() => setShowModal(true)}
+            className="bg-blue-600 text-white px-8 ml-4 float-right text-xs py-1 rounded"
+          >
+            Agregar
+          </button>
         <Modal
           title="Agregar Color"
           showModal={showModal}

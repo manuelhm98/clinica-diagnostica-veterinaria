@@ -46,6 +46,7 @@ export const types = {
   serviceTypeDelete: "[ServiceType] delete",
   serviceTypeReadById: "[ServiceType] readById",
   serviceTypeRead: "[ServiceType] read",
+  serviceTypePagin : "[ServiceType] pagin",
 
   //Roles
   roleAdd: "[Role] add",

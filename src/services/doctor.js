@@ -13,3 +13,10 @@ export const getAllDoctors = async () => {
   const response = await fetch(`${API_HOST}/doctors`);
   return response.json();
 };
+
+export const getPaginatedDoctors = async (page, search) => {
+  const response = await fetch(
+    `${API_HOST}/doctors/list?page=${page}&names=${search}`
+  );
+  return response.json();
+};

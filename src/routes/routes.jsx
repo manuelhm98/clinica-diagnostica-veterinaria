@@ -23,6 +23,8 @@ import VaccinationType from "../pages/VaccinationType";
 import DewormingType from "../pages/DewormingType";
 import PestControlType from "../pages/PestControlType";
 import VaccinationDose from "../pages/VaccinationDose";
+import ClinicalService from "../pages/ClinicalService";
+import AddClinicalService from "../pages/AddClinicalService";
 
 export default function Routes() {
   return (
@@ -50,6 +52,12 @@ export default function Routes() {
         <Route path="/deworming-type" exact component={DewormingType} />
         <Route path="/pest-control-type" exact component={PestControlType} />
         <Route path="/vaccination-dose" exact component={VaccinationDose} />
+        <Route path="/clinical-service" exact component={ClinicalService} />
+        <Route
+          path="/add-clinical-service"
+          exact
+          component={AddClinicalService}
+        />
         <Route path="*" component={Error404} />
       </Switch>
     </Router>

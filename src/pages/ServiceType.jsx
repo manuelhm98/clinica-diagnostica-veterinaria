@@ -1,31 +1,38 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import TableContent from "../components/Services/ServiceType/TableContent";
 import Layout from "../layout/Layout";
 import Modal from "../components/Global/Modal";
 import Form from "../components/Services/ServiceType/Form";
-import { useDispatch,useSelector } from "react-redux";
-import { readServiceType } from "../redux/actions/service-type";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  readPaginServiceTypes
+} from "../redux/actions/service-type";
+import InputSearch from "../components/Global/InputSearch";
+import Pagination from "../components/Global/Pagination";
 
 export default function ServiceType() {
   const [showModal, setShowModal] = useState(false);
-  const dispatch = useDispatch()
-  const serviceTypes = useSelector((state)=>state.serviceType.data)
-  console.log(serviceTypes)
+  const [page, setPage] = useState(1);
+  const [type, setType] = useState("");
+  const dispatch = useDispatch();
+  const serviceTypes = useSelector((state) => state.serviceType.data);
+  console.log(serviceTypes);
   useEffect(() => {
-    dispatch(readServiceType())
+    dispatch(readPaginServiceTypes(page, type));
     return;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, type]);
   return (
     <Layout>
       <div className="p-8">
         <Title name="Listado de tipos de servicios" />
-        <div>
-          <input
-            className="border w-96 px-4 rounded"
-            placeholder="Escribe para buscar"
+        <div style={{width:"70%"}}>
+          <InputSearch
+            label="Buscar por tipo de servicio"
+            placeholder="Escribe el nombre del tipo de servicio..."
+            handleChange={(e) => setType(e.currentTarget.value)}
           />
         </div>
         <button
@@ -35,8 +42,9 @@ export default function ServiceType() {
           Agregar
         </button>
         <Table>
-          <TableContent serviceTypes={serviceTypes}/>
+          <TableContent serviceTypes={serviceTypes} />
         </Table>
+        <Pagination data={serviceTypes} method={setPage} />
         <Modal
           title="Agregar tipo de servicio"
           setShowModal={setShowModal}

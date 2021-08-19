@@ -133,7 +133,7 @@ export default function AddPatient() {
   };
   return (
     <Layout>
-      <div className="m-10 shadow rounded p-11 ">
+      <div className="m-10 shadow border rounded p-11 ">
         <form onSubmit={formik.handleSubmit} className="grid grid-cols-2">
           <div>
             <label className="text-gray-600 text-lg">

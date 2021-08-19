@@ -11,7 +11,7 @@ import { readSexes } from "../redux/actions/sexes";
 export default function Sexes() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const sexes = useSelector((state)=>state.sex.data)
+  const sexes = useSelector((state) => state.sex.data);
   useEffect(() => {
     return dispatch(readSexes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -19,7 +19,15 @@ export default function Sexes() {
   return (
     <Layout>
       <div className="p-8 flex flex-col">
-        <Title name="Listado de Sexos" />
+        <div>
+          <Title name="Listado de Sexos" />
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-blue-600 text-white w-44 px-8 ml-4 float-right text-xs py-1 rounded"
+          >
+            Agregar
+          </button>
+        </div>
         <Modal
           title="Agregar Sexo"
           showModal={showModal}
@@ -30,12 +38,6 @@ export default function Sexes() {
         <Table>
           <TableContent sexes={sexes} />
         </Table>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-white w-44 px-8 ml-4 float-right text-xs py-1 rounded"
-        >
-          Agregar
-        </button>
       </div>
     </Layout>
   );

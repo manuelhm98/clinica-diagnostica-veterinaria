@@ -1,5 +1,6 @@
 import React from "react";
 import { showImage } from "../../services/patients";
+import InputSearch from "../Global/InputSearch";
 import Pagination from "../Global/Pagination";
 import Table from "../Global/Table";
 import TD from "../Global/TD";
@@ -11,19 +12,28 @@ export default function SelectPatient({
   setSearch,
   setPatientToQuote,
   setShowModalSelectPat,
+  search,
 }) {
   const setPatient = (pat) => {
     setShowModalSelectPat(false);
     setPatientToQuote(pat);
   };
-  console.log(patients);
   return (
     <div className="grid grid-cols-1">
-      <div className="">
-        <input
-          onChange={(e) => setSearch(e.currentTarget.value)}
-          className="border rounded w-full px-2 py-1 text-xs outline-none"
-          placeholder="Escribe para buscar un paciente"
+      <div className="grid grid-cols-2 gap-4">
+        <InputSearch
+          label="Buscar por nombre del paciente"
+          placeholder="Escribe el nombre del paciente...."
+          handleChange={(e) =>
+            setSearch({ ...search, name: e.currentTarget.value })
+          }
+        />
+        <InputSearch
+          label="Buscar por nombre del dueño"
+          placeholder="Escribe el nombre del dueño...."
+          handleChange={(e) =>
+            setSearch({ ...search, custom: e.currentTarget.value })
+          }
         />
       </div>
       <Table>

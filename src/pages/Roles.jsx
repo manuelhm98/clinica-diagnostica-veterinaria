@@ -18,16 +18,18 @@ export default function Roles() {
   return (
     <Layout>
       <div className="p-8 flex flex-col">
-        <Title name="Listado de roles" />
+        <div>
+          <Title name="Listado de roles" />
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-blue-600 w-44 text-white px-8 ml-4 float-right text-xs py-1 rounded"
+          >
+            Agregar
+          </button>
+        </div>
         <Table>
           <TableContent roles={roles} />
         </Table>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-blue-600 w-44 text-white px-8 ml-4 float-right text-xs py-1 rounded"
-        >
-          Agregar
-        </button>
       </div>
       <Modal
         showModal={showModal}

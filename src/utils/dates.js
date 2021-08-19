@@ -1,5 +1,3 @@
-import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
-
 export const getBirtDay = (years = 0, month = 0, days = 0) => {
   years = Number(years);
   month = Number(month);
@@ -89,7 +87,7 @@ export const validateDate = (date) => {
   } else if (oMonth < nowMonth) {
     return false;
   } else if (oYear < nowYear) {
-    return faPlusSquare;
+    return false;
   }
   return true;
 };

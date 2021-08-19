@@ -19,15 +19,18 @@ export default function Specialties() {
     <Layout>
       <div className="p-8 flex flex-col">
         <Title name="Listado de Especialidades" />
-        <Table>
-            <TableContent specialties={specialties}/>
-        </Table>
+        <div>
         <button
           onClick={() => setShowModal(true)}
           className="bg-blue-600 w-44 text-white px-8 ml-4 float-right text-xs py-1 rounded"
         >
           Agregar
         </button>
+        </div>
+        <Table>
+            <TableContent specialties={specialties}/>
+        </Table>
+        
       </div>
       <Modal
         title="Agregar especilidad"

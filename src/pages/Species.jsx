@@ -8,6 +8,7 @@ import Layout from "../layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { readSpecies } from "../redux/actions/species";
 import Pagination from "../components/Global/Pagination"
+import InputSearch from "../components/Global/InputSearch";
 
 export default function Species() {
   const [showModal, setShowModal] = useState(false);
@@ -24,12 +25,10 @@ export default function Species() {
     <Layout>
       <div className="p-8">
         <Title name="Listado de especies" />
-        <div>
-          <input
-            className="border text-xs py-1 w-96 px-4 rounded"
-            placeholder="Escribe para buscar"
-            onChange={(e)=>setType(e.currentTarget.value)}
-          />
+        <div style={{width:"70%"}}>
+         <InputSearch label="Buscar por el nombre de la especie"
+              placeholder="Escribe el nombre de la especie....."
+              handleChange={(e) => setType(e.currentTarget.value)} />
         </div>
         <button
           onClick={() => setShowModal(true)}

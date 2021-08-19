@@ -1,4 +1,4 @@
-import { getAllDoctors } from "../../services/doctor";
+import {getPaginatedDoctors } from "../../services/doctor";
 import { types } from "../types";
 
 export const addDoctor = (data) => {
@@ -15,10 +15,10 @@ export function add(data) {
   };
 }
 
-export const readDoctors = () => {
+export const readDoctors = (page, search) => {
   return (dispatch) => {
-    getAllDoctors().then((res) => {
-      if (res.msg) {
+    getPaginatedDoctors(page, search).then((res) => {
+      if (!res.ok) {
         dispatch(read({}));
         return;
       }

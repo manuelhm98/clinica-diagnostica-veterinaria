@@ -11,7 +11,7 @@ import { readPatTypes } from "../redux/actions/pat-type";
 export default function PatType() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const patTypes = useSelector((state)=>state.patType.data)
+  const patTypes = useSelector((state) => state.patType.data);
   useEffect(() => {
     return dispatch(readPatTypes());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -19,7 +19,15 @@ export default function PatType() {
   return (
     <Layout>
       <div className="p-8 flex flex-col">
-        <Title name="Listado de tipos de paciente" />
+        <div>
+          <Title name="Listado de tipos de paciente" />
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-blue-600 text-white w-44 px-8 ml-4 float-right text-xs py-1 rounded"
+          >
+            Agregar
+          </button>
+        </div>
         <Modal
           title="Agregar Tipo de paciente"
           showModal={showModal}
@@ -30,12 +38,6 @@ export default function PatType() {
         <Table>
           <TableContent patTypes={patTypes} />
         </Table>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-white w-40 px-8 ml-4 float-right text-xs py-1 rounded"
-        >
-          Agregar
-        </button>
       </div>
     </Layout>
   );

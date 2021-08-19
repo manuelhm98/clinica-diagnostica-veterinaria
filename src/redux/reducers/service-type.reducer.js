@@ -9,13 +9,18 @@ export const serviceTypeReducer = (state = initialState, action) => {
     case types.serviceTypeAdd:
       return {
         ...state,
-        data: { ...state.data, data: action.payload },
+        data: action.payload,
       };
     case types.serviceTypeRead:
       return {
         ...state,
         data: action.payload,
       };
+    case types.serviceTypePagin:
+      return {
+        ...state,
+        data:action.payload
+      }
     default:
       return state;
   }

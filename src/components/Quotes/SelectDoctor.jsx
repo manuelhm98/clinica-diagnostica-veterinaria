@@ -8,6 +8,7 @@ export default function SelectDoctor({
   setShowModalSelectDoc,
   setDoctorToQuote,
 }) {
+  console.log(doctors)
   const setDoctor = (doc) => {
     setShowModalSelectDoc(false);
     setDoctorToQuote(doc);

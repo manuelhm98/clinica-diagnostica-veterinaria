@@ -3,17 +3,17 @@ import NavbarIcons from "../components/Layout/NavbarIcons";
 import NavbarOptions from "../components/Layout/NavbarOptions";
 
 export default function Layout({ children }) {
-  const [openMenu, setOpenMenu] = React.useState(false);
+  const [openMenu, setOpenMenu] = React.useState(true);
   return (
     <div className="w-screen h-screen bg-gray-200 p-8 overflow-hidden">
-      <div className="w-full bg-white rounded-xl flex h-full">
+      <div className="w-full bg-white rounded-xl flex h-full border shadow ">
         <div className="" style={{ transition: "all .5s ease", width: "60px" }}>
           <NavbarIcons setOpenMenu={setOpenMenu} openMenu={openMenu} />
         </div>
         <div
           className={
             (openMenu ? "flex" : "hidden") +
-            " bg-blue-600 w-48 absolute md:static border-solid lg:static xl:static h-full side-bar"
+            " bg-blue-600 w-48 absolute md:static border-solid lg:static mb-10 xl:static h-full side-bar"
           }
           style={{}}
         >
@@ -22,7 +22,7 @@ export default function Layout({ children }) {
           </div>
         </div>
         <div
-          className={(openMenu ? "md:w-9/12 xl:9/12" : "w-full") + " p-5"}
+          className={" bg-gray-50 rounded-xl " + (openMenu ? "md:w-9/12 xl:9/12" : "w-full") + " p-5"}
         >
           {children}
         </div>

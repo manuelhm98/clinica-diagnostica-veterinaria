@@ -7,6 +7,7 @@ import {
   faHome,
   faPaw,
   faSignOutAlt,
+  faStethoscope,
   faTimes,
   faUserCircle,
   faUserMd,
@@ -57,6 +58,11 @@ export default function NavbarIcons({ setOpenMenu, openMenu }) {
         <Link to="/">
           <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
             <FontAwesomeIcon className="text-xl" icon={faClipboardList} />
+          </li>
+        </Link>
+        <Link to="/clinical-service">
+          <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
+            <FontAwesomeIcon className="text-xl" icon={faStethoscope} />
           </li>
         </Link>
         <Link to="/doctors">

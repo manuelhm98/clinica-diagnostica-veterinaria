@@ -23,7 +23,7 @@ const AddQuote = () => {
   const [showModalSelectDoc, setShowModalSelectDoc] = useState(false);
   const [patientToQuote, setPatientToQuote] = useState();
   const [doctorToQuote, setDoctorToQuote] = useState();
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState({name:"",custom:""});
   const [page, setPage] = useState(1);
 
   //Redux login
@@ -80,8 +80,8 @@ const AddQuote = () => {
 
   //react useEffect logic
   useEffect(() => {
-    dispatch(readPatients(1, "", "", 3));
-    dispatch(readDoctors());
+    dispatch(readPatients(page, search.name, search.custom, 3));
+    dispatch(readDoctors(1,""));
     return;
   }, [dispatch, search, page]);
   return (
@@ -118,6 +118,7 @@ const AddQuote = () => {
                 <input
                   disabled
                   defaultValue={patientToQuote && patientToQuote?.names}
+                  placeholder="Selecciona el paciente"
                   className="border rounded text-xs py-1 px-2 outline-none mt-2"
                 />
                 <button
@@ -133,6 +134,7 @@ const AddQuote = () => {
                 <input
                   defaultValue={doctorToQuote && doctorToQuote.users?.names}
                   disabled
+                  placeholder="Selecciona el doctor"
                   className="border rounded text-xs py-1 px-2 outline-none mt-2"
                 />
                 <button
@@ -162,6 +164,7 @@ const AddQuote = () => {
             setPatientToQuote={setPatientToQuote}
             setPage={setPage}
             setSearch={setSearch}
+            search={search}
             patients={patients}
             setShowModalSelectPat={setShowModalSelectPat}
           />
