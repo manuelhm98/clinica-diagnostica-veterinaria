@@ -11,7 +11,6 @@ export default function TableContent({employees}) {
           <TH name="Nombre" />
           <TH name="Apellido" />
           <TH name="Email" />
-          <TH name="Acciones" />
         </tr>
       </thead>
       <tbody>
