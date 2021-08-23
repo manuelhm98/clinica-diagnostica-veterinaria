@@ -112,9 +112,12 @@ const NavbarOptions = () => {
             </Link>
           </ul>
         </li>
-        <li className=" text-white flex justify-items-center py-3 ml-4 border-solid cursor-pointer">
-          <span className="text-sm font-bold">Clientes</span>
-        </li>
+        <Link to="/customers">
+          <li className=" text-white flex justify-items-center py-3 ml-4 border-solid cursor-pointer">
+            <span className="text-sm font-bold">Clientes</span>
+          </li>
+        </Link>
+
         <li className=" text-white  flex flex-col justify-items-center py-3 ml-4 border-solid cursor-pointer">
           <span
             onClick={handleShowHistorial}
