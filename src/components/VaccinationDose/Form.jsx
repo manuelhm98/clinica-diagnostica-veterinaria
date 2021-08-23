@@ -3,17 +3,28 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { Success } from "../Global/Alerts/Success";
-import { addNewVaccinationDose } from "../../services/vaccination-dose";
+import {
+  addNewVaccinationDose,
+  editVaccinationDose,
+} from "../../services/vaccination-dose";
 import { addVaccinationDose } from "../../redux/actions/vaccination-dose";
 
-export default function Form({ setShowModal }) {
+export default function Form({ setShowModal, dose }) {
   const dispatch = useDispatch();
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(dose),
     validationSchema: Yup.object({
       type: Yup.string().required("La dosis de vacunanacion es requerida"),
     }),
     onSubmit: (values) => {
+      if (dose) {
+        editVaccinationDose(values, dose?.id).then(() => {
+          dispatch(addVaccinationDose(values));
+          setShowModal(false);
+          Success("Se actualizo el registro con exito");
+        });
+        return;
+      }
       addNewVaccinationDose(values).then(() => {
         dispatch(addVaccinationDose(values));
         setShowModal(false);
@@ -31,8 +42,9 @@ export default function Form({ setShowModal }) {
             name="type"
             onChange={formik.handleChange}
             placeholder="Ingresa la dosis de vacunacion "
+            defaultValue={dose && dose?.type}
             className={
-              "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-80 border p-1 text-sm rounded text-gray-600 px-2 outline-none hover:border-green-400 " +
               (formik.errors.type && formik.touched.type
                 ? "border-red-400"
                 : "border-gray-300")
@@ -48,15 +60,15 @@ export default function Form({ setShowModal }) {
           type="submit"
           className="bg-blue-600 mt-4 w-full text-white rounded px-12 py-1 text-xs"
         >
-          Agregar
+          {dose ? "Actualizar" : "Agregar"}
         </button>
       </form>
     </div>
   );
 }
 
-function initialValues() {
+function initialValues(dose) {
   return {
-    type: "",
+    type: "" || dose?.type,
   };
 }

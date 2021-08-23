@@ -16,6 +16,7 @@ import { Success } from "../components/Global/Alerts/Success";
 import io from "socket.io-client";
 import { useHistory } from "react-router-dom";
 import { addQuote } from "../redux/actions/quote";
+import { readQuoteTypes } from "../redux/actions/quote-type";
 
 const AddQuote = () => {
   //react useStates login
@@ -23,13 +24,14 @@ const AddQuote = () => {
   const [showModalSelectDoc, setShowModalSelectDoc] = useState(false);
   const [patientToQuote, setPatientToQuote] = useState();
   const [doctorToQuote, setDoctorToQuote] = useState();
-  const [search, setSearch] = useState({name:"",custom:""});
+  const [search, setSearch] = useState({ name: "", custom: "" });
   const [page, setPage] = useState(1);
 
   //Redux login
   const dispatch = useDispatch();
   const patients = useSelector((state) => state.patient.data);
   const doctors = useSelector((state) => state.doctor.data);
+  const quoteTypes = useSelector((state) => state.quoteType.data);
 
   //socket io logic
   const serverURL = "http://localhost:8000";
@@ -50,6 +52,9 @@ const AddQuote = () => {
       issue: yup
         .string()
         .required("Desde escribir la descripcion del problema"),
+      quotesTypeId: yup
+        .number()
+        .required("Debes seleccionar el tipo  de consulta"),
     }),
     onSubmit: (values) => {
       if (validateDate(values.date)) {
@@ -81,7 +86,8 @@ const AddQuote = () => {
   //react useEffect logic
   useEffect(() => {
     dispatch(readPatients(page, search.name, search.custom, 3));
-    dispatch(readDoctors(1,""));
+    dispatch(readDoctors(1, ""));
+    dispatch(readQuoteTypes());
     return;
   }, [dispatch, search, page]);
   return (
@@ -89,7 +95,7 @@ const AddQuote = () => {
       <div className="p-10">
         <Title name="Agregar nueva consulta" />
         <form onSubmit={formik.handleSubmit}>
-          <div className="grid grid-cols-2 p-20 shadow w-full">
+          <div className="grid grid-cols-2 p-8 shadow w-full">
             <div className="m-4">
               <div className="flex flex-col">
                 <label>Fecha de consulta</label>
@@ -97,19 +103,69 @@ const AddQuote = () => {
                   name="date"
                   onChange={formik.handleChange}
                   type="date"
-                  className="border rounded text-xs py-1 px-2 outline-none mt-2"
+                  className={
+                    "border p-1 text-sm text-gray-500 rounded outline-none hover:border-green-400 " +
+                    (formik.errors.date && formik.touched.date
+                      ? "border-red-400"
+                      : "border-gray-300")
+                  }
                 />
+                {formik.errors.date && formik.touched.date && (
+                  <span className="text-xs text-red-400">
+                    {formik.errors.date}
+                  </span>
+                )}
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col mt-2">
                 <label>Descripcion del problema</label>
                 <textarea
                   name="issue"
                   onChange={formik.handleChange}
                   cols={4}
                   rows={7}
-                  className="border rounded text-xs py-1 px-2 outline-none mt-2"
+                  className={
+                    "border p-1 text-sm text-gray-500 rounded outline-none hover:border-green-400 " +
+                    (formik.errors.issue && formik.touched.issue
+                      ? "border-red-400"
+                      : "border-gray-300")
+                  }
                   placeholder="Escribe la descripcion del problema"
                 />
+                {formik.errors.issue && formik.touched.issue && (
+                  <span className="text-xs text-red-400">
+                    {formik.errors.issue}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col mt-2">
+                <label>Tipo de consulta</label>
+                <select
+                  defaultValue={"DEFAULT"}
+                  className={
+                    "border p-1 text-sm text-gray-500 rounded outline-none hover:border-green-400 " +
+                    (formik.errors.quotesTypeId && formik.touched.quotesTypeId
+                      ? "border-red-400"
+                      : "border-gray-300")
+                  }
+                  onChange={formik.handleChange}
+                  name="quotesTypeId"
+                >
+                  <option value={"DEFAULT"}>
+                    Selecciona el tipo de consulta
+                  </option>
+                  {quoteTypes &&
+                    quoteTypes.length &&
+                    quoteTypes.map((qtype) => (
+                      <option key={qtype.id} value={qtype.id}>
+                        {qtype.type}
+                      </option>
+                    ))}
+                </select>
+                {formik.errors.quotesTypeId && formik.touched.quotesTypeId && (
+                  <span className="text-xs text-red-400">
+                    {formik.errors.quotesTypeId}
+                  </span>
+                )}
               </div>
             </div>
             <div className="m-4">
@@ -119,7 +175,7 @@ const AddQuote = () => {
                   disabled
                   defaultValue={patientToQuote && patientToQuote?.names}
                   placeholder="Selecciona el paciente"
-                  className="border rounded text-xs py-1 px-2 outline-none mt-2"
+                  className="border rounded text-sm py-1 px-2 outline-none mt-2"
                 />
                 <button
                   type="button"
@@ -129,13 +185,13 @@ const AddQuote = () => {
                   Seleccionar paciente
                 </button>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col mt-8">
                 <label>Doctor</label>
                 <input
                   defaultValue={doctorToQuote && doctorToQuote.users?.names}
                   disabled
                   placeholder="Selecciona el doctor"
-                  className="border rounded text-xs py-1 px-2 outline-none mt-2"
+                  className="border rounded text-sm py-1 px-2 outline-none mt-2"
                 />
                 <button
                   type="button"
@@ -145,14 +201,16 @@ const AddQuote = () => {
                   Seleccionar doctor
                 </button>
               </div>
+              <div className="flex flex-col">
+                <button
+                  type="submit"
+                  className="bg-blue-500 font-medium text-white py-2 text-xs rounded mt-8"
+                >
+                  Guardar
+                </button>
+              </div>
             </div>
             <div />
-            <button
-              type="submit"
-              className="bg-blue-500 font-medium text-white py-2 text-xs rounded mt-4"
-            >
-              Guardar
-            </button>
           </div>
         </form>
         <Modal
@@ -191,5 +249,6 @@ function initialValues() {
   return {
     date: "",
     issue: "",
+    quotesTypeId: "",
   };
 }

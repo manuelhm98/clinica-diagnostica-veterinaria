@@ -4,8 +4,8 @@ import TD from "../Global/TD";
 export default function TableBody({ employees }) {
   return (
     <>
-      {employees &&
-        employees.map((emp) => (
+      {employees?.users &&
+        employees?.users.map((emp) => (
           <tr key={emp.id}>
             <TD name={emp.id} />
             <TD name={emp.names} />

@@ -26,9 +26,6 @@ export default function TableBody({ colors }) {
                 >
                   Editar
                 </button>
-                <button className="bg-red-500 text-white text-xs px-6 m-1 py-1 rounded">
-                  Eliminar
-                </button>
               </div>
             </TD>
           </tr>

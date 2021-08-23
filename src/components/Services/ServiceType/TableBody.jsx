@@ -32,9 +32,6 @@ export default function TableBody({ serviceTypes }) {
                 >
                   Editar
                 </button>
-                <button className="bg-red-500 text-white py-1 text-xs px-4 rounded mr-4">
-                  Eliminar
-                </button>
               </div>
             </TD>
           </tr>

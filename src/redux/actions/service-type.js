@@ -7,7 +7,7 @@ import { types } from "../types";
 export const addServiceType = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readServiceType());
+    dispatch(readPaginServiceTypes(1,""));
   };
 };
 
@@ -39,6 +39,9 @@ export function read(data) {
 
 export const readPaginServiceTypes = (page, type) => {
   return (dispatch) => {
+    if(type !== ""){
+      page = 1
+    }
     getPaginServiceTypes(page, type).then((res) => {
       if (!res.ok) {
         dispatch(read({}));

@@ -13,3 +13,12 @@ export const getAllVaccinationTypes = async () => {
   const response = await fetch(`${API_HOST}/vaccinationType`);
   return response.json();
 };
+
+export const editVaccinationType = async (data,id) => {
+  const response = await fetch(`${API_HOST}/vaccinationType/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};

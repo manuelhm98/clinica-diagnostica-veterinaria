@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "../components/Customers/Form";
 import TableContent from "../components/Customers/TableContent";
+import InputSearch from "../components/Global/InputSearch";
 import Modal from "../components/Global/Modal";
 import Pagination from "../components/Global/Pagination";
 import Table from "../components/Global/Table";
@@ -24,21 +25,21 @@ export default function Customers() {
     <Layout>
       <div className="p-5">
         <Title name="Listado de Clientes" />
-        <div>
-          <input
-            className="border outline-none text-xs py-1 w-64 px-4 rounded"
+        <div className="grid grid-cols-2 gap-4" style={{width:"100%"}}>
+          <InputSearch
+            label="Buscar por nombre"
             placeholder="Escribe el nombre para buscar"
-            onChange={(e)=>setName(e.currentTarget.value)}
+            handleChange={(e)=>setName(e.currentTarget.value)}
           />
-           <input
-            className="border outline-none text-xs py-1 ml-6 w-64 px-4 rounded"
+           <InputSearch
+            label="Buscar por apellido"
             placeholder="Escribe el apellido para buscar"
-            onChange={(e)=>setLast(e.currentTarget.value)}
+            handleChange={(e)=>setLast(e.currentTarget.value)}
           />
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-white px-8 ml-4 float-right text-xs py-1 rounded"
+          className="bg-blue-600 text-white px-8 mt-4 ml-4 float-right text-xs py-1 rounded"
         >
           Agregar
         </button>

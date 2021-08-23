@@ -9,7 +9,7 @@ export const addNewEmployee = async (data) => {
   return response.json();
 };
 
-export const getAllEmployees = async () => {
-  const response = await fetch(`${API_HOST}/users`);
+export const getAllEmployees = async (page) => {
+  const response = await fetch(`${API_HOST}/users/list?page=${page}`);
   return response.json();
 };

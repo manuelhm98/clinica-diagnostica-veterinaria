@@ -75,7 +75,7 @@ export default function Form({ species, setShowModal, breed }) {
             <option value="DEFAULT" disabled>
               selecciona una especie
             </option>
-            {species.map((specie) => (
+            {species?.specie && species.specie.map((specie) => (
               <option key={specie.type} value={specie.id}>
                 {specie.type}
               </option>

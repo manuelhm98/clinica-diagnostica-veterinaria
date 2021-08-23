@@ -15,14 +15,14 @@ export function add(data) {
   };
 }
 
-export const readEmployees = () => {
+export const readEmployees = (page) => {
   return (dispatch) => {
-    getAllEmployees().then((res) => {
+    getAllEmployees(page).then((res) => {
       if (res.msg) {
-        dispatch(read([]));
+        dispatch(read({}));
         return;
       }
-      dispatch(read(res.users));
+      dispatch(read(res));
     });
   };
 };

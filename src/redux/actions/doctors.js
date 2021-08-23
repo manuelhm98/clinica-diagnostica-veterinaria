@@ -1,4 +1,4 @@
-import {getPaginatedDoctors } from "../../services/doctor";
+import { getPaginatedDoctors } from "../../services/doctor";
 import { types } from "../types";
 
 export const addDoctor = (data) => {
@@ -17,6 +17,9 @@ export function add(data) {
 
 export const readDoctors = (page, search) => {
   return (dispatch) => {
+    if (search !== "") {
+      page = 1;
+    }
     getPaginatedDoctors(page, search).then((res) => {
       if (!res.ok) {
         dispatch(read({}));

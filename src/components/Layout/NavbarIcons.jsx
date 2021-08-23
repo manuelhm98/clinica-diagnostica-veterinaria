@@ -12,6 +12,7 @@ import {
   faUserCircle,
   faUserMd,
   faUsers,
+  faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -45,17 +46,17 @@ export default function NavbarIcons({ setOpenMenu, openMenu }) {
             <FontAwesomeIcon className="text-xl" icon={faHome} />
           </li>
         </Link>
-        <Link to="/customers">
-          <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
-            <FontAwesomeIcon className="text-xl" icon={faUsers} />
-          </li>
-        </Link>
         <Link to="/patients">
           <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
             <FontAwesomeIcon className="text-xl" icon={faPaw} />
           </li>
         </Link>
-        <Link to="/">
+        <Link to="/customers">
+          <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
+            <FontAwesomeIcon className="text-xl" icon={faUsers} />
+          </li>
+        </Link>
+        <Link to="/quotes">
           <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
             <FontAwesomeIcon className="text-xl" icon={faClipboardList} />
           </li>
@@ -75,9 +76,9 @@ export default function NavbarIcons({ setOpenMenu, openMenu }) {
             <FontAwesomeIcon className="text-xl" icon={faBone} />
           </li>
         </Link>
-        <Link to="/">
+        <Link to="/employees">
           <li className="border-b text-white flex justify-center content-center py-3 items-center border-solid">
-            <FontAwesomeIcon className="text-xl" icon={faUserCircle} />
+            <FontAwesomeIcon className="text-xl" icon={faUserTie} />
           </li>
         </Link>
         <li

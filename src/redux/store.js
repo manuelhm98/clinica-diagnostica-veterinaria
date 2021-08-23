@@ -19,6 +19,8 @@ import { speciesReducer } from "./reducers/species.reducer";
 import { vaccinationTypeReducer } from "./reducers/vaccination-type.reducer";
 import { pestControlTypeReducer } from "./reducers/pest-control-type.reducer";
 import { vaccinationDoseReducer } from "./reducers/vaccination-dose.reducer";
+import { clinicalServiceReducer } from "./reducers/clinical-service.reducer";
+import { quoteTypeReducer } from "./reducers/quote-types.reducer";
 
 const reducers = combineReducers({
   breed: breedReducer,
@@ -39,7 +41,9 @@ const reducers = combineReducers({
   vaccinationType: vaccinationTypeReducer,
   dewormingType: dewormingTypeReducer,
   pestControlType: pestControlTypeReducer,
-  vaccinationDose: vaccinationDoseReducer
+  vaccinationDose: vaccinationDoseReducer,
+  clinicalService:clinicalServiceReducer,
+  quoteType:quoteTypeReducer
 });
 
 const composeEnhancers =

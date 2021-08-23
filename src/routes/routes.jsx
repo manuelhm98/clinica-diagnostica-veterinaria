@@ -25,12 +25,13 @@ import PestControlType from "../pages/PestControlType";
 import VaccinationDose from "../pages/VaccinationDose";
 import ClinicalService from "../pages/ClinicalService";
 import AddClinicalService from "../pages/AddClinicalService";
+import QuoteType from "../pages/QuoteType";
 
 export default function Routes() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact component={Patients} />
         <Route path="/breeds" exact component={Breeds} />
         <Route path="/species" exact component={Species} />
         <Route path="/colors" exact component={Colors} />
@@ -58,6 +59,7 @@ export default function Routes() {
           exact
           component={AddClinicalService}
         />
+        <Route path="/quote-type" exact component={QuoteType} />
         <Route path="*" component={Error404} />
       </Switch>
     </Router>

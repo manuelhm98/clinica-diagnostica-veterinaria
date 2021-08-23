@@ -133,9 +133,9 @@ const NavbarOptions = () => {
               (showHistDpdw ? "block" : "hidden")
             }
           >
-            <Link to="/service-type">
+            <Link to="/quote-type">
               <li className="text-gray-100 text-xs font-bold py-1 cursor-pointer">
-                <span>Tipos de servicio</span>
+                <span>Tipos de consulta</span>
               </li>
             </Link>
             <Link to="/quotes">

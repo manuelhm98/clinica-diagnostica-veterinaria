@@ -1,4 +1,6 @@
 import React from "react";
+import InputSearch from "../Global/InputSearch";
+import Pagination from "../Global/Pagination";
 import Table from "../Global/Table";
 import TD from "../Global/TD";
 import TH from "../Global/TH";
@@ -7,8 +9,10 @@ export default function SelectDoctor({
   doctors,
   setShowModalSelectDoc,
   setDoctorToQuote,
+  setPage,
+  setSearch,
 }) {
-  console.log(doctors)
+  console.log(doctors);
   const setDoctor = (doc) => {
     setShowModalSelectDoc(false);
     setDoctorToQuote(doc);
@@ -16,9 +20,10 @@ export default function SelectDoctor({
   return (
     <div className="grid grid-cols-1">
       <div className="">
-        <input
-          className="border rounded w-full px-2 py-1 text-xs outline-none"
-          placeholder="Escribe para buscar un paciente"
+        <InputSearch
+          handleChange={(e) => setSearch(e.currentTarget.value)}
+          placeholder="Escribe el nombre de doctor para buscar"
+          label="Buscar por nombre del doctor"
         />
       </div>
       <Table>
@@ -49,6 +54,7 @@ export default function SelectDoctor({
             ))}
         </tbody>
       </Table>
+      <Pagination data={doctors} method={setPage} />
     </div>
   );
 }

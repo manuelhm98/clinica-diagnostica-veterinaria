@@ -6,7 +6,7 @@ export default function Layout({ children }) {
   const [openMenu, setOpenMenu] = React.useState(true);
   return (
     <div className="w-screen h-screen bg-gray-200 p-8 overflow-hidden">
-      <div className="w-full bg-white rounded-xl flex h-full border shadow ">
+      <div className="w-full bg-gray-50 rounded-xl flex h-full border shadow ">
         <div className="" style={{ transition: "all .5s ease", width: "60px" }}>
           <NavbarIcons setOpenMenu={setOpenMenu} openMenu={openMenu} />
         </div>
@@ -22,7 +22,7 @@ export default function Layout({ children }) {
           </div>
         </div>
         <div
-          className={" bg-gray-50 rounded-xl " + (openMenu ? "md:w-9/12 xl:9/12" : "w-full") + " p-5"}
+          className={" bg-gray-50 rounded-xl " + (openMenu ? "md:w-9/12 xl:9/12" : "w-full") + " p-1"}
         >
           {children}
         </div>

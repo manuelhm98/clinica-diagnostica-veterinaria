@@ -9,7 +9,7 @@ import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { readBreeds } from "../redux/actions/breeds";
-import { readSpecies } from "../redux/actions/species";
+import { listSpecies, readSpecies } from "../redux/actions/species";
 
 export default function Breeds() {
   const [showModal, setShowModal] = useState(false);
@@ -20,9 +20,10 @@ export default function Breeds() {
   const species = useSelector((state) => state.specie.data);
   useEffect(() => {
     dispatch(readBreeds(page, type));
-    dispatch(readSpecies());
+    dispatch(listSpecies());
     return;
   }, [dispatch, page, type]);
+  console.log(species)
   return (
     <Layout>
       <div className="p-8">

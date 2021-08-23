@@ -15,9 +15,9 @@ export function add(data) {
   };
 }
 
-export const readQuotes = (page = 1) => {
+export const readQuotes = (page = 1,patient) => {
   return (dispatch) => {
-    getAllQuotes(page).then((res) => {
+    getAllQuotes(page,patient).then((res) => {
       if (!res.ok) {
         dispatch(read({}));
         return;

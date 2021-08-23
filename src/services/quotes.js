@@ -9,7 +9,7 @@ export const addNewQuote = async (data) => {
   return response.json();
 };
 
-export const getAllQuotes = async (page) => {
-  const response = await fetch(`${API_HOST}/quotes/list?page=${page}`);
+export const getAllQuotes = async (page,patient) => {
+  const response = await fetch(`${API_HOST}/quotes/list?page=${page}&namePatients=${patient}`);
   return response.json();
 };
