@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+ import { useEffect, useState } from "react";
 import Layout from "../layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { listColor } from "../redux/actions/colors";
@@ -120,6 +120,7 @@ export default function AddPatient() {
 
   //set birthday to the pet with age
   const setBirthDayToInput = () => {
+    setBirthDay("  ")
     setBirthDay(getBirtDay(age.years, age.months, age.days));
   };
 

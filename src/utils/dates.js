@@ -82,7 +82,7 @@ export const validateDate = (date) => {
   const oDay = theDate.getDate() + 1;
   const oMonth = theDate.getMonth();
   const oYear = theDate.getFullYear();
-  if (oDay < nowDay) {
+  if (oDay < nowDay && oMonth === nowMonth) {
     return false;
   } else if (oMonth < nowMonth) {
     return false;

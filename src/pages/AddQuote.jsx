@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { useFormik } from "formik";
@@ -26,18 +26,32 @@ const AddQuote = () => {
   const [doctorToQuote, setDoctorToQuote] = useState();
   const [search, setSearch] = useState({ name: "", custom: "" });
   const [page, setPage] = useState(1);
-
+  const [online, setOnline] = useState(false);
   //Redux login
   const dispatch = useDispatch();
   const patients = useSelector((state) => state.patient.data);
   const doctors = useSelector((state) => state.doctor.data);
   const quoteTypes = useSelector((state) => state.quoteType.data);
-
+  console.log(online ? "Conectado" : "Desconectado");
   //socket io logic
   const serverURL = "http://localhost:8000";
-  const socket = io(serverURL, {
-    withCredentials: true,
-  });
+
+  const socket = useMemo(
+    () =>
+      io.connect(serverURL, {
+        transports: ["websocket"],
+      }),
+    [serverURL]
+  );
+
+  useEffect(() => {
+    socket.on("connect", () => setOnline(true));
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("disconnect", () => setOnline(false));
+  }, [socket]);
+
   const callSocket = useCallback(() => {
     socket.emit("new", "A new order is added");
   }, [socket]);
