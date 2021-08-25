@@ -16,15 +16,11 @@ export default function Form({ setShowModal, customer }) {
       names: Yup.string().required("Los nombres son requeridos"),
       lastname: Yup.string().required("El apellido es requerido"),
       direction: Yup.string().required("La direccion es requerida"),
-      cellphone: Yup.string()
-        .matches(phoneRegExp, "Numero de telefono invalido")
-        .required("El numero de telefono es invalido"),
-      phone: Yup.string()
-        .matches(phoneRegExp, "Numero de telefono invalido")
-        .required("El numero de telefono es invalido"),
-      email: Yup.string()
-        .email("Direccion de correo invalida")
-        .required("El correo electronico es requerido"),
+      cellphone: Yup.string().notRequired(
+        "Estas seguro de dejar vacio este campo"
+      ),
+      phone: Yup.string().notRequired("Estas seguro de dejar vacio este campo"),
+      email: Yup.string().notRequired("Estas seguro de dejar vacio este campo"),
     }),
     onSubmit: (values) => {
       if (customer) {
@@ -115,7 +111,9 @@ export default function Form({ setShowModal, customer }) {
             name="cellphone"
             onChange={formik.handleChange}
             placeholder="Ingresa el numero de celular"
-            defaultValue={customer && customer?.cellphone}
+            defaultValue={
+              customer && customer?.cellphone !== "0" ? customer?.cellphone : ""
+            }
             className={
               "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.cellphone && formik.touched.cellphone
@@ -136,7 +134,7 @@ export default function Form({ setShowModal, customer }) {
             name="phone"
             onChange={formik.handleChange}
             placeholder="Ingresa el numero de telefono"
-            defaultValue={customer && customer?.phone}
+            defaultValue={customer && customer?.phone !== "0" ? customer?.phone : ""}
             className={
               "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.phone && formik.touched.phone
@@ -157,7 +155,7 @@ export default function Form({ setShowModal, customer }) {
             name="email"
             onChange={formik.handleChange}
             placeholder="Ingresa el correo electronico"
-            defaultValue={customer && customer?.email}
+            defaultValue={customer && customer?.email !== " " ? customer?.email : ""}
             className={
               "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.email && formik.touched.email
@@ -187,8 +185,8 @@ function initialValues(customer) {
     names: "" || customer?.names,
     lastname: "" || customer?.lastname,
     direction: "" || customer?.direction,
-    cellphone: "" || customer?.cellphone,
-    phone: "" || customer?.phone,
-    email: "" || customer?.email,
+    cellphone: 0 || customer?.cellphone,
+    phone: 0 || customer?.phone,
+    email: " " || customer?.email,
   };
 }

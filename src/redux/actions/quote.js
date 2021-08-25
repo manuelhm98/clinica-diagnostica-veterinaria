@@ -4,7 +4,7 @@ import { types } from "../types";
 export const addQuote = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readQuotes());
+    dispatch(readQuotes(1,""));
   };
 };
 

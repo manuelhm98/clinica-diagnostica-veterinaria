@@ -4,7 +4,7 @@ import { types } from "../types";
 export const addEmployee = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readEmployees())
+    dispatch(readEmployees(1))
   };
 };
 

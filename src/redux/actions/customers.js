@@ -4,7 +4,7 @@ import { types } from "../types";
 export const addCustomer = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readCustomers());
+    dispatch(readCustomers("","",1));
   };
 };
 

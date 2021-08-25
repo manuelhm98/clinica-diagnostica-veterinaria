@@ -1,4 +1,4 @@
- import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Layout from "../layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { listColor } from "../redux/actions/colors";
@@ -29,6 +29,10 @@ export default function AddPatient() {
   const [showModal, setShowModal] = useState(false);
   const [clientToPet, setClientToPet] = useState();
   const route = useHistory();
+  const inputBirth = useRef(null);
+  const inputDays = useRef(null);
+  const inputMonths = useRef(null);
+  const inputYears = useRef(null);
 
   //redux states
   const dispatch = useDispatch();
@@ -115,12 +119,16 @@ export default function AddPatient() {
   //set age to the pet with birthday
   const setAgeToInput = (e) => {
     setAge(getAge(e));
+    const r = getAge(e);
+    inputDays.current.value = r.days < 30 ? r.days : 0;
+    inputMonths.current.value = r.months;
+    inputYears.current.value = r.years;
     setBirthDay(e);
   };
 
   //set birthday to the pet with age
   const setBirthDayToInput = () => {
-    setBirthDay("  ")
+    inputBirth.current.value = getBirtDay(age.years, age.months, age.days);
     setBirthDay(getBirtDay(age.years, age.months, age.days));
   };
 
@@ -142,32 +150,32 @@ export default function AddPatient() {
             </label>
             <div className="grid grid-cols-2 mt-3">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-xs">Nombre</label>
+                <label className="text-gray-700 text-sm">Nombre</label>
                 <input
                   placeholder="Escribe el nombre"
                   name="names"
                   onChange={formik.handleChange}
                   className={
-                    "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1 " +
+                    "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1 " +
                     (formik.errors.names && formik.touched.names
                       ? "border-red-400"
                       : "border-gray-300")
                   }
                 />
                 {formik.errors.names && formik.touched.names && (
-                  <span className="text-xs font-normal text-red-400">
+                  <span className="text-sm font-normal text-red-400">
                     {formik.errors.names}
                   </span>
                 )}
               </div>
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-xs">Color</label>
+                <label className="text-gray-700 text-sm">Color</label>
                 <select
                   defaultValue={"DEFAULT"}
                   onChange={formik.handleChange}
                   name="colorsId"
                   className={
-                    "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1 " +
+                    "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1 " +
                     (formik.errors.colorsId && formik.touched.colorsId
                       ? "border-red-400"
                       : "border-gray-300")
@@ -184,7 +192,7 @@ export default function AddPatient() {
                     ))}
                 </select>
                 {formik.errors.colorsId && formik.touched.colorsId && (
-                  <span className="text-xs font-normal text-red-400">
+                  <span className="text-sm font-normal text-red-400">
                     {formik.errors.colorsId}
                   </span>
                 )}
@@ -192,10 +200,10 @@ export default function AddPatient() {
             </div>
             <div className="grid grid-cols-2 mt-3">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-xs">Especie</label>
+                <label className="text-gray-700 text-sm">Especie</label>
                 <select
                   defaultValue={"DEFAULT"}
-                  className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1"
+                  className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
                   onChange={(e) => setBreedToInput(e.currentTarget.value)}
                 >
                   <option disabled value={"DEFAULT"}>
@@ -210,13 +218,13 @@ export default function AddPatient() {
                 </select>
               </div>
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-xs">Raza</label>
+                <label className="text-gray-700 text-sm">Raza</label>
                 <select
                   defaultValue={"DEFAULT"}
                   onChange={formik.handleChange}
                   name="breedsId"
                   className={
-                    "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1 " +
+                    "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1 " +
                     (formik.errors.breedsId && formik.touched.breedsId
                       ? "border-red-400"
                       : "border-gray-300")
@@ -238,7 +246,7 @@ export default function AddPatient() {
                       ))}
                 </select>
                 {formik.errors.breedsId && formik.touched.breedsId && (
-                  <span className="text-xs font-normal text-red-400">
+                  <span className="text-sm font-normal text-red-400">
                     {formik.errors.breedsId}
                   </span>
                 )}
@@ -246,13 +254,13 @@ export default function AddPatient() {
             </div>
             <div className="grid grid-cols-2 mt-3">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-xs">Sexo</label>
+                <label className="text-gray-700 text-sm">Sexo</label>
                 <select
                   defaultValue={"DEFAULT"}
                   onChange={formik.handleChange}
                   name="sexesId"
                   className={
-                    "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1 " +
+                    "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1 " +
                     (formik.errors.sexesId && formik.touched.sexesId
                       ? "border-red-400"
                       : "border-gray-300")
@@ -269,20 +277,20 @@ export default function AddPatient() {
                     ))}
                 </select>
                 {formik.errors.sexesId && formik.touched.sexesId && (
-                  <span className="text-xs font-normal text-red-400">
+                  <span className="text-sm font-normal text-red-400">
                     {formik.errors.sexesId}
                   </span>
                 )}
               </div>
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-xs">
+                <label className="text-gray-700 text-sm">
                   Tipo de paciente
                 </label>
                 <select
                   defaultValue={"DEFAULT"}
                   name="patientstypeId"
                   onChange={formik.handleChange}
-                  className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1"
+                  className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
                 >
                   <option disabled value={"DEFAULT"}>
                     Selecciona el tipo de paciente
@@ -298,56 +306,60 @@ export default function AddPatient() {
             </div>
             <div className="grid mt-3">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-xs">
+                <label className="text-gray-700 text-sm">
                   Fecha de nacimiento
                 </label>
                 <input
-                  className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1"
+                  className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
                   type="date"
                   defaultValue={birthDay}
                   onChange={(e) => setAgeToInput(e.currentTarget.value)}
+                  ref={inputBirth}
                 />
               </div>
             </div>
             <div className="grid mt-3">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-xs">
+                <label className="text-gray-700 text-sm">
                   Edad de la mascota
                 </label>
                 <div className="grid grid-cols-4 gap-3 mt-2">
                   <button
                     type="button"
                     onClick={setBirthDayToInput}
-                    className="bg-green-500 text-xs py-1 text-white rounded"
+                    className="bg-green-500 text-sm py-1 text-white rounded"
                   >
                     Calcular
                   </button>
                   <input
-                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1"
+                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
                     placeholder="Años"
                     type="text"
                     onChange={(e) =>
                       setAge({ ...age, years: e.currentTarget.value })
                     }
                     defaultValue={age.years > 0 ? age.years : ""}
+                    ref={inputYears}
                   />
                   <input
-                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1"
+                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
                     placeholder="Meses"
                     type="text"
                     onChange={(e) =>
                       setAge({ ...age, months: e.currentTarget.value })
                     }
                     defaultValue={age.months > 0 ? age.months : ""}
+                    ref={inputMonths}
                   />
                   <input
-                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1"
+                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
                     placeholder="Dias"
                     type="text"
                     onChange={(e) =>
                       setAge({ ...age, days: e.currentTarget.value })
                     }
                     defaultValue={age.days > 0 && age.days < 32 ? age.days : ""}
+                    ref={inputDays}
                   />
                 </div>
               </div>
@@ -356,7 +368,7 @@ export default function AddPatient() {
           <div>
             <div className="grid mt-10">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-xs">
+                <label className="text-gray-700 text-sm">
                   Dueño de la mascota
                 </label>
                 <div className="grid grid-cols-2 gap-3">
@@ -365,17 +377,17 @@ export default function AddPatient() {
                     readOnly
                     disabled
                     defaultValue={clientToPet && clientToPet.names}
-                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1"
+                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
                   />
                   <input
                     placeholder="Apellido del dueño"
                     readOnly
                     disabled
                     defaultValue={clientToPet && clientToPet.lastname}
-                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-xs px-2 py-1"
+                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
                   />
                 </div>
-                <Modal setShowModal={setShowModal} showModal={showModal}>
+                <Modal title="Seleccionar Dueño de la mascota" setShowModal={setShowModal} showModal={showModal}>
                   <SearchCustomer
                     setShowModal={setShowModal}
                     setClientToPet={setClientToPet}
@@ -384,7 +396,7 @@ export default function AddPatient() {
                 <button
                   onClick={() => setShowModal(true)}
                   type="button"
-                  className="bg-green-500 text-white rounded text-xs py-1 mt-3"
+                  className="bg-green-500 text-white rounded text-sm py-1 mt-3"
                 >
                   Seleccionar dueño
                 </button>
@@ -392,7 +404,7 @@ export default function AddPatient() {
             </div>
             <div className="grid">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-xs">
+                <label className="text-gray-700 text-sm">
                   Foto del paciente
                 </label>
                 <SelectImage setPetfile={setPetProfile} />
@@ -400,7 +412,7 @@ export default function AddPatient() {
             </div>
             <button
               type="submit"
-              className="bg-blue-500 text-white rounded text-xs py-1 mt-3 w-full"
+              className="bg-blue-500 text-white rounded text-sm py-1 mt-3 w-full"
             >
               Guardar
             </button>

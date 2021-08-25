@@ -4,7 +4,7 @@ import { types } from "../types";
 export const addSpecie = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readSpecies());
+    dispatch(readSpecies(1,""));
   };
 };
 

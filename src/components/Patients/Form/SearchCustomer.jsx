@@ -74,10 +74,10 @@ export default function SearchCustomer({
                         {custom.direction}
                       </td>
                       <td className=" p-2 px-6 text-xs  text-gray-600">
-                        {custom.phone}
+                        {custom.phone !== "0" ? custom.phone : "N/A"}
                       </td>
                       <td className=" p-2 px-6 text-xs text-gray-600">
-                        {custom.cellphone}
+                        {custom.cellphone !== "0" ? custom.cellphone : "N/A"}
                       </td>
                       <td>
                         {clientToPet && clientToPet?.id === custom.id && (

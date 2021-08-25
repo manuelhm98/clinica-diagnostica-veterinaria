@@ -17,8 +17,8 @@ export default function TableBody({ customers }) {
           <tr key={cust.id}>
             <TD name={cust.names} />
             <TD name={cust.lastname} />
-            <TD name={cust.cellphone} />
-            <TD name={cust.phone} />
+            <TD name={cust.cellphone !== "0" ? cust.cellphone : "N/A"} />
+            <TD name={cust.phone !== "0" ? cust.phone : "N/A"} />
             <TD>
               <div className="flex">
                 <div className="relative mt-1 ml-3 inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">

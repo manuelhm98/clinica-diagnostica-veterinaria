@@ -4,7 +4,7 @@ import { types } from "../types";
 export const addColor = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readColors());
+    dispatch(readColors(1,""));
   };
 };
 
