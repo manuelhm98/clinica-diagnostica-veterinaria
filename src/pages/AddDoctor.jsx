@@ -57,7 +57,7 @@ export default function AddDoctor() {
   });
   useEffect(() => {
     dispatch(readSpecialties());
-    dispatch(readEmployees());
+    dispatch(readEmployees(1));
     return;
   }, [dispatch]);
   return (

@@ -9,19 +9,20 @@ import {
   faSignOutAlt,
   faStethoscope,
   faTimes,
-  faUserCircle,
   faUserMd,
   faUsers,
   faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { newLoggout } from "../../redux/actions/auth";
 
 export default function NavbarIcons({ setOpenMenu, openMenu }) {
+  const router = useHistory()
   const dispatch = useDispatch();
   const handleLoggout = () => {
     dispatch(newLoggout());
+    router.push("/")
   };
   return (
     <div className="bg-blue-600 border-r h-full  rounded-tl-xl rounded-bl-xl">

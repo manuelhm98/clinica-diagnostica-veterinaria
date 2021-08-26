@@ -20,8 +20,8 @@ export default function SelectUser({ employees, setUser, setShowModal }) {
           </tr>
         </thead>
         <tbody>
-          {employees &&
-            employees.map((emp) => (
+          {employees.users &&
+            employees.users?.map((emp) => (
               <tr key={emp.id}>
                 <TD name={emp.names} />
                 <TD name={emp.lastnames} />
