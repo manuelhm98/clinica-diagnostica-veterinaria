@@ -34,7 +34,7 @@ const AddQuote = () => {
   const quoteTypes = useSelector((state) => state.quoteType.data);
   console.log(online ? "Conectado" : "Desconectado");
   //socket io logic
-  const serverURL = "http://localhost:8000";
+  const serverURL = "http://137.184.41.16:8000";
 
   const socket = useMemo(
     () =>
