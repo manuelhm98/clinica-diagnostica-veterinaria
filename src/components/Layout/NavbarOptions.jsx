@@ -43,6 +43,7 @@ const NavbarOptions = () => {
     setShowDpdw(false);
     setShowHistDpdw(false);
     setShowEmpDpdw(false);
+    setShowDocDpdw(!showDocDpdw);
     setShowServCli(false);
   };
 
