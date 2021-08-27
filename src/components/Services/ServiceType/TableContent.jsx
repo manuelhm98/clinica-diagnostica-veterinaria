@@ -3,7 +3,6 @@ import TH from '../../Global/TH'
 import TableBody from './TableBody'
 
 export default function TableContent({serviceTypes}) {
-  console.log(serviceTypes)
     return (
         <>
         <thead>

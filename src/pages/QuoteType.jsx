@@ -16,7 +16,6 @@ export default function QuoteType() {
   useEffect(() => {
     return dispatch(readQuoteTypes());
   }, [dispatch]);
-  console.log(quoteTypes);
   return (
     <Layout>
       <div className="p-8">

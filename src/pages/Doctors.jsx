@@ -17,7 +17,6 @@ export default function Doctors() {
   useEffect(() => {
     return dispatch(readDoctors(page, search));
   }, [dispatch, page, search]);
-  console.log(doctors);
   return (
     <Layout>
       <div className="p-8 ">

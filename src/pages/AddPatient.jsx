@@ -137,7 +137,6 @@ export default function AddPatient() {
     const filterBreeds = breeds.breed.filter(
       (breed) => breed.speciesId === Number(id)
     );
-    console.log(filterBreeds);
     setNewBreeds(filterBreeds);
   };
   return (

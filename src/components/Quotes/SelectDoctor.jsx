@@ -12,7 +12,6 @@ export default function SelectDoctor({
   setPage,
   setSearch,
 }) {
-  console.log(doctors);
   const setDoctor = (doc) => {
     setShowModalSelectDoc(false);
     setDoctorToQuote(doc);

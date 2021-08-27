@@ -2,7 +2,6 @@ import React from "react";
 import TD from "../Global/TD";
 
 export default function TableBody({ roles }) {
-  console.log(roles);
   return (
     <>
       {roles &&

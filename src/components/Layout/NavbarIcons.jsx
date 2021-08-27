@@ -21,8 +21,8 @@ export default function NavbarIcons({ setOpenMenu, openMenu }) {
   const router = useHistory()
   const dispatch = useDispatch();
   const handleLoggout = () => {
+    router.replace("/")
     dispatch(newLoggout());
-    router.push("/")
   };
   return (
     <div className="bg-blue-600 border-r h-full  rounded-tl-xl rounded-bl-xl">

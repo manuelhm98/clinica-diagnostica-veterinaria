@@ -14,7 +14,6 @@ export default function Quotes() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
-  console.log(quotes);
   useEffect(() => {
     return dispatch(readQuotes(page, search));
   }, [dispatch, page, search]);

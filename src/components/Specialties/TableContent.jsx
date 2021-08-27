@@ -3,7 +3,6 @@ import TableBody from './TableBody'
 import TH from '../Global/TH'
 
 export default function TableContent({specialties}) {
-    console.log(specialties)
     return (
         <>
         <thead>

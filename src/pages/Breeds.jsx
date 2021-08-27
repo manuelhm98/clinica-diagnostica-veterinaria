@@ -9,7 +9,7 @@ import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { readBreeds } from "../redux/actions/breeds";
-import { listSpecies, readSpecies } from "../redux/actions/species";
+import { listSpecies } from "../redux/actions/species";
 
 export default function Breeds() {
   const [showModal, setShowModal] = useState(false);
@@ -23,7 +23,6 @@ export default function Breeds() {
     dispatch(listSpecies());
     return;
   }, [dispatch, page, type]);
-  console.log(species)
   return (
     <Layout>
       <div className="p-8">

@@ -1,6 +1,6 @@
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { newLoggout } from "../../redux/actions/auth";
@@ -11,7 +11,9 @@ const NavbarOptions = () => {
   const [showDocDpdw, setShowDocDpdw] = useState(false);
   const [showServCli, setShowServCli] = useState(false);
   const dispatch = useDispatch();
+  const router = useHistory()
   const handleLoggout = () => {
+    router.replace("/")
     dispatch(newLoggout());
   };
 

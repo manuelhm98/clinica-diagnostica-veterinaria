@@ -32,7 +32,6 @@ const AddQuote = () => {
   const patients = useSelector((state) => state.patient.data);
   const doctors = useSelector((state) => state.doctor.data);
   const quoteTypes = useSelector((state) => state.quoteType.data);
-  console.log(online ? "Conectado" : "Desconectado");
   //socket io logic
   const serverURL = "http://137.184.41.16:8000";
 

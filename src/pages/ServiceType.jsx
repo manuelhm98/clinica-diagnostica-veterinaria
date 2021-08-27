@@ -18,7 +18,6 @@ export default function ServiceType() {
   const [type, setType] = useState("");
   const dispatch = useDispatch();
   const serviceTypes = useSelector((state) => state.serviceType.data);
-  console.log(serviceTypes);
   useEffect(() => {
     dispatch(readPaginServiceTypes(page, type));
     return;

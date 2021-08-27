@@ -2,7 +2,6 @@ import React from 'react'
 import TD from '../Global/TD'
 
 export default function TableBody({doctors}) {
-    console.log(doctors)
     return (
         <>
         {doctors.doctor && doctors.doctor.map((doc)=>(

@@ -4,7 +4,6 @@ import Modal from "../Global/Modal";
 import TD from "../Global/TD";
 
 export default function TableBody({ species }) {
-  console.log(species)
   const [showModal, setShowModal] = useState(false);
   const [specie, setSpecie] = useState();
   const edit = (specie) => {
