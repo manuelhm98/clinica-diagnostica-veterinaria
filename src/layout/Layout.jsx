@@ -1,29 +1,18 @@
-import React from "react";
-import NavbarIcons from "../components/Layout/NavbarIcons";
-import NavbarOptions from "../components/Layout/NavbarOptions";
+import {
+  faHome,
+  faPaw,
+  faUserMd,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";import NavbarOptions from "../components/Layout/NavbarOptions";
 
 export default function Layout({ children }) {
-  const [openMenu, setOpenMenu] = React.useState(true);
   return (
-    <div className="w-screen h-screen bg-gray-200 p-8 overflow-hidden">
-      <div className="w-full bg-gray-50 rounded-xl flex h-full border shadow ">
-        <div className="" style={{ transition: "all .5s ease", width: "60px" }}>
-          <NavbarIcons setOpenMenu={setOpenMenu} openMenu={openMenu} />
-        </div>
-        <div
-          className={
-            (openMenu ? "flex" : "hidden") +
-            " bg-blue-600 w-48 absolute md:static border-solid lg:static mb-10 xl:static h-full side-bar"
-          }
-          style={{}}
-        >
-          <div className="flex">
-            <NavbarOptions />
-          </div>
-        </div>
-        <div
-          className={" bg-gray-50 rounded-xl " + (openMenu ? "md:w-9/12 xl:9/12" : "w-full") + " p-1"}
-        >
+    <div className="flex flex-no-wrap overflow-hidden">
+      <NavbarOptions />
+      <div className="container mx-auto py-10 md:w-4/5 w-11/12 px-6">
+        <div className="w-full h-full rounded border-dashed border-2 border-gray-300">
           {children}
         </div>
       </div>

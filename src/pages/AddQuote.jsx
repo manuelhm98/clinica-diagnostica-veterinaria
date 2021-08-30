@@ -9,7 +9,7 @@ import SelectPatient from "../components/Quotes/SelectPatient";
 import { readPatients } from "../redux/actions/patiences";
 import SelectDoctor from "../components/Quotes/SelectDoctor";
 import { readDoctors } from "../redux/actions/doctors";
-import { validateDate } from "../utils/dates";
+import { returnTime, validateDate } from "../utils/dates";
 import { Warning } from "../components/Global/Alerts/Warning";
 import { addNewQuote } from "../services/quotes";
 import { Success } from "../components/Global/Alerts/Success";
@@ -33,8 +33,7 @@ const AddQuote = () => {
   const doctors = useSelector((state) => state.doctor.data);
   const quoteTypes = useSelector((state) => state.quoteType.data);
   //socket io logic
-  const serverURL = "http://137.184.41.16:8000";
-
+  const serverURL = "http://localhost:8000";
   const socket = useMemo(
     () =>
       io.connect(serverURL, {
@@ -75,6 +74,7 @@ const AddQuote = () => {
           if (doctorToQuote) {
             const newData = {
               ...values,
+              date: `${values.date}${returnTime()}`,
               patientsId: patientToQuote?.id,
               doctorsId: doctorToQuote?.id,
             };
@@ -123,6 +123,7 @@ const AddQuote = () => {
                       : "border-gray-300")
                   }
                 />
+
                 {formik.errors.date && formik.touched.date && (
                   <span className="text-xs text-red-400">
                     {formik.errors.date}

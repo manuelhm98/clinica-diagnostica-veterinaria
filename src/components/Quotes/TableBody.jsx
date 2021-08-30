@@ -6,7 +6,7 @@ import { es } from "date-fns/locale";
 export default function TableBody({ quotes }) {
   return (
     <>
-      {quotes &&
+      {quotes && quotes.length ? 
         quotes.map((quote) => (
           <tr key={quote.id}>
             <TD name={quote.id} />
@@ -24,7 +24,7 @@ export default function TableBody({ quotes }) {
               </div>
             </TD>
           </tr>
-        ))}
+        )) : <p className="text-base font-thin py-3 px-4">No se ah registrado ninguna cita...</p>}
     </>
   );
 }

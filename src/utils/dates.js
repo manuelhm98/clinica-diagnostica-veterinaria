@@ -91,3 +91,10 @@ export const validateDate = (date) => {
   }
   return true;
 };
+
+export const returnTime = () => {
+  const date = new Date();
+  return date.getMinutes() < 10
+    ? `T${date.getHours()}:0${date.getMinutes()}`
+    : `T${date.getHours()}:${date.getMinutes()}`;
+};
