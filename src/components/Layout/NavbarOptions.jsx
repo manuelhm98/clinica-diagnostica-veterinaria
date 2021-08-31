@@ -7,7 +7,6 @@ import {
   faPaw,
   faSignOutAlt,
   faStethoscope,
-  faUser,
   faUserMd,
   faUsers,
   faUserTie,
@@ -296,7 +295,10 @@ const NavbarOptions = () => {
               </span>
             </div>
           </li>
-          <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center">
+          <li
+            onClick={handleLoggout}
+            className="flex w-full justify-between text-gray-300 cursor-pointer items-center"
+          >
             <div className="flex items-center">
               <span className="text-base  ml-2">
                 <FontAwesomeIcon icon={faSignOutAlt} /> Cerrar Sesion
