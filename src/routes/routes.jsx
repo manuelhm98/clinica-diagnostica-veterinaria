@@ -31,7 +31,7 @@ export default function Routes() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact component={Patients} />
         <Route path="/breeds" exact component={Breeds} />
         <Route path="/species" exact component={Species} />
         <Route path="/colors" exact component={Colors} />
