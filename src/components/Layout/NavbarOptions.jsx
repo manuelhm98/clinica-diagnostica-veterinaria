@@ -70,7 +70,7 @@ const NavbarOptions = () => {
   };
 
   return (
-    <div className="w-72 h-screen fixed sm:relative bg-gray-800 shadow flex-col justify-between hidden sm:flex">
+    <div style={{position:"fixed"}} className="w-72 h-screen bg-gray-800 shadow flex-col justify-between sm:flex">
       <div className="px-8">
         <p className="text-sm border-b pb-2 mt-6 font-bold text-blue-700">
           Clinica de <span style={{ color: "#5CB119" }}>Diagnostico</span>{" "}

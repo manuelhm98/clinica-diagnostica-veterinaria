@@ -10,7 +10,7 @@ export default function TableContent({quotes}) {
           <TH name="ID" />
           <TH name="Fecha" />
           <TH name="Paciente" />
-          <TH name="Acciones" />
+          <TH name="Estado" />
         </tr>
       </thead>
       <tbody>

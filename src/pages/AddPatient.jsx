@@ -91,6 +91,11 @@ export default function AddPatient() {
         .number()
         .required("La raza es requerida")
         .typeError("Raza invalida"),
+      exp: yup
+        .number()
+        .typeError("Numero de expediente invalido")
+        .required("EL numero de expediente es requerido"),
+      weight: yup.string().required("El peso del paciente es requerido"),
     }),
     onSubmit: (values) => {
       if (birthDay) {
@@ -141,15 +146,15 @@ export default function AddPatient() {
   };
   return (
     <Layout>
-      <div className="m-10 shadow border rounded p-11 ">
+      <div className="m-10 shadow border rounded p-6 ">
         <form onSubmit={formik.handleSubmit} className="grid grid-cols-2">
           <div>
             <label className="text-gray-600 text-lg">
               Agregar nuevo paciente
             </label>
-            <div className="grid grid-cols-2 mt-3">
+            <div className="grid grid-cols-2 mt-1">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-sm">Nombre</label>
+                <label className="text-gray-500 text-xs">Nombre</label>
                 <input
                   placeholder="Escribe el nombre"
                   name="names"
@@ -168,7 +173,7 @@ export default function AddPatient() {
                 )}
               </div>
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-sm">Color</label>
+                <label className="text-gray-500 text-xs">Color</label>
                 <select
                   defaultValue={"DEFAULT"}
                   onChange={formik.handleChange}
@@ -197,9 +202,9 @@ export default function AddPatient() {
                 )}
               </div>
             </div>
-            <div className="grid grid-cols-2 mt-3">
+            <div className="grid grid-cols-2 mt-1">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-sm">Especie</label>
+                <label className="text-gray-500 text-xs">Especie</label>
                 <select
                   defaultValue={"DEFAULT"}
                   className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
@@ -217,7 +222,7 @@ export default function AddPatient() {
                 </select>
               </div>
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-sm">Raza</label>
+                <label className="text-gray-500 text-xs">Raza</label>
                 <select
                   defaultValue={"DEFAULT"}
                   onChange={formik.handleChange}
@@ -251,9 +256,9 @@ export default function AddPatient() {
                 )}
               </div>
             </div>
-            <div className="grid grid-cols-2 mt-3">
+            <div className="grid grid-cols-2 mt-1">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-sm">Sexo</label>
+                <label className="text-gray-500 text-xs">Sexo</label>
                 <select
                   defaultValue={"DEFAULT"}
                   onChange={formik.handleChange}
@@ -282,7 +287,7 @@ export default function AddPatient() {
                 )}
               </div>
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-sm">
+                <label className="text-gray-500 text-xs">
                   Tipo de paciente
                 </label>
                 <select
@@ -303,9 +308,9 @@ export default function AddPatient() {
                 </select>
               </div>
             </div>
-            <div className="grid mt-3">
+            <div className="grid mt-1">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-sm">
+                <label className="text-gray-500 text-xs">
                   Fecha de nacimiento
                 </label>
                 <input
@@ -317,57 +322,113 @@ export default function AddPatient() {
                 />
               </div>
             </div>
-            <div className="grid mt-3">
+            <div className="grid mt-1">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-sm">
+                <label className="text-gray-500 text-xs">
                   Edad de la mascota
                 </label>
                 <div className="grid grid-cols-4 gap-3 mt-2">
-                  <button
-                    type="button"
-                    onClick={setBirthDayToInput}
-                    className="bg-green-500 text-sm py-1 text-white rounded"
-                  >
-                    Calcular
-                  </button>
-                  <input
-                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
-                    placeholder="Años"
-                    type="text"
-                    onChange={(e) =>
-                      setAge({ ...age, years: e.currentTarget.value })
-                    }
-                    defaultValue={age.years > 0 ? age.years : ""}
-                    ref={inputYears}
-                  />
-                  <input
-                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
-                    placeholder="Meses"
-                    type="text"
-                    onChange={(e) =>
-                      setAge({ ...age, months: e.currentTarget.value })
-                    }
-                    defaultValue={age.months > 0 ? age.months : ""}
-                    ref={inputMonths}
-                  />
-                  <input
-                    className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
-                    placeholder="Dias"
-                    type="text"
-                    onChange={(e) =>
-                      setAge({ ...age, days: e.currentTarget.value })
-                    }
-                    defaultValue={age.days > 0 && age.days < 32 ? age.days : ""}
-                    ref={inputDays}
-                  />
+                  <div className="grid grid-rows-2">
+                    <div />
+                    <button
+                      type="button"
+                      onClick={setBirthDayToInput}
+                      className="bg-green-500 text-sm py-1 text-white rounded"
+                    >
+                      Calcular
+                    </button>
+                  </div>
+                  <div className="flex flex-col">
+                    <label className="text-gray-500 text-xs">Años</label>
+                    <input
+                      className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
+                      placeholder="Años"
+                      type="text"
+                      onChange={(e) =>
+                        setAge({ ...age, years: e.currentTarget.value })
+                      }
+                      defaultValue={age.years > 0 ? age.years : ""}
+                      ref={inputYears}
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label className="text-gray-500 text-xs">Meses</label>
+                    <input
+                      className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
+                      placeholder="Meses"
+                      type="text"
+                      onChange={(e) =>
+                        setAge({ ...age, months: e.currentTarget.value })
+                      }
+                      defaultValue={age.months > 0 ? age.months : ""}
+                      ref={inputMonths}
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label className="text-gray-500 text-xs">Dias</label>
+                    <input
+                      className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
+                      placeholder="Dias"
+                      type="text"
+                      onChange={(e) =>
+                        setAge({ ...age, days: e.currentTarget.value })
+                      }
+                      defaultValue={
+                        age.days > 0 && age.days < 32 ? age.days : ""
+                      }
+                      ref={inputDays}
+                    />
+                  </div>
                 </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 mt-1">
+              <div className="p-2 flex flex-col">
+                <label className="text-gray-500 text-xs">
+                  N° de expediente
+                </label>
+                <input
+                  placeholder="Escribe el nombre"
+                  name="exp"
+                  onChange={formik.handleChange}
+                  className={
+                    "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1 " +
+                    (formik.errors.exp && formik.touched.exp
+                      ? "border-red-400"
+                      : "border-gray-300")
+                  }
+                />
+                {formik.errors.exp && formik.touched.exp && (
+                  <span className="text-sm font-normal text-red-400">
+                    {formik.errors.exp}
+                  </span>
+                )}
+              </div>
+              <div className="p-2 flex flex-col">
+                <label className="text-gray-500 text-xs">Peso</label>
+                <input
+                  placeholder="Escribe el nombre"
+                  name="weight"
+                  onChange={formik.handleChange}
+                  className={
+                    "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1 " +
+                    (formik.errors.weight && formik.touched.weight
+                      ? "border-red-400"
+                      : "border-gray-300")
+                  }
+                />
+                {formik.errors.weight && formik.touched.weight && (
+                  <span className="text-sm font-normal text-red-400">
+                    {formik.errors.weight}
+                  </span>
+                )}
               </div>
             </div>
           </div>
           <div>
             <div className="grid mt-10">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-sm">
+                <label className="text-gray-500 text-xs">
                   Dueño de la mascota
                 </label>
                 <div className="grid grid-cols-2 gap-3">
@@ -386,7 +447,11 @@ export default function AddPatient() {
                     className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
                   />
                 </div>
-                <Modal title="Seleccionar Dueño de la mascota" setShowModal={setShowModal} showModal={showModal}>
+                <Modal
+                  title="Seleccionar Dueño de la mascota"
+                  setShowModal={setShowModal}
+                  showModal={showModal}
+                >
                   <SearchCustomer
                     setShowModal={setShowModal}
                     setClientToPet={setClientToPet}
@@ -403,7 +468,7 @@ export default function AddPatient() {
             </div>
             <div className="grid">
               <div className="p-2 flex flex-col">
-                <label className="text-gray-700 text-sm">
+                <label className="text-gray-500 text-xs">
                   Foto del paciente
                 </label>
                 <SelectImage setPetfile={setPetProfile} />
@@ -429,5 +494,7 @@ function initialValues() {
     sexesId: "",
     colorsId: "",
     breedsId: "",
+    weight: "",
+    exp: "",
   };
 }

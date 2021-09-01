@@ -16,13 +16,7 @@ export default function TableBody({ quotes }) {
               })}
             />
             <TD name={quote.patients.names} />
-            <TD>
-              <div className="flex">
-                <button className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded">
-                  Editar
-                </button>
-              </div>
-            </TD>
+            <TD name={quote.state ? "Pendiente" : "Completada"} />
           </tr>
         )) : <p className="text-base font-thin py-3 px-4">No se ah registrado ninguna cita...</p>}
     </>

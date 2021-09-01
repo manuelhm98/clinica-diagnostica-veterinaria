@@ -2,7 +2,7 @@ import { API_HOST } from "../utils/constants";
 
 export const getAllClinicalServices = async (page, type, patient) => {
   const response = await fetch(
-    `${API_HOST}/clinicalServices?page=${page}&namesPatient=${patient}&&typeServices=${type}`
+    `${API_HOST}/clinicalServices?page=${page}&namesPatient=${patient}&&typeServices=${type}&limit=${10}`
   );
   return response.json();
 };

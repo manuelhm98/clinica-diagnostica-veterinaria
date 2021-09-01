@@ -6,7 +6,7 @@ export default function TD({ name, children,onclick }) {
       <div className="flex items-center text-center">
         <div className="ml-3">
           {name ? (
-            <p className="text-gray-900 text-xs whitespace-nowrap text-center">
+            <p className="text-gray-600 text-xs whitespace-nowrap text-center">
               {name}
             </p>
           ) : (

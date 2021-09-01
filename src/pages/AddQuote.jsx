@@ -17,6 +17,7 @@ import io from "socket.io-client";
 import { useHistory } from "react-router-dom";
 import { addQuote } from "../redux/actions/quote";
 import { readQuoteTypes } from "../redux/actions/quote-type";
+import { SOCKET_URL } from "../utils/constants";
 
 const AddQuote = () => {
   //react useStates login
@@ -33,7 +34,7 @@ const AddQuote = () => {
   const doctors = useSelector((state) => state.doctor.data);
   const quoteTypes = useSelector((state) => state.quoteType.data);
   //socket io logic
-  const serverURL = "http://localhost:8000";
+  const serverURL = SOCKET_URL;
   const socket = useMemo(
     () =>
       io.connect(serverURL, {
@@ -69,30 +70,27 @@ const AddQuote = () => {
         .required("Debes seleccionar el tipo  de consulta"),
     }),
     onSubmit: (values) => {
-      if (validateDate(values.date)) {
-        if (patientToQuote) {
-          if (doctorToQuote) {
-            const newData = {
-              ...values,
-              date: `${values.date}${returnTime()}`,
-              patientsId: patientToQuote?.id,
-              doctorsId: doctorToQuote?.id,
-            };
-            addNewQuote(newData).then(() => {
-              callSocket();
-              Success("Se guardo el registro");
-              dispatch(addQuote(newData));
-              router.push("/quotes");
-            });
-            return;
-          }
-          Warning("Debes seleccionar un doctor");
+      if (patientToQuote) {
+        if (doctorToQuote) {
+          const newData = {
+            ...values,
+            date: `${values.date}${returnTime()}`,
+            patientsId: patientToQuote?.id,
+            doctorsId: doctorToQuote?.id,
+          };
+          addNewQuote(newData).then(() => {
+            callSocket();
+            Success("Se guardo el registro");
+            dispatch(addQuote(newData));
+            router.push("/quotes");
+          });
           return;
         }
-        Warning("Debes seleccionar un paciente");
+        Warning("Debes seleccionar un doctor");
         return;
       }
-      Warning("No puedes seleccionar una fecha anterior");
+      Warning("Debes seleccionar un paciente");
+      return;
     },
   });
 

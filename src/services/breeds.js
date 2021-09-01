@@ -9,8 +9,10 @@ export const addNewBreed = async (data) => {
   return response.json();
 };
 
-export const getAllBreeds = async (page,type) => {
-  const response = await fetch(`${API_HOST}/breeds?page=${page}&type=${type}`);
+export const getAllBreeds = async (page, type) => {
+  const response = await fetch(
+    `${API_HOST}/breeds?page=${page}&type=${type}&limit=${10}`
+  );
   return response.json();
 };
 

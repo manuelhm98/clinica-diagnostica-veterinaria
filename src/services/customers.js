@@ -16,7 +16,7 @@ export const getAllCustomers = async () => {
 
 export const searchCustomer = async (name, last, page) => {
   const response = await fetch(
-    `${API_HOST}/customers/search?name=${name}&last=${last}&page=${page}`
+    `${API_HOST}/customers/search?name=${name}&last=${last}&page=${page}&limit=${10}`
   );
   return response.json();
 };

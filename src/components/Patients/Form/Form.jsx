@@ -24,6 +24,8 @@ export default function Form({
         names: values.names,
         colorsId: values.colorsId,
         patientstypeId: values.patientstypeId,
+        weight: values.weight,
+        exp: values.exp,
       };
       putPatient(patient?.id, newValues).then(() => {
         Success("Se actualizo el paciente");
@@ -39,7 +41,7 @@ export default function Form({
         <div className="flex flex-col">
           <label className="text-gray-500 text-xs">Nombre</label>
           <input
-            className="border outline-none w-96 px-2 text-gray-500 py-1 text-xs rounded mt-2"
+            className="border outline-none w-96 px-2 text-gray-500 py-1 text-sm rounded mt-2"
             type="text"
             name="names"
             onChange={formik.handleChange}
@@ -53,7 +55,7 @@ export default function Form({
             onChange={formik.handleChange}
             defaultValue={patient?.colorsId}
             name="colorsId"
-            className="border outline-none w-96 px-2 text-gray-500 py-1 text-xs rounded mt-2"
+            className="border outline-none w-96 px-2 text-gray-500 py-1 text-sm rounded mt-2"
           >
             {colors.color &&
               colors.color.map((color) => (
@@ -69,7 +71,7 @@ export default function Form({
             defaultValue={patient?.patientstypeId}
             onChange={formik.handleChange}
             name="patientstypeId"
-            className="border w-96 outline-none px-2 text-gray-500 py-1 text-xs rounded mt-2"
+            className="border w-96 outline-none px-2 text-gray-500 py-1 text-sm rounded mt-2"
           >
             {patTypes &&
               patTypes.map((patType) => (
@@ -79,7 +81,29 @@ export default function Form({
               ))}
           </select>
         </div>
-        <button className="bg-blue-500 text-white w-full rounded text-xs py-1 mt-4">
+        <div className="flex flex-col mt-1">
+          <label className="text-gray-500 text-xs">Peso</label>
+          <input
+            className="border outline-none w-96 px-2 text-gray-500 py-1 text-sm rounded mt-2"
+            type="text"
+            name="weight"
+            onChange={formik.handleChange}
+            defaultValue={patient?.weight}
+            placeholder="Escribe el nombre de la mascota"
+          />
+        </div>
+        <div className="flex flex-col mt-1">
+          <label className="text-gray-500 text-xs">N° de expediente</label>
+          <input
+            className="border outline-none w-96 px-2 text-gray-500 py-1 text-sm rounded mt-2"
+            type="text"
+            name="exp"
+            onChange={formik.handleChange}
+            defaultValue={patient?.exp}
+            placeholder="Escribe el nombre de la mascota"
+          />
+        </div>
+        <button className="bg-blue-500 text-white w-full rounded text-sm py-1 mt-4">
           Guardar
         </button>
       </div>
@@ -92,5 +116,7 @@ function initialValues(patient) {
     names: "" || patient?.names,
     colorsId: "" || patient?.colorsId,
     patientstypeId: "" || patient?.patientstypeId,
+    weight: "" || patient?.weight,
+    exp: "" || patient?.exp,
   };
 }

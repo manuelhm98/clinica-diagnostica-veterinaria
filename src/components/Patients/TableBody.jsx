@@ -100,12 +100,15 @@ export default function TableBody({ patients, setReload }) {
       {patients.patients?.length >= 1 ? (
         patients.patients?.map((pat) => (
           <tr key={pat.id}>
+            <TD onclick={() => setPetDetails(pat)}>
+              <span className="text-red-500 font-semibold">{pat.exp}</span>
+            </TD>
             <TD onclick={() => setPetDetails(pat)} name={pat.names} />
-            <TD
-              onclick={() => setPetCustomer(pat)}
-              name={pat.customers?.names}
-            />
-            <TD name={pat.sexes?.type} />
+            <TD onclick={() => setPetCustomer(pat)}>
+              <span className="text-gray-600 text-xs uppercase whitespace-nowrap">
+                {pat.customers?.names} {pat.customers?.lastname}
+              </span>
+            </TD>
             <TD onclick={() => profilePic(pat)}>
               <div className=" w-20">
                 <img
