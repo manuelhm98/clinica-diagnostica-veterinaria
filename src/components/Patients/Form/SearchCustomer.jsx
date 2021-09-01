@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { readCustomers } from "../../../redux/actions/customers";
+import InputSearch from "../../Global/InputSearch";
 import Pagination from "../../Global/Pagination";
 import TH from "../../Global/TH";
 import Label from "./Label";
@@ -10,42 +11,39 @@ import Label from "./Label";
 export default function SearchCustomer({
   clientToPet,
   setClientToPet,
-  setShowModal,
-  isAdded
+  isAdded,
 }) {
   const [search, setSearch] = useState({ name: "", last: "" });
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
   const customers = useSelector((state) => state.customer.data);
   const dispatch = useDispatch();
   useEffect(() => {
     const searchCustom = () => {
-      dispatch(readCustomers(search.name, search.last,page));
+      dispatch(readCustomers(search.name, search.last, page));
     };
     return searchCustom();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search,page]);
+  }, [search, page]);
   const selectCustom = (custom) => {
     setClientToPet(custom);
-    setShowModal(false)
   };
   return (
     <div>
       <div className="flex flex-col p-1">
-        <Label name="Buscar dueño" />
-        <div className="w-full flex mt-1">
-          <input
-            className="border outline-none rounded text-xs w-6/12 px-2 py-1"
-            placeholder="Escribe el nombre del cliente"
-            onChange={(e) =>
+        <div className="w-full grid grid-cols-2 gap-5 mt-1">
+          <InputSearch
+            handleChange={(e) =>
               setSearch({ ...search, name: e.currentTarget.value })
             }
+            placeholder="Escribe el nombre para buscar"
+            label="Buscar cliente por nombre"
           />
-          <input
-            className="border outline-none w-6/12 ml-2 rounded text-xs py-1 px-2 placeholder-opacity-10"
-            placeholder="Escribe el Apellido del cliente"
-            onChange={(e) =>
-              setSearch({ ...search, last: e.currentTarget.value })
+         <InputSearch
+            handleChange={(e) =>
+              setSearch({ ...search, name: e.currentTarget.value })
             }
+            placeholder="Escribe el apellido para buscar"
+            label="Buscar cliente por apelllido"
           />
         </div>
       </div>
@@ -67,7 +65,7 @@ export default function SearchCustomer({
                 {customers &&
                   customers.customers?.map((custom, index) => (
                     <tr key={index}>
-                      <td className=" p-2 w-72 text-xs  text-gray-600">
+                      <td className=" p-2 w-72 text-xs  text-gray-600 uppercase">
                         {custom.names} {custom.lastname}
                       </td>
                       <td className=" p-2 w-56 px-6 text-xs  text-gray-600">

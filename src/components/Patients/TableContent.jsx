@@ -7,9 +7,9 @@ export default function TableContent({patients,setReload}) {
     <>
       <thead>
         <tr>
+        <TH name="N° de exp." />
           <TH name="Nombre" />
           <TH name="Dueño" />
-          <TH name="Sexo"/>
           <TH name="Foto" />
           <TH name="Estado" />
           <TH name="Acciones"/>

@@ -15,8 +15,12 @@ export default function TableBody({ customers }) {
       {customers?.length >= 1 ? (
         customers?.map((cust) => (
           <tr key={cust.id}>
-            <TD name={cust.names} />
-            <TD name={cust.lastname} />
+            <TD>
+              <span className="text-gray-600 uppercase whitespace-nowrap text-xs">{cust.names}</span>
+            </TD>
+            <TD>
+            <span className="text-gray-600 uppercase whitespace-nowrap text-xs">{cust.lastname}</span>
+            </TD>
             <TD name={cust.cellphone !== "0" ? cust.cellphone : "N/A"} />
             <TD name={cust.phone !== "0" ? cust.phone : "N/A"} />
             <TD>

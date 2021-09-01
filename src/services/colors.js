@@ -10,7 +10,7 @@ export const addNewColor = async (data) => {
 };
 
 export const getAllColors = async (page, type) => {
-  const response = await fetch(`${API_HOST}/colors?page=${page}&type=${type}`);
+  const response = await fetch(`${API_HOST}/colors?page=${page}&type=${type}&limit=${10}`);
   return response.json();
 };
 

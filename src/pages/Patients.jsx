@@ -23,7 +23,7 @@ export default function Patients() {
   //redux dispatch states
   useEffect(() => {
     setReload(false);
-    dispatch(readPatients(page, name, custom, 3));
+    dispatch(readPatients(page, name, custom, 5));
     return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, name, custom, reload]);

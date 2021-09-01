@@ -4,7 +4,7 @@ import { types } from "../types";
 export const addPatient = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readPatients(1,"",""));
+    dispatch(readPatients(1,"","",5));
   };
 };
 

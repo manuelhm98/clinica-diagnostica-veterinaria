@@ -10,7 +10,7 @@ export const addNewSpecie = async (data) => {
 };
 
 export const getAllSpecies = async (page, type) => {
-  const response = await fetch(`${API_HOST}/species?page=${page}&type=${type}`);
+  const response = await fetch(`${API_HOST}/species?page=${page}&type=${type}&limit=${10}`);
   return response.json();
 };
 

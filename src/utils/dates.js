@@ -79,16 +79,24 @@ export const validateDate = (date) => {
   const nowMonth = now.getMonth();
   const nowYear = now.getFullYear();
   const theDate = new Date(date);
-  const oDay = theDate.getDate() + 1;
+  const oDay = theDate.getDate() ;
   const oMonth = theDate.getMonth();
   const oYear = theDate.getFullYear();
+  if (nowDay === 1 && nowMonth - oMonth === 1) {
+    console.log(nowDay,oDay);
+    return true;
+  }
   if (oDay < nowDay && oMonth === nowMonth) {
+    console.log("error de dia y mes");
     return false;
   } else if (oMonth < nowMonth) {
+    console.log(oMonth, nowMonth);
     return false;
   } else if (oYear < nowYear) {
+    console.log("error de año");
     return false;
   }
+  console.log(oDay, nowDay);
   return true;
 };
 
