@@ -89,7 +89,7 @@ export default function Form({
             name="weight"
             onChange={formik.handleChange}
             defaultValue={patient?.weight}
-            placeholder="Escribe el nombre de la mascota"
+            placeholder="Escribe el peso de la mascota"
           />
         </div>
         <div className="flex flex-col mt-1">
@@ -100,7 +100,7 @@ export default function Form({
             name="exp"
             onChange={formik.handleChange}
             defaultValue={patient?.exp}
-            placeholder="Escribe el nombre de la mascota"
+            placeholder="Escribe el numero de expediente de la mascota"
           />
         </div>
         <button className="bg-blue-500 text-white w-full rounded text-sm py-1 mt-4">

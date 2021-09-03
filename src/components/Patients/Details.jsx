@@ -63,7 +63,7 @@ export default function Details({ patient }) {
           <span className="text-xl font-semibold">Edad: </span> {patient.age}
         </li>
         <li className="mt-2 text-gray-700">
-          <span className="text-xl font-semibold">Pesp: </span> {patient.weight}
+          <span className="text-xl font-semibold">Peso: </span> {patient.weight}
         </li>
         <li className="mt-2 text-gray-700">
           <span className="text-xl font-semibold">Fecha de nacimiento: </span>
