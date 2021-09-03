@@ -388,7 +388,7 @@ export default function AddPatient() {
                   N° de expediente
                 </label>
                 <input
-                  placeholder="Escribe el nombre"
+                  placeholder="Escribe el numero de expediente"
                   name="exp"
                   onChange={formik.handleChange}
                   className={
@@ -407,7 +407,7 @@ export default function AddPatient() {
               <div className="p-2 flex flex-col">
                 <label className="text-gray-500 text-xs">Peso</label>
                 <input
-                  placeholder="Escribe el nombre"
+                  placeholder="Escribe el peso de la mascota"
                   name="weight"
                   onChange={formik.handleChange}
                   className={
