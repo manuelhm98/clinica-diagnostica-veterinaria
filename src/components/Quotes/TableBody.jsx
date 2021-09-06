@@ -11,7 +11,7 @@ export default function TableBody({ quotes }) {
           <tr key={quote.id}>
             <TD name={quote.id} />
             <TD
-              name={formatRelative(subDays(new Date(quote.date), -1), new Date(), {
+              name={formatRelative(subDays(new Date(quote.date), 0), new Date(), {
                 locale: es,
               })}
             />
