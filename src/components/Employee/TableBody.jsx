@@ -4,7 +4,7 @@ import TD from "../Global/TD";
 import Form from "./Form";
 
 export default function TableBody({ employees,roles,shifts }) {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [emp, setEmp] = useState();
   const handleEdit = (emp)=>{
     setEmp(emp)
