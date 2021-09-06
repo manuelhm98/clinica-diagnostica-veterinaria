@@ -15,11 +15,16 @@ export const getBirtDay = (years = 0, month = 0, days = 0) => {
         : `${now.getFullYear()}-${now.getMonth() + 1}-${getDay - days}`;
     return newDate;
   }
-  const newDate =
-    getMonth < 10
-      ? `${getYear}-0${getMonth}-${getDay}`
-      : `${getYear}-${getMonth}-${getDay}`;
-  return newDate;
+  if (getMonth < 10) {
+    if (getDay < 10) {
+      return `${getYear}-0${getMonth}-0${getDay}`;
+    }
+    return `${getYear}-0${getMonth}-${getDay}`;
+  }
+  if (getDay < 10) {
+    return `${getYear}-${getMonth}-0${getDay}`;
+  }
+  return `${getYear}-${getMonth}-${getDay}`;
 };
 
 export const getAge = (date) => {
@@ -79,11 +84,11 @@ export const validateDate = (date) => {
   const nowMonth = now.getMonth();
   const nowYear = now.getFullYear();
   const theDate = new Date(date);
-  const oDay = theDate.getDate() ;
+  const oDay = theDate.getDate();
   const oMonth = theDate.getMonth();
   const oYear = theDate.getFullYear();
   if (nowDay === 1 && nowMonth - oMonth === 1) {
-    console.log(nowDay,oDay);
+    console.log(nowDay, oDay);
     return true;
   }
   if (oDay < nowDay && oMonth === nowMonth) {
@@ -102,7 +107,14 @@ export const validateDate = (date) => {
 
 export const returnTime = () => {
   const date = new Date();
-  return date.getMinutes() < 10
-    ? `T${date.getHours()}:0${date.getMinutes()}`
-    : `T${date.getHours()}:${date.getMinutes()}`;
+  if (date.getHours() < 10) {
+    if (date.getMinutes() < 10) {
+      return `T0${date.getHours()}:0${date.getMinutes()}`;
+    }
+    return `T0${date.getHours()}:${date.getMinutes()}`;
+  }
+  if (date.getMinutes() < 10) {
+    return `T${date.getHours()}:0${date.getMinutes()}`;
+  }
+  return `T${date.getHours()}:${date.getMinutes()}`;
 };

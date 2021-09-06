@@ -3,13 +3,14 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { Success } from "../Global/Alerts/Success";
-import { addNewEmployee } from "../../services/employee";
+import { Error } from "../Global/Alerts/Error";
+import { addNewEmployee, putEmployee } from "../../services/employee";
 import { addEmployee } from "../../redux/actions/employee";
 
-export default function Form({ setShowModal, roles, shifts }) {
+export default function Form({ setShowModal, roles, shifts, id, emp }) {
   const dispatch = useDispatch();
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(emp),
     validationSchema: Yup.object({
       names: Yup.string().required("El nombre del empleado es requerido"),
       lastnames: Yup.string().required(
@@ -35,6 +36,19 @@ export default function Form({ setShowModal, roles, shifts }) {
         ),
     }),
     onSubmit: (values) => {
+      if (id) {
+        putEmployee(values, id)
+          .then(() => {
+            dispatch(addEmployee(values));
+            setShowModal(false);
+            Success("Se actualizo el usuario");
+          })
+          .catch(() => {
+            Error("Ah ocurrido un error inesperado");
+            setShowModal(false);
+          });
+        return;
+      }
       addNewEmployee(values).then(() => {
         dispatch(addEmployee(values));
         setShowModal(false);
@@ -49,6 +63,7 @@ export default function Form({ setShowModal, roles, shifts }) {
           <label className="text-xs text-gray-400">Nombre</label>
           <input
             type="text"
+            defaultValue={emp?.names}
             name="names"
             onChange={formik.handleChange}
             placeholder="Ingresa el nombre del empleado"
@@ -70,6 +85,7 @@ export default function Form({ setShowModal, roles, shifts }) {
           <input
             type="text"
             name="lastnames"
+            defaultValue={emp?.lastnames}
             onChange={formik.handleChange}
             placeholder="Ingresa el apellido del empleado"
             className={
@@ -91,6 +107,7 @@ export default function Form({ setShowModal, roles, shifts }) {
             type="text"
             name="email"
             onChange={formik.handleChange}
+            defaultValue={emp?.email}
             placeholder="Ingresa el email del empleado"
             className={
               "w-80 border py-1 px-2 text-xs text-gray-500 rounded outline-none hover:border-green-400 " +
@@ -108,7 +125,7 @@ export default function Form({ setShowModal, roles, shifts }) {
         <div className="flex flex-col p-1 mt-1">
           <label className="text-xs text-gray-400">Turno</label>
           <select
-            defaultValue={"DEFAULT"}
+            defaultValue={emp ? emp?.shiftsId : "DEFAULT"}
             name="shiftsId"
             onChange={formik.handleChange}
             className={
@@ -137,9 +154,9 @@ export default function Form({ setShowModal, roles, shifts }) {
         <div className="flex flex-col p-1 mt-1">
           <label className="text-xs text-gray-400">Rol</label>
           <select
-            defaultValue={"DEFAULT"}
             name="rolesId"
             onChange={formik.handleChange}
+            defaultValue={emp ? emp?.rolesId : "DEFAULT"}
             className={
               "w-80 border py-1 px-2 text-xs text-gray-500 rounded outline-none hover:border-green-400 " +
               (formik.errors.rolesId && formik.touched.rolesId
@@ -169,7 +186,7 @@ export default function Form({ setShowModal, roles, shifts }) {
             type="password"
             name="password"
             onChange={formik.handleChange}
-            placeholder="Ingresa el email del empleado"
+            placeholder="Ingresa la contraseña del empleado"
             className={
               "w-80 border py-1 px-2 text-xs text-gray-500 rounded outline-none hover:border-green-400 " +
               (formik.errors.password && formik.touched.password
@@ -189,7 +206,7 @@ export default function Form({ setShowModal, roles, shifts }) {
             type="password"
             name="rePassword"
             onChange={formik.handleChange}
-            placeholder="Ingresa el email del empleado"
+            placeholder="Repite la contraseña"
             className={
               "w-80 border py-1 px-2 text-xs text-gray-500 rounded outline-none hover:border-green-400 " +
               (formik.errors.rePassword && formik.touched.rePassword
@@ -207,21 +224,21 @@ export default function Form({ setShowModal, roles, shifts }) {
           type="submit"
           className="bg-blue-600 mt-4 w-full text-white rounded px-12 py-2 text-xs"
         >
-          Agregar
+          {emp ? "Actualizar" : "Agregar"}
         </button>
       </form>
     </div>
   );
 }
 
-function initialValues(color) {
+function initialValues(emp) {
   return {
-    names: "",
-    lastnames: "",
-    email: "",
-    shiftsId: "",
-    rolesId: "",
-    password: "",
-    rePassword: "",
+    names: "" || emp?.names,
+    lastnames: "" || emp?.lastnames,
+    email: "" || emp?.email,
+    shiftsId: "" || emp?.shiftsId,
+    rolesId: "" || emp?.rolesId,
+    password: "" || emp?.password,
+    rePassword: "" || emp?.password,
   };
 }

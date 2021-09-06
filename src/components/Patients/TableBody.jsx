@@ -15,6 +15,7 @@ import { listColor } from "../../redux/actions/colors";
 import { listBreed } from "../../redux/actions/breeds";
 import { readPatTypes } from "../../redux/actions/pat-type";
 import { listSpecies } from "../../redux/actions/species";
+import {readSexes} from "../../redux/actions/sexes"
 
 export default function TableBody({ patients, setReload }) {
   //redux dispatch
@@ -24,6 +25,7 @@ export default function TableBody({ patients, setReload }) {
     dispatch(listBreed());
     dispatch(readPatTypes());
     dispatch(listSpecies());
+    dispatch(readSexes())
   };
   //redux use effect
   useEffect(() => {
@@ -34,6 +36,7 @@ export default function TableBody({ patients, setReload }) {
   const colors = useSelector((state) => state.color.data);
   const patTypes = useSelector((state) => state.patType.data);
   const species = useSelector((state) => state.specie.data);
+  const sexes = useSelector((state)=>state.sex.data)
   //react states logic
   const [showDetails, setShowDetails] = useState(false);
   const [showModalEditPhoto, setShowModalEditPhoto] = useState(false);
@@ -167,6 +170,7 @@ export default function TableBody({ patients, setReload }) {
         <Form
           setShowEditModal={setShowEditModal}
           setReload={setReload}
+          sexes={sexes}
           species={species}
           patient={patient}
           breeds={breeds}

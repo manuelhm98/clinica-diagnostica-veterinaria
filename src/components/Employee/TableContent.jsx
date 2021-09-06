@@ -2,7 +2,7 @@ import React from "react";
 import TableBody from "./TableBody";
 import TH from "../Global/TH";
 
-export default function TableContent({employees}) {
+export default function TableContent({employees,roles,shifts}) {
   return (
     <>
       <thead>
@@ -11,10 +11,11 @@ export default function TableContent({employees}) {
           <TH name="Nombre" />
           <TH name="Apellido" />
           <TH name="Email" />
+          <TH name="Acciones" />
         </tr>
       </thead>
       <tbody>
-        <TableBody employees={employees}/>
+        <TableBody roles={roles} shifts={shifts} employees={employees}/>
       </tbody>
     </>
   );
