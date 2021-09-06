@@ -7,6 +7,7 @@ import { Success } from "../../Global/Alerts/Success";
 export default function Form({
   patient,
   colors,
+  sexes,
   patTypes,
   setReload,
   setShowEditModal,
@@ -16,7 +17,12 @@ export default function Form({
     validationSchema: yup.object({
       names: yup.string().required("El nombre es requerido"),
       colorsId: yup.number().required("El color de la mascota es requerido"),
+      sexesId: yup.number().required("El sexo de la mascota es requerido"),
       patientstypeId: yup.number().required("EL tipo de paciente es requerido"),
+      weight: yup.string().required("El peso de la mascota es requerido"),
+      exp: yup
+        .string()
+        .required("El numero de expediente de la mascota es requerido"),
     }),
     onSubmit: (values) => {
       const newValues = {
@@ -24,6 +30,7 @@ export default function Form({
         names: values.names,
         colorsId: values.colorsId,
         patientstypeId: values.patientstypeId,
+        sexesId: values.sexesId,
         weight: values.weight,
         exp: values.exp,
       };
@@ -35,6 +42,7 @@ export default function Form({
       });
     },
   });
+  console.log(sexes);
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="flex flex-col">
@@ -48,6 +56,11 @@ export default function Form({
             defaultValue={patient?.names}
             placeholder="Escribe el nombre de la mascota"
           />
+          {formik.errors.names && formik.touched.names && (
+            <span className="text-sm font-normal text-red-400">
+              {formik.errors.names}
+            </span>
+          )}
         </div>
         <div className="flex flex-col mt-2">
           <label className="text-gray-500 text-xs">Color</label>
@@ -64,6 +77,32 @@ export default function Form({
                 </option>
               ))}
           </select>
+          {formik.errors.colorsId && formik.touched.colorsId && (
+            <span className="text-sm font-normal text-red-400">
+              {formik.errors.colorsId}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-col mt-2">
+          <label className="text-gray-500 text-xs">Sexo</label>
+          <select
+            onChange={formik.handleChange}
+            defaultValue={patient?.sexesId}
+            name="sexesId"
+            className="border outline-none w-96 px-2 text-gray-500 py-1 text-sm rounded mt-2"
+          >
+            {sexes &&
+              sexes.map((sex) => (
+                <option value={sex.id} key={sex.id}>
+                  {sex.type}
+                </option>
+              ))}
+          </select>
+          {formik.errors.sexesId && formik.touched.sexesId && (
+            <span className="text-sm font-normal text-red-400">
+              {formik.errors.sexesId}
+            </span>
+          )}
         </div>
         <div className="flex flex-col mt-2">
           <label className="text-gray-500 text-xs">Tipo de paciente</label>
@@ -80,6 +119,11 @@ export default function Form({
                 </option>
               ))}
           </select>
+          {formik.errors.patientstypeId && formik.touched.patientstypeId && (
+            <span className="text-sm font-normal text-red-400">
+              {formik.errors.patientstypeId}
+            </span>
+          )}
         </div>
         <div className="flex flex-col mt-1">
           <label className="text-gray-500 text-xs">Peso</label>
@@ -91,6 +135,11 @@ export default function Form({
             defaultValue={patient?.weight}
             placeholder="Escribe el peso de la mascota"
           />
+          {formik.errors.weight && formik.touched.weight && (
+            <span className="text-sm font-normal text-red-400">
+              {formik.errors.weight}
+            </span>
+          )}
         </div>
         <div className="flex flex-col mt-1">
           <label className="text-gray-500 text-xs">N° de expediente</label>
@@ -102,6 +151,11 @@ export default function Form({
             defaultValue={patient?.exp}
             placeholder="Escribe el numero de expediente de la mascota"
           />
+          {formik.errors.exp && formik.touched.exp && (
+            <span className="text-sm font-normal text-red-400">
+              {formik.errors.exp}
+            </span>
+          )}
         </div>
         <button className="bg-blue-500 text-white w-full rounded text-sm py-1 mt-4">
           Guardar
@@ -115,6 +169,7 @@ function initialValues(patient) {
   return {
     names: "" || patient?.names,
     colorsId: "" || patient?.colorsId,
+    sexesId: "" || patient?.sexesId,
     patientstypeId: "" || patient?.patientstypeId,
     weight: "" || patient?.weight,
     exp: "" || patient?.exp,

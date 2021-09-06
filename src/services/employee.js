@@ -10,6 +10,17 @@ export const addNewEmployee = async (data) => {
 };
 
 export const getAllEmployees = async (page) => {
-  const response = await fetch(`${API_HOST}/users/list?page=${page}&limit=${10}`);
+  const response = await fetch(
+    `${API_HOST}/users/list?page=${page}&limit=${10}`
+  );
+  return response.json();
+};
+
+export const putEmployee = async (data, id) => {
+  const response = await fetch(`${API_HOST}/users/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
   return response.json();
 };

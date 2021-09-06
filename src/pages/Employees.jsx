@@ -37,7 +37,7 @@ export default function Employees() {
        </div>
 
         <Table>
-          <TableContent employees={employees} />
+          <TableContent roles={roles} shifts={shifts} employees={employees} />
         </Table>
 
         <Modal
