@@ -40,7 +40,7 @@ export default function Patients() {
           <InputSearch
             label="Buscar por el dueño de la mascota"
             placeholder="Escribe el nombre del dueño de la mascota para buscar..."
-            handleChange={(e)=>setName(e.currentTarget.value)}
+            handleChange={(e)=>setCustom(e.currentTarget.value)}
           />
         </div>
         <button className="bg-blue-600 text-white mt-3 px-8 ml-4 float-right text-xs py-1 rounded">
