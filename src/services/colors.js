@@ -6,7 +6,7 @@ export const addNewColor = async (data) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      headers: { token: getToken() },
+      token: getToken(),
     },
     body: JSON.stringify(data),
   });
@@ -26,7 +26,7 @@ export const putColor = async (id, data) => {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      headers: { token: getToken() },
+      token: getToken(),
     },
     body: JSON.stringify(data),
   });

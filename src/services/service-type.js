@@ -13,7 +13,7 @@ export const addNewServiceType = async (data) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      headers: { token: getToken() },
+      token: getToken(),
     },
     body: JSON.stringify(data),
   });
@@ -25,7 +25,7 @@ export const putServiceType = async (data, id) => {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      headers: { token: getToken() },
+      token: getToken(),
     },
     body: JSON.stringify(data),
   });

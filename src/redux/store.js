@@ -21,6 +21,7 @@ import { pestControlTypeReducer } from "./reducers/pest-control-type.reducer";
 import { vaccinationDoseReducer } from "./reducers/vaccination-dose.reducer";
 import { clinicalServiceReducer } from "./reducers/clinical-service.reducer";
 import { quoteTypeReducer } from "./reducers/quote-types.reducer";
+import { userReducer } from "./reducers/employe.reducer";
 
 const reducers = combineReducers({
   breed: breedReducer,
@@ -34,6 +35,7 @@ const reducers = combineReducers({
   role: rolReducer,
   shift: shiftReducer,
   employee: employeeReducer,
+  user: userReducer,
   specially: speciallyReducer,
   doctor: doctorReducer,
   quote: quoteReducer,
@@ -42,8 +44,8 @@ const reducers = combineReducers({
   dewormingType: dewormingTypeReducer,
   pestControlType: pestControlTypeReducer,
   vaccinationDose: vaccinationDoseReducer,
-  clinicalService:clinicalServiceReducer,
-  quoteType:quoteTypeReducer
+  clinicalService: clinicalServiceReducer,
+  quoteType: quoteTypeReducer,
 });
 
 const composeEnhancers =

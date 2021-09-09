@@ -8,6 +8,7 @@ import { readPatients } from "../redux/actions/patiences";
 import Pagination from "../components/Global/Pagination";
 import { Link } from "react-router-dom";
 import InputSearch from "../components/Global/InputSearch";
+import { readEmployeById } from "../redux/actions/employee";
 
 export default function Patients() {
   //react states logic
@@ -19,7 +20,11 @@ export default function Patients() {
   //redux get states
   const dispatch = useDispatch();
   const patients = useSelector((state) => state.patient.data);
-
+  const user = useSelector((state) => state.user.data);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   //redux dispatch states
   useEffect(() => {
     setReload(false);
@@ -35,19 +40,23 @@ export default function Patients() {
           <InputSearch
             label="Buscar por el nombre de la mascota"
             placeholder="Escribe el nombre de la mascota para buscar..."
-            handleChange={(e)=>setName(e.currentTarget.value)}
+            handleChange={(e) => setName(e.currentTarget.value)}
           />
           <InputSearch
             label="Buscar por el dueño de la mascota"
             placeholder="Escribe el nombre del dueño de la mascota para buscar..."
-            handleChange={(e)=>setCustom(e.currentTarget.value)}
+            handleChange={(e) => setCustom(e.currentTarget.value)}
           />
         </div>
         <button className="bg-blue-600 text-white mt-3 px-8 ml-4 float-right text-xs py-1 rounded">
           <Link to="/new-patient">Agregar</Link>
         </button>
         <Table>
-          <TableContent setReload={setReload} patients={patients} />
+          <TableContent
+            user={user?.users}
+            setReload={setReload}
+            patients={patients}
+          />
         </Table>
         <Pagination data={patients} method={setPage} />
       </div>

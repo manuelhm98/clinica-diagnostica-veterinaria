@@ -6,7 +6,7 @@ export const addNewVaccinationDose = async (data) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      headers: { token: getToken() },
+      token: getToken(),
     },
     body: JSON.stringify(data),
   });
@@ -25,7 +25,7 @@ export const editVaccinationDose = async (data, id) => {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      headers: { token: getToken() },
+      token: getToken(),
     },
     body: JSON.stringify(data),
   });

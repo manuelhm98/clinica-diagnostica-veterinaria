@@ -49,7 +49,7 @@ export const putPatient = async (id, data) => {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      headers: { token: getToken() },
+      token: getToken(),
     },
     body: JSON.stringify(data),
   });

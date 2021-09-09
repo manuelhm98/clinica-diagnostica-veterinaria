@@ -63,7 +63,7 @@ export const types = {
   //Shifts
   employeeAdd: "[Employee] add",
   employeeDelete: "[Employee] delete",
-  employeeReadById: "[Employee] readById",
+  userReadById: "[Employee] userReadById",
   employeeRead: "[Employee] read",
 
   //Shifts

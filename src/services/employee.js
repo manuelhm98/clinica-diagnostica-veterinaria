@@ -6,7 +6,7 @@ export const addNewEmployee = async (data) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      headers: { token: getToken() },
+      token: getToken(),
     },
     body: JSON.stringify(data),
   });
@@ -26,9 +26,28 @@ export const putEmployee = async (data, id) => {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      headers: { token: getToken() },
+      token: getToken(),
     },
     body: JSON.stringify(data),
+  });
+  return response.json();
+};
+
+export const changePassword = async (data, id) => {
+  const response = await fetch(`${API_HOST}/users/pass/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      token: getToken(),
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};
+
+export const getEmployeById = async (id) => {
+  const response = await fetch(`${API_HOST}/users/${id}`, {
+    headers: { token: getToken() },
   });
   return response.json();
 };

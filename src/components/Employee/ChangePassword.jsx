@@ -1,8 +1,11 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { changePassword } from "../../services/employee";
+import { Success } from "../Global/Alerts/Success";
+import { Error } from "../Global/Alerts/Error";
 
-export default function ChangePassword({id,setShowCP}) {
+export default function ChangePassword({ id, setShowCP }) {
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object({
@@ -17,7 +20,10 @@ export default function ChangePassword({id,setShowCP}) {
         ),
     }),
     onSubmit: (values) => {
-        
+      changePassword(values, id).then(() => {
+        setShowCP(false);
+        Success("Se actualizo la contraseña");
+      });
     },
   });
   return (

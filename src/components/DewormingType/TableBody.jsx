@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { checkRole } from "../../utils/checkRole";
 import Modal from "../Global/Modal";
 import TD from "../Global/TD";
 import Form from "./Form";
 
-export default function TableBody({ dewormingTypes }) {
+export default function TableBody({ dewormingTypes, user }) {
   const [showModal, setShowModal] = useState(false);
   const [dtype, setDtype] = useState();
   const handleEdit = (dtype) => {
@@ -18,17 +19,18 @@ export default function TableBody({ dewormingTypes }) {
             <TD name={dwtype.id} />
             <TD name={dwtype.type} />
             <TD name={dwtype.brand} />
-            <TD>
-              <div className="flex">
-                <button
-                  onClick={() => handleEdit(dwtype
-                    )}
-                  className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
-                >
-                  Editar
-                </button>
-              </div>
-            </TD>
+            {checkRole(user) === 1 && (
+              <TD>
+                <div className="flex">
+                  <button
+                    onClick={() => handleEdit(dwtype)}
+                    className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
+                  >
+                    Editar
+                  </button>
+                </div>
+              </TD>
+            )}
           </tr>
         ))}
       <Modal

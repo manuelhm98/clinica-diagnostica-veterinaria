@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { readSpecies } from "../../redux/actions/species";
+import { checkRole } from "../../utils/checkRole";
 import Modal from "../Global/Modal";
 import TD from "../Global/TD";
 import Form from "./Form";
 
-export default function TableBody({ breeds }) {
+export default function TableBody({ breeds, user }) {
   const [showModal, setShowModal] = useState(false);
   const [breed, setBreed] = useState();
   const dispatch = useDispatch();
@@ -26,16 +27,18 @@ export default function TableBody({ breeds }) {
           <TD name={breed.id} />
           <TD name={breed.type} />
           <TD name={breed.species?.type} />
-          <TD>
-            <div className="flex">
-              <button
-                onClick={() => edit(breed)}
-                className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
-              >
-                Editar
-              </button>
-            </div>
-          </TD>
+          {checkRole(user) === 1 && (
+            <TD>
+              <div className="flex">
+                <button
+                  onClick={() => edit(breed)}
+                  className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
+                >
+                  Editar
+                </button>
+              </div>
+            </TD>
+          )}
         </tr>
       ))}
       <Modal

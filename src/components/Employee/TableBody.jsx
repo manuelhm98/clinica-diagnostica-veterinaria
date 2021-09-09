@@ -59,7 +59,7 @@ export default function TableBody({ employees, roles, shifts }) {
         setShowModal={setShowCP}
         title="Cambiar contraseña"
       >
-        <ChangePassword id={id} setShow={setShowCP} />
+        <ChangePassword id={id} setShowCP={setShowCP} />
       </Modal>
     </>
   );

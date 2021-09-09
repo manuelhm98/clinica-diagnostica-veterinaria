@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AddDoctor from "../pages/AddDoctor";
 import AddPatient from "../pages/AddPatient";
@@ -26,8 +26,17 @@ import VaccinationDose from "../pages/VaccinationDose";
 import ClinicalService from "../pages/ClinicalService";
 import AddClinicalService from "../pages/AddClinicalService";
 import QuoteType from "../pages/QuoteType";
+import { useDispatch, useSelector } from "react-redux";
+import { readEmployeById } from "../redux/actions/employee";
+import { checkRole } from "../utils/checkRole";
 
 export default function Routes() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.data);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   return (
     <Router>
       <Switch>
@@ -40,13 +49,17 @@ export default function Routes() {
         <Route path="/customers" exact component={Customers} />
         <Route path="/patients" exact component={Patients} />
         <Route path="/new-patient" exact component={AddPatient} />
-        <Route path="/new-doctor" exact component={AddDoctor} />
         <Route path="/service-type" exact component={ServiceType} />
-        <Route path="/doctors" exact component={Doctors} />
-        <Route path="/roles" exact component={Roles} />
-        <Route path="/shifts" exact component={Shifts} />
-        <Route path="/specialties" exact component={Specialties} />
-        <Route path="/employees" exact component={Employees} />
+        {checkRole(user?.users) === 1 && (
+          <>
+            <Route path="/employees" exact component={Employees} />
+            <Route path="/doctors" exact component={Doctors} />
+            <Route path="/new-doctor" exact component={AddDoctor} />
+            <Route path="/roles" exact component={Roles} />
+            <Route path="/shifts" exact component={Shifts} />
+            <Route path="/specialties" exact component={Specialties} />
+          </>
+        )}
         <Route path="/quotes" exact component={Quotes} />
         <Route path="/add-quote" exact component={AddQuote} />
         <Route path="/vaccination-type" exact component={VaccinationType} />

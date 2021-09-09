@@ -1,8 +1,9 @@
 import React from "react";
+import { checkRole } from "../../utils/checkRole";
 import TH from "../Global/TH";
 import TableBody from "./TableBody";
 
-export default function TableContent({ dewormingTypes }) {
+export default function TableContent({ dewormingTypes, user }) {
   return (
     <>
       <thead>
@@ -10,11 +11,11 @@ export default function TableContent({ dewormingTypes }) {
           <TH name="ID" />
           <TH name="Tipo de desparacitacion" />
           <TH name="Marca" />
-          <TH name="Acciones" />
+          {checkRole(user) === 1 && <TH name="Acciones" />}
         </tr>
       </thead>
       <tbody>
-        <TableBody dewormingTypes={dewormingTypes} />
+        <TableBody user={user} dewormingTypes={dewormingTypes} />
       </tbody>
     </>
   );

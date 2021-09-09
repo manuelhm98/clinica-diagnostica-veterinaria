@@ -7,11 +7,17 @@ import Table from "../components/Global/Table"
 import TableContent from "../components/VaccinationType/TableContent"
 import { useSelector,useDispatch } from "react-redux";
 import { readVaccinationType } from "../redux/actions/vaccination-type";
+import { readEmployeById } from "../redux/actions/employee";
 
 export default function VaccinationType() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch()
   const vaccinationTypes = useSelector((state)=>state.vaccinationType.data)
+  const user = useSelector((state) => state.user.data);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   useEffect(() => {
     return dispatch(readVaccinationType())
   }, [dispatch]);
@@ -26,7 +32,7 @@ export default function VaccinationType() {
           Agregar
         </button>
         <Table>
-          <TableContent vaccinationTypes={vaccinationTypes} />
+          <TableContent user={user?.users} vaccinationTypes={vaccinationTypes} />
         </Table>
         <Modal
           setShowModal={setShowModal}

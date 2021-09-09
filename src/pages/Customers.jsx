@@ -9,6 +9,7 @@ import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { readCustomers } from "../redux/actions/customers";
+import { readEmployeById } from "../redux/actions/employee";
 
 export default function Customers() {
   const [showModal, setShowModal] = useState(false);
@@ -17,6 +18,11 @@ export default function Customers() {
   const [page, setPage] = useState(1)
   const dispatch = useDispatch();
   const customers = useSelector((state)=>state.customer.data)
+  const user = useSelector((state) => state.user.data);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   useEffect(() => {
     return dispatch(readCustomers(name,last,page));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,7 +57,7 @@ export default function Customers() {
           <Form setShowModal={setShowModal} />
         </Modal>
         <Table>
-          <TableContent customers={customers.customers} />
+          <TableContent user={user?.users} customers={customers.customers} />
         </Table>
         <Pagination data={customers} method={setPage} />
       </div>

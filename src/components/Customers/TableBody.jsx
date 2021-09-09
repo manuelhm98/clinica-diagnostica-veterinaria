@@ -2,8 +2,9 @@ import { useState } from "react";
 import TD from "../Global/TD";
 import Modal from "../Global/Modal";
 import Form from "./Form";
+import { checkRole } from "../../utils/checkRole";
 
-export default function TableBody({ customers }) {
+export default function TableBody({ customers, user }) {
   const [customer, setCustomer] = useState();
   const [showModal, setShowModal] = useState(false);
   const edit = (customer) => {
@@ -16,10 +17,14 @@ export default function TableBody({ customers }) {
         customers?.map((cust) => (
           <tr key={cust.id}>
             <TD>
-              <span className="text-gray-600 uppercase whitespace-nowrap text-xs">{cust.names}</span>
+              <span className="text-gray-600 uppercase whitespace-nowrap text-xs">
+                {cust.names}
+              </span>
             </TD>
             <TD>
-            <span className="text-gray-600 uppercase whitespace-nowrap text-xs">{cust.lastname}</span>
+              <span className="text-gray-600 uppercase whitespace-nowrap text-xs">
+                {cust.lastname}
+              </span>
             </TD>
             <TD name={cust.cellphone !== "0" ? cust.cellphone : "N/A"} />
             <TD name={cust.phone !== "0" ? cust.phone : "N/A"} />
@@ -45,16 +50,18 @@ export default function TableBody({ customers }) {
                 </span>
               </div>
             </TD>
-            <TD>
-              <div className="flex">
-                <button
-                  onClick={() => edit(cust)}
-                  className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
-                >
-                  Editar
-                </button>
-              </div>
-            </TD>
+            {checkRole(user) === 1 && (
+              <TD>
+                <div className="flex">
+                  <button
+                    onClick={() => edit(cust)}
+                    className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
+                  >
+                    Editar
+                  </button>
+                </div>
+              </TD>
+            )}
           </tr>
         ))
       ) : (

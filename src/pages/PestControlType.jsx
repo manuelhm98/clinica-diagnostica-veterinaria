@@ -7,11 +7,17 @@ import TableContent from "../components/PestControlType/TableContent";
 import { useDispatch, useSelector } from "react-redux";
 import { readPestControlTypes } from "../redux/actions/pest-control-type";
 import Table from "../components/Global/Table";
+import { readEmployeById } from "../redux/actions/employee";
 
 export default function PestControlType() {
   const [showModal, setShowModal] = useState(false);
   const pestControlTypes = useSelector((state) => state.pestControlType.data);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.data);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   useEffect(() => {
     return dispatch(readPestControlTypes());
   }, [dispatch]);
@@ -33,7 +39,7 @@ export default function PestControlType() {
           <Form setShowModal={setShowModal} />
         </Modal>
         <Table>
-          <TableContent pestControlTypes={pestControlTypes} />
+          <TableContent user={user?.users} pestControlTypes={pestControlTypes} />
         </Table>
       </div>
     </Layout>
