@@ -50,16 +50,6 @@ export default function Routes() {
         <Route path="/patients" exact component={Patients} />
         <Route path="/new-patient" exact component={AddPatient} />
         <Route path="/service-type" exact component={ServiceType} />
-        {checkRole(user?.users) === 1 && (
-          <>
-            <Route path="/employees" exact component={Employees} />
-            <Route path="/doctors" exact component={Doctors} />
-            <Route path="/new-doctor" exact component={AddDoctor} />
-            <Route path="/roles" exact component={Roles} />
-            <Route path="/shifts" exact component={Shifts} />
-            <Route path="/specialties" exact component={Specialties} />
-          </>
-        )}
         <Route path="/quotes" exact component={Quotes} />
         <Route path="/add-quote" exact component={AddQuote} />
         <Route path="/vaccination-type" exact component={VaccinationType} />
@@ -73,6 +63,36 @@ export default function Routes() {
           component={AddClinicalService}
         />
         <Route path="/quote-type" exact component={QuoteType} />
+        <Route path="/employees" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Employees /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/doctors" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Doctors /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/new-doctor" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <AddDoctor /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/roles" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Roles /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/shifts" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Shifts /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/specialties" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Specialties /> : <Error404 />}</>
+          )}
+        </Route>
         <Route path="*" component={Error404} />
       </Switch>
     </Router>
