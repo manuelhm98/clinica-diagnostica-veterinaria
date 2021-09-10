@@ -16,6 +16,11 @@ export const employeeReducer = (state = initialState, action) => {
         ...state,
         data: action.payload,
       };
+    case types.employeeReadById:
+      return {
+        ...state,
+        data: action.payload,
+      };
     default:
       return state;
   }

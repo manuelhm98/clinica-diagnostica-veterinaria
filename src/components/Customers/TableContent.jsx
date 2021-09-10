@@ -1,8 +1,9 @@
 import React from "react";
+import { checkRole } from "../../utils/checkRole";
 import TH from "../Global/TH";
 import TableBody from "./TableBody";
 
-export default function TableContent({customers}) {
+export default function TableContent({ customers, user }) {
   return (
     <>
       <thead>
@@ -12,11 +13,11 @@ export default function TableContent({customers}) {
           <TH name="N° de celular" />
           <TH name="N° de telefono" />
           <TH name="Estado" />
-          <TH name="Acciones" />
+          {checkRole(user) === 1 && <TH name="Acciones" />}
         </tr>
       </thead>
       <tbody>
-          <TableBody customers={customers} />
+        <TableBody user={user} customers={customers} />
       </tbody>
     </>
   );

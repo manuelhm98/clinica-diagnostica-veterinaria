@@ -16,7 +16,8 @@ import { Link, NavLink, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { newLoggout } from "../../redux/actions/auth";
-const NavbarOptions = () => {
+import { checkRole } from "../../utils/checkRole";
+const NavbarOptions = ({ user }) => {
   const [showDpdw, setShowDpdw] = useState(false);
   const [showHistDpdw, setShowHistDpdw] = useState(false);
   const [showEmpDpdw, setShowEmpDpdw] = useState(false);
@@ -70,7 +71,10 @@ const NavbarOptions = () => {
   };
 
   return (
-    <div style={{position:"fixed"}} className="w-72 h-screen bg-gray-800 shadow flex-col justify-between sm:flex">
+    <div
+      style={{ position: "fixed" }}
+      className="w-72 h-screen bg-gray-800 shadow flex-col justify-between sm:flex"
+    >
       <div className="px-8">
         <p className="text-sm border-b pb-2 mt-6 font-bold text-blue-700">
           Clinica de <span style={{ color: "#5CB119" }}>Diagnostico</span>{" "}
@@ -224,36 +228,37 @@ const NavbarOptions = () => {
               </span>
             </div>
           </li>
-
-          <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
-            <div className="flex items-center">
-              <span onClick={handleShowDoctors} className="text-base  ml-2">
-                <FontAwesomeIcon icon={faUserMd} /> Doctores{" "}
-                {showDocDpdw ? (
-                  <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
-                ) : (
-                  <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
-                )}
-                <ul
-                  className={
-                    "transition-all duration-700 text-white px-6 " +
-                    (showDocDpdw ? "block" : "hidden")
-                  }
-                >
-                  <Link to="/specialties">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Especialidades</span>
-                    </li>
-                  </Link>
-                  <Link to="/doctors">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Doctores</span>
-                    </li>
-                  </Link>
-                </ul>
-              </span>
-            </div>
-          </li>
+          {checkRole(user) === 1 && (
+            <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+              <div className="flex items-center">
+                <span onClick={handleShowDoctors} className="text-base  ml-2">
+                  <FontAwesomeIcon icon={faUserMd} /> Doctores{" "}
+                  {showDocDpdw ? (
+                    <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
+                  ) : (
+                    <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
+                  )}
+                  <ul
+                    className={
+                      "transition-all duration-700 text-white px-6 " +
+                      (showDocDpdw ? "block" : "hidden")
+                    }
+                  >
+                    <Link to="/specialties">
+                      <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                        <span>● Especialidades</span>
+                      </li>
+                    </Link>
+                    <Link to="/doctors">
+                      <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                        <span>● Doctores</span>
+                      </li>
+                    </Link>
+                  </ul>
+                </span>
+              </div>
+            </li>
+          )}
           <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
             <div className="flex items-center">
               <span className="text-base  ml-2">
@@ -261,40 +266,42 @@ const NavbarOptions = () => {
               </span>
             </div>
           </li>
-          <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
-            <div className="flex items-center">
-              <span onClick={handleShowEmpleado} className="text-base  ml-2">
-                <FontAwesomeIcon icon={faUserTie} /> Empleados
-                {showEmpDpdw ? (
-                  <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
-                ) : (
-                  <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
-                )}
-                <ul
-                  className={
-                    "transition-all duration-700 text-white px-6 " +
-                    (showEmpDpdw ? "block" : "hidden")
-                  }
-                >
-                  <Link to="/shifts">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Turnos</span>
-                    </li>
-                  </Link>
-                  <Link to="/roles">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Roles</span>
-                    </li>
-                  </Link>
-                  <Link to="/employees">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Empleados</span>
-                    </li>
-                  </Link>
-                </ul>
-              </span>
-            </div>
-          </li>
+          {checkRole(user) === 1 && (
+            <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+              <div className="flex items-center">
+                <span onClick={handleShowEmpleado} className="text-base  ml-2">
+                  <FontAwesomeIcon icon={faUserTie} /> Empleados
+                  {showEmpDpdw ? (
+                    <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
+                  ) : (
+                    <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
+                  )}
+                  <ul
+                    className={
+                      "transition-all duration-700 text-white px-6 " +
+                      (showEmpDpdw ? "block" : "hidden")
+                    }
+                  >
+                    <Link to="/shifts">
+                      <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                        <span>● Turnos</span>
+                      </li>
+                    </Link>
+                    <Link to="/roles">
+                      <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                        <span>● Roles</span>
+                      </li>
+                    </Link>
+                    <Link to="/employees">
+                      <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                        <span>● Empleados</span>
+                      </li>
+                    </Link>
+                  </ul>
+                </span>
+              </div>
+            </li>
+          )}
           <li
             onClick={handleLoggout}
             className="flex w-full justify-between text-gray-300 cursor-pointer items-center"

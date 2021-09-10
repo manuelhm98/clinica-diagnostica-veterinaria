@@ -3,22 +3,42 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { Success } from "../../Global/Alerts/Success";
+import { Error } from "../../Global/Alerts/Error";
 import { addNewQuoteType } from "../../../services/quote-type";
 import { addQuoteType } from "../../../redux/actions/quote-type";
+import { putQuoteType } from "../../../services/quote-type";
 
-export default function Form({ setShowModal }) {
+export default function Form({ setShowModal, qtype }) {
   const dispatch = useDispatch();
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(qtype),
     validationSchema: Yup.object({
-      type: Yup.string().required("El nombre del tipo de consulta es requerido"),
+      type: Yup.string().required(
+        "El nombre del tipo de consulta es requerido"
+      ),
     }),
     onSubmit: (values) => {
-      addNewQuoteType(values).then(() => {
-        dispatch(addQuoteType(values));
-        setShowModal(false);
-        Success("Se agrego el tipo de servicio");
-      });
+      if (qtype) {
+        putQuoteType(values, qtype?.id)
+          .then(() => {
+            dispatch(addQuoteType(values));
+            setShowModal(false);
+            Success("Se actualizo el tipo de servicio");
+          })
+          .catch(() => {
+            Error("Ah ocurrido un error inesperado");
+          });
+        return;
+      }
+      addNewQuoteType(values)
+        .then(() => {
+          dispatch(addQuoteType(values));
+          setShowModal(false);
+          Success("Se agrego el tipo de servicio");
+        })
+        .catch(() => {
+          Error("Ah ocurrido un error inesperado");
+        });
     },
   });
   return (
@@ -31,6 +51,7 @@ export default function Form({ setShowModal }) {
             name="type"
             onChange={formik.handleChange}
             placeholder="Ingresa el nombre del tipo de consulta"
+            defaultValue={qtype && qtype?.type}
             className={
               "w-80 border p-1 text-sm rounded text-gray-500 px-2 outline-none hover:border-green-400 " +
               (formik.errors.type && formik.touched.type
@@ -48,15 +69,15 @@ export default function Form({ setShowModal }) {
           type="submit"
           className="bg-blue-600 mt-4 w-full text-white rounded px-12 py-1 text-xs"
         >
-          Agregar
+          {qtype ? "Actualizar" : "Agregar"}
         </button>
       </form>
     </div>
   );
 }
 
-function initialValues() {
+function initialValues(qtype) {
   return {
-    type: "",
+    type: "" || qtype?.type,
   };
 }

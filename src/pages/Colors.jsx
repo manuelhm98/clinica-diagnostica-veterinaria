@@ -9,6 +9,7 @@ import Layout from "../layout/Layout";
 import { readColors } from "../redux/actions/colors";
 import Pagination from "../components/Global/Pagination";
 import InputSearch from "../components/Global/InputSearch";
+import { readEmployeById } from "../redux/actions/employee";
 
 export default function Colors() {
   const [showModal, setShowModal] = useState(false);
@@ -16,7 +17,11 @@ export default function Colors() {
   const [type, setType] = useState();
   const dispatch = useDispatch();
   const colors = useSelector((state) => state.color.data);
-
+  const user = useSelector((state) => state.user.data);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   useEffect(() => {
     return dispatch(readColors(page, type));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,6 +57,7 @@ export default function Colors() {
           <TableContent
             setShowModal={setShowModal}
             showModal={showModal}
+            user={user?.users}
             colors={colors.color}
           />
         </Table>

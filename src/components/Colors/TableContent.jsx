@@ -1,21 +1,20 @@
 import React from "react";
+import { checkRole } from "../../utils/checkRole";
 import TH from "../Global/TH";
 import TableBody from "./TableBody";
 
-export default function TableContent({ colors}) {
+export default function TableContent({ colors, user }) {
   return (
     <>
       <thead>
         <tr>
           <TH name="ID" />
           <TH name="Nombre" />
-          <TH name="Acciones" />
+          {checkRole(user) === 1 && <TH name="Acciones" />}
         </tr>
       </thead>
       <tbody>
-        <TableBody
-          colors={colors}
-        />
+        <TableBody user={user} colors={colors} />
       </tbody>
     </>
   );

@@ -5,11 +5,10 @@ import * as Yup from "yup";
 import { addNewCustomer, putCustomer } from "../../services/customers";
 import { addCustomer } from "../../redux/actions/customers";
 import { Success } from "../Global/Alerts/Success";
+import { Error } from "../Global/Alerts/Error";
 
 export default function Form({ setShowModal, customer }) {
   const dispatch = useDispatch();
-  const phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const formik = useFormik({
     initialValues: initialValues(customer),
     validationSchema: Yup.object({
@@ -31,7 +30,11 @@ export default function Form({ setShowModal, customer }) {
         });
         return;
       }
-      addNewCustomer(values).then(() => {
+      addNewCustomer(values).then((res) => {
+        if (!res.ok) {
+          Error(res.msg);
+          return;
+        }
         dispatch(addCustomer(values));
         setShowModal(false);
         Success("Se agrego el cliente");
@@ -134,7 +137,9 @@ export default function Form({ setShowModal, customer }) {
             name="phone"
             onChange={formik.handleChange}
             placeholder="Ingresa el numero de telefono"
-            defaultValue={customer && customer?.phone !== "0" ? customer?.phone : ""}
+            defaultValue={
+              customer && customer?.phone !== "0" ? customer?.phone : ""
+            }
             className={
               "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.phone && formik.touched.phone
@@ -155,7 +160,9 @@ export default function Form({ setShowModal, customer }) {
             name="email"
             onChange={formik.handleChange}
             placeholder="Ingresa el correo electronico"
-            defaultValue={customer && customer?.email !== " " ? customer?.email : ""}
+            defaultValue={
+              customer && customer?.email !== " " ? customer?.email : ""
+            }
             className={
               "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.email && formik.touched.email

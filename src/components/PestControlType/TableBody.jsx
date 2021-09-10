@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { checkRole } from "../../utils/checkRole";
 import Modal from "../Global/Modal";
 import TD from "../Global/TD";
 import Form from "./Form";
 
-export default function TableBody({ pestControlTypes }) {
+export default function TableBody({ pestControlTypes,user }) {
   const [showModal, setShowModal] = useState(false);
   const [ptype, setPtype] = useState();
   const handleEdit = (ptype) => {
@@ -17,16 +18,18 @@ export default function TableBody({ pestControlTypes }) {
           <tr key={pctype.id}>
             <TD name={pctype.id} />
             <TD name={pctype.type} />
-            <TD>
-              <div className="flex">
-                <button
-                  onClick={() => handleEdit(pctype)}
-                  className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
-                >
-                  Editar
-                </button>
-              </div>
-            </TD>
+            {checkRole(user) === 1 && (
+              <TD>
+                <div className="flex">
+                  <button
+                    onClick={() => handleEdit(pctype)}
+                    className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
+                  >
+                    Editar
+                  </button>
+                </div>
+              </TD>
+            )}
           </tr>
         ))}
       <Modal

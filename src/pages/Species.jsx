@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { readSpecies } from "../redux/actions/species";
 import Pagination from "../components/Global/Pagination"
 import InputSearch from "../components/Global/InputSearch";
+import { readEmployeById } from "../redux/actions/employee";
 
 export default function Species() {
   const [showModal, setShowModal] = useState(false);
@@ -16,6 +17,11 @@ export default function Species() {
   const [type, setType] = useState("")
   const dispatch = useDispatch();
   const species = useSelector((state) => state.specie.data);
+  const user = useSelector((state) => state.user.data);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   useEffect(() => {
     return dispatch(readSpecies(page,type));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,7 +50,7 @@ export default function Species() {
           <Form setShowModal={setShowModal} />
         </Modal>
         <Table>
-          <TableContent species={species} />
+          <TableContent user={user} species={species} />
         </Table>
         <Pagination data={species} method={setPage}/>
       </div>

@@ -9,6 +9,7 @@ import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { readBreeds } from "../redux/actions/breeds";
+import { readEmployeById } from "../redux/actions/employee";
 import { listSpecies } from "../redux/actions/species";
 
 export default function Breeds() {
@@ -18,6 +19,11 @@ export default function Breeds() {
   const dispatch = useDispatch();
   const breeds = useSelector((state) => state.breed.data);
   const species = useSelector((state) => state.specie.data);
+  const user = useSelector((state) => state.user.data);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   useEffect(() => {
     dispatch(readBreeds(page, type));
     dispatch(listSpecies());
@@ -48,7 +54,7 @@ export default function Breeds() {
           <Form setShowModal={setShowModal} species={species} />
         </Modal>
         <Table>
-          <TableContent breeds={breeds} />
+          <TableContent user={user?.users} breeds={breeds} />
         </Table>
         <Pagination method={setPage} data={breeds} />
       </div>

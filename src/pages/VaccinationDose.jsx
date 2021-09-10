@@ -7,11 +7,17 @@ import Title from "../components/Global/Title";
 import Form from "../components/VaccinationDose/Form";
 import Layout from "../layout/Layout";
 import { readVaccinationDose } from "../redux/actions/vaccination-dose";
+import { readEmployeById } from "../redux/actions/employee";
 
 export default function VaccinationDose() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const vaccinationDoses = useSelector((state) => state.vaccinationDose.data);
+  const user = useSelector((state) => state.user.data);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   useEffect(() => {
     return dispatch(readVaccinationDose());
   }, [dispatch]);
@@ -29,7 +35,7 @@ export default function VaccinationDose() {
             <Form setShowModal={setShowModal}/>
         </Modal>
         <Table>
-            <TableContent vaccinationDoses={vaccinationDoses}/>
+            <TableContent user={user?.users} vaccinationDoses={vaccinationDoses}/>
         </Table>
       </div>
     </Layout>

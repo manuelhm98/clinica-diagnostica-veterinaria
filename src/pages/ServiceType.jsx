@@ -11,6 +11,7 @@ import {
 } from "../redux/actions/service-type";
 import InputSearch from "../components/Global/InputSearch";
 import Pagination from "../components/Global/Pagination";
+import { readEmployeById } from "../redux/actions/employee";
 
 export default function ServiceType() {
   const [showModal, setShowModal] = useState(false);
@@ -18,6 +19,11 @@ export default function ServiceType() {
   const [type, setType] = useState("");
   const dispatch = useDispatch();
   const serviceTypes = useSelector((state) => state.serviceType.data);
+  const user = useSelector((state) => state.user.data);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   useEffect(() => {
     dispatch(readPaginServiceTypes(page, type));
     return;
@@ -41,7 +47,7 @@ export default function ServiceType() {
           Agregar
         </button>
         <Table>
-          <TableContent serviceTypes={serviceTypes} />
+          <TableContent user={user?.users} serviceTypes={serviceTypes} />
         </Table>
         <Pagination data={serviceTypes} method={setPage} />
         <Modal

@@ -7,11 +7,17 @@ import Modal from "../components/Global/Modal";
 import Form from "../components/DewormingType/Form";
 import Table from "../components/Global/Table"
 import TableContent from "../components/DewormingType/TableContent";
+import { readEmployeById } from "../redux/actions/employee";
 
 export default function DewormingType() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const dewormingTypes = useSelector((state) => state.dewormingType.data);
+  const user = useSelector((state) => state.user.data);
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   useEffect(() => {
     return dispatch(readDewormingType());
   }, [dispatch]);
@@ -26,7 +32,7 @@ export default function DewormingType() {
           Agregar
         </button>
         <Table>
-          <TableContent dewormingTypes={dewormingTypes}/>
+          <TableContent user={user?.users} dewormingTypes={dewormingTypes}/>
         </Table>
         <Modal
           setShowModal={setShowModal}
