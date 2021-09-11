@@ -107,31 +107,35 @@ const NavbarOptions = ({ user }) => {
                     (showDpdw ? "block" : "hidden")
                   }
                 >
-                  <Link to="/colors">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Colores</span>
-                    </li>
-                  </Link>
-                  <Link to="/sexes">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Sexos</span>
-                    </li>
-                  </Link>
-                  <Link to="/pat-type">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Tipos de paciente</span>
-                    </li>
-                  </Link>
-                  <Link to="/species">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Especies</span>
-                    </li>
-                  </Link>
-                  <Link to="/breeds">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Razas</span>
-                    </li>
-                  </Link>
+                  {checkRole(user) === 1 && (
+                    <>
+                      <Link to="/colors">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Colores</span>
+                        </li>
+                      </Link>
+                      <Link to="/sexes">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Sexos</span>
+                        </li>
+                      </Link>
+                      <Link to="/pat-type">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Tipos de paciente</span>
+                        </li>
+                      </Link>
+                      <Link to="/species">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Especies</span>
+                        </li>
+                      </Link>
+                      <Link to="/breeds">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Razas</span>
+                        </li>
+                      </Link>
+                    </>
+                  )}
                   <Link to="/patients">
                     <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
                       <span>● Pacientes</span>
@@ -141,6 +145,7 @@ const NavbarOptions = ({ user }) => {
               </span>
             </div>
           </li>
+
           <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
             <Link to="/customers">
               <div className="flex items-center">
@@ -150,6 +155,7 @@ const NavbarOptions = ({ user }) => {
               </div>
             </Link>
           </li>
+
           <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
             <div className="flex items-center">
               <span onClick={handleShowHistorial} className="text-base  ml-2">
@@ -165,36 +171,40 @@ const NavbarOptions = ({ user }) => {
                     (showHistDpdw ? "block" : "hidden")
                   }
                 >
-                  <Link to="/quote-type">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Tipos de consulta</span>
-                    </li>
-                  </Link>
                   <Link to="/quotes">
                     <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
                       <span>● Consultas</span>
                     </li>
                   </Link>
-                  <Link to="/vaccination-type">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Tipo de vacunacion</span>
-                    </li>
-                  </Link>
-                  <Link to="/vaccination-dose">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Dosis de vacunacion</span>
-                    </li>
-                  </Link>
-                  <Link to="/pest-control-type">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Tipo de control de plagas</span>
-                    </li>
-                  </Link>
-                  <Link to="/deworming-type">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Tipo de desparacitacion</span>
-                    </li>
-                  </Link>
+                  {checkRole(user) === 1 && (
+                    <>
+                      <Link to="/quote-type">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Tipos de consulta</span>
+                        </li>
+                      </Link>
+                      <Link to="/vaccination-type">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Tipo de vacunacion</span>
+                        </li>
+                      </Link>
+                      <Link to="/vaccination-dose">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Dosis de vacunacion</span>
+                        </li>
+                      </Link>
+                      <Link to="/pest-control-type">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Tipo de control de plagas</span>
+                        </li>
+                      </Link>
+                      <Link to="/deworming-type">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Tipo de desparacitacion</span>
+                        </li>
+                      </Link>
+                    </>
+                  )}
                 </ul>
               </span>
             </div>
@@ -214,11 +224,13 @@ const NavbarOptions = ({ user }) => {
                     (showServCli ? "block" : "hidden")
                   }
                 >
-                  <Link to="/service-type">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Tipos de Servicio</span>
-                    </li>
-                  </Link>
+                  {checkRole(user) === 1 && (
+                    <Link to="/service-type">
+                      <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                        <span>● Tipos de Servicio</span>
+                      </li>
+                    </Link>
+                  )}
                   <Link to="/clinical-service">
                     <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
                       <span>● Servicios Clinicos</span>
