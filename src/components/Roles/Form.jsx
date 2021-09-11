@@ -3,17 +3,25 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { Success } from "../Global/Alerts/Success";
-import { addNewRole } from "../../services/role";
+import { addNewRole, putRole } from "../../services/role";
 import { addRole } from "../../redux/actions/role";
 
-export default function Form({ setShowModal }) {
+export default function Form({ setShowModal, rol }) {
   const dispatch = useDispatch();
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(rol),
     validationSchema: Yup.object({
       rol: Yup.string().required("El nombre del rol es requerido"),
     }),
     onSubmit: (values) => {
+      if (rol) {
+        putRole(values, rol?.id).then(() => {
+          dispatch(addRole(values));
+          setShowModal(false);
+          Success("Se actualizo el rol");
+        });
+        return;
+      }
       addNewRole(values).then(() => {
         dispatch(addRole(values));
         setShowModal(false);
@@ -31,6 +39,7 @@ export default function Form({ setShowModal }) {
             name="rol"
             onChange={formik.handleChange}
             placeholder="Ingresa el nombre del rol"
+            defaultValue={rol && rol?.rol}
             className={
               "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.rol && formik.touched.rol
@@ -48,15 +57,15 @@ export default function Form({ setShowModal }) {
           type="submit"
           className="bg-blue-600 mt-4 w-full text-white rounded px-12 py-1 text-xs"
         >
-         Agregar
+          {rol ? "Actualizar" : "Agregar"}
         </button>
       </form>
     </div>
   );
 }
 
-function initialValues() {
+function initialValues(rol) {
   return {
-    rol: ""
+    rol: "" || rol?.rol,
   };
 }
