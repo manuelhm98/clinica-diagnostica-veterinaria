@@ -19,3 +19,15 @@ export const getAllRoles = async () => {
   });
   return response.json();
 };
+
+export const putRole = async (data, id) => {
+  const response = await fetch(`${API_HOST}/roles/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      token: getToken(),
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};

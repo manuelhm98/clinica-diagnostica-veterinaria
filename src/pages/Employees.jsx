@@ -10,6 +10,7 @@ import { readRoles } from "../redux/actions/role";
 import { readShifts } from "../redux/actions/shifts";
 import { readEmployees } from "../redux/actions/employee";
 import Pagination from "../components/Global/Pagination";
+import AddForm from "../components/Employee/AddForm";
 
 export default function Employees() {
   const [showModal, setShowModal] = useState(false);
@@ -27,14 +28,14 @@ export default function Employees() {
     <Layout>
       <div className="p-8 flex flex-col">
         <Title name="Listado de empleados" />
-       <div className="w-full">
-       <button
-          onClick={() => setShowModal(true)}
-          className="bg-blue-600 text-white px-8 ml-4 float-right text-xs py-1 rounded"
-        >
-          Agregar
-        </button>
-       </div>
+        <div className="w-full">
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-blue-600 text-white px-8 ml-4 float-right text-xs py-1 rounded"
+          >
+            Agregar
+          </button>
+        </div>
 
         <Table>
           <TableContent roles={roles} shifts={shifts} employees={employees} />
@@ -45,7 +46,7 @@ export default function Employees() {
           setShowModal={setShowModal}
           title="Agregar empleado"
         >
-          <Form setShowModal={setShowModal} roles={roles} shifts={shifts} />
+          <AddForm setShowModal={setShowModal} roles={roles} shifts={shifts} />
         </Modal>
         <Pagination data={employees} method={setPage} />
       </div>
