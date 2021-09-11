@@ -3,17 +3,25 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { Success } from "../Global/Alerts/Success";
-import { addNewShift } from "../../services/shifts";
+import { addNewShift, putShift } from "../../services/shifts";
 import { addShift } from "../../redux/actions/shifts";
 
-export default function Form({ setShowModal }) {
+export default function Form({ setShowModal, shift }) {
   const dispatch = useDispatch();
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(shift),
     validationSchema: Yup.object({
       type: Yup.string().required("El nombre del turno es requerido"),
     }),
     onSubmit: (values) => {
+      if (shift) {
+        putShift(values, shift?.id).then(() => {
+          dispatch(addShift(values));
+          setShowModal(false);
+          Success("Se actualizo el turno");
+        });
+        return;
+      }
       addNewShift(values).then(() => {
         dispatch(addShift(values));
         setShowModal(false);
@@ -31,6 +39,7 @@ export default function Form({ setShowModal }) {
             name="type"
             onChange={formik.handleChange}
             placeholder="Ingresa el nombre del turno"
+            defaultValue={shift && shift?.type}
             className={
               "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.type && formik.touched.type
@@ -48,15 +57,15 @@ export default function Form({ setShowModal }) {
           type="submit"
           className="bg-blue-600 mt-4 w-full text-white rounded px-12 py-1 text-xs"
         >
-         Agregar
+          {shift ? "Actualizar" : "Agregar"}
         </button>
       </form>
     </div>
   );
 }
 
-function initialValues() {
+function initialValues(shift) {
   return {
-    type: ""
+    type: "" || shift?.type,
   };
 }

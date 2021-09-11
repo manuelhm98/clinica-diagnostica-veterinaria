@@ -2,20 +2,32 @@ import React from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { addNewPatType } from "../../services/pat-type";
+import { addNewPatType, putPatType } from "../../services/pat-type";
 import { addPatType } from "../../redux/actions/pat-type";
+import { Success } from "../Global/Alerts/Success";
 
-export default function Form({ setShowModal }) {
+export default function Form({ setShowModal, patType }) {
   const dispatch = useDispatch();
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(patType),
     validationSchema: Yup.object({
-      type: Yup.string().required("El nombre del tipo de paciente es requerido"),
+      type: Yup.string().required(
+        "El nombre del tipo de paciente es requerido"
+      ),
     }),
     onSubmit: (values) => {
+      if (patType) {
+        putPatType(values, patType?.id).then(() => {
+          dispatch(addPatType(values));
+          setShowModal(false);
+          Success("Se actualizo el tipo de paciente");
+        });
+        return;
+      }
       addNewPatType(values).then(() => {
         dispatch(addPatType(values));
-        setShowModal(false)
+        setShowModal(false);
+        Success("Se agrego  el tipo de paciente");
       });
     },
   });
@@ -29,6 +41,7 @@ export default function Form({ setShowModal }) {
             name="type"
             onChange={formik.handleChange}
             placeholder="Ingresa el nombre del tipo de paciente"
+            defaultValue={patType && patType?.type}
             className={
               "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.type && formik.touched.type
@@ -46,15 +59,15 @@ export default function Form({ setShowModal }) {
           type="submit"
           className="bg-blue-600 mt-4 w-full text-white rounded px-12 py-1 text-xs"
         >
-          Agregar
+          {patType ? "Actualizar" : "Agregar"}
         </button>
       </form>
     </div>
   );
 }
 
-function initialValues() {
+function initialValues(patType) {
   return {
-    type: "",
+    type: "" || patType?.type,
   };
 }

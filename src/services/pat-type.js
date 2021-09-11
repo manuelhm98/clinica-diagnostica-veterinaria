@@ -19,3 +19,15 @@ export const getAllPatTypes = async () => {
   });
   return response.json();
 };
+
+export const putPatType = async (data,id) => {
+  const response = await fetch(`${API_HOST}/patiensType/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      token: getToken(),
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};

@@ -50,7 +50,7 @@ export default function Species() {
           <Form setShowModal={setShowModal} />
         </Modal>
         <Table>
-          <TableContent user={user} species={species} />
+          <TableContent user={user?.users} species={species} />
         </Table>
         <Pagination data={species} method={setPage}/>
       </div>

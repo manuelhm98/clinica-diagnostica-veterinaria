@@ -9,6 +9,7 @@ export default function TableContent({shifts}) {
           <tr>
             <TH name="ID" />
             <TH name="Turno" />
+            <TH name="Acciones" />
           </tr>
         </thead>
         <tbody>
