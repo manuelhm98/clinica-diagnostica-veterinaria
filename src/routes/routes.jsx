@@ -41,21 +41,81 @@ export default function Routes() {
     <Router>
       <Switch>
         <Route path="/" exact component={Patients} />
-        <Route path="/breeds" exact component={Breeds} />
-        <Route path="/species" exact component={Species} />
-        <Route path="/colors" exact component={Colors} />
-        <Route path="/sexes" exact component={Sexes} />
-        <Route path="/pat-type" exact component={PatType} />
+        <Route path="/breeds" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Breeds /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/species" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Species /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/colors" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Colors /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/sexes" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Sexes /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/pat-type" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <PatType /> : <Error404 />}</>
+          )}
+        </Route>
         <Route path="/customers" exact component={Customers} />
         <Route path="/patients" exact component={Patients} />
         <Route path="/new-patient" exact component={AddPatient} />
-        <Route path="/service-type" exact component={ServiceType} />
+        <Route path="/service-type" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <ServiceType /> : <Error404 />}</>
+          )}
+        </Route>
         <Route path="/quotes" exact component={Quotes} />
         <Route path="/add-quote" exact component={AddQuote} />
-        <Route path="/vaccination-type" exact component={VaccinationType} />
-        <Route path="/deworming-type" exact component={DewormingType} />
-        <Route path="/pest-control-type" exact component={PestControlType} />
-        <Route path="/vaccination-dose" exact component={VaccinationDose} />
+        <Route path="/vaccination-type" exact>
+          {user?.users && (
+            <>
+              {checkRole(user?.users) === 1 ? (
+                <VaccinationType />
+              ) : (
+                <Error404 />
+              )}
+            </>
+          )}
+        </Route>
+        <Route path="/deworming-type" exact>
+          {user?.users && (
+            <>
+              {checkRole(user?.users) === 1 ? <DewormingType /> : <Error404 />}
+            </>
+          )}
+        </Route>
+        <Route path="/pest-control-type" exact>
+          {user?.users && (
+            <>
+              {checkRole(user?.users) === 1 ? (
+                <PestControlType />
+              ) : (
+                <Error404 />
+              )}
+            </>
+          )}
+        </Route>
+        <Route path="/vaccination-dose" exact>
+          {user?.users && (
+            <>
+              {checkRole(user?.users) === 1 ? (
+                <VaccinationDose />
+              ) : (
+                <Error404 />
+              )}
+            </>
+          )}
+        </Route>
         <Route path="/clinical-service" exact component={ClinicalService} />
         <Route
           path="/add-clinical-service"
