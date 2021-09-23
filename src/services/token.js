@@ -31,5 +31,5 @@ export const isUserLoggedApi = () => {
     removeToken();
     return false;
   }
-  return jwtDecode(token);
+  return true;
 };

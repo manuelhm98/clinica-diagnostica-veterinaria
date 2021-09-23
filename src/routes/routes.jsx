@@ -40,7 +40,7 @@ export default function Routes() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact component={Patients} />
+        <Route path="/" exact component={Home} />
         <Route path="/breeds" exact>
           {user?.users && (
             <>{checkRole(user?.users) === 1 ? <Breeds /> : <Error404 />}</>
