@@ -26,9 +26,14 @@ import VaccinationDose from "../pages/VaccinationDose";
 import ClinicalService from "../pages/ClinicalService";
 import AddClinicalService from "../pages/AddClinicalService";
 import QuoteType from "../pages/QuoteType";
+import Brand from "../pages/Brand";
 import { useDispatch, useSelector } from "react-redux";
 import { readEmployeById } from "../redux/actions/employee";
 import { checkRole } from "../utils/checkRole";
+import BrandType from "../pages/BrandType";
+import Vendors from "../pages/Vendors";
+import Category from "../pages/Category";
+import Product from "../pages/Product";
 
 export default function Routes() {
   const dispatch = useDispatch();
@@ -153,6 +158,11 @@ export default function Routes() {
             <>{checkRole(user?.users) === 1 ? <Specialties /> : <Error404 />}</>
           )}
         </Route>
+        <Route path="/brand" exact component={Brand} />
+        <Route path="/brand-type" exact component={BrandType} />
+        <Route path="/vendors" exact component={Vendors} />
+        <Route path="/category" exact component={Category} />
+        <Route path="/product" exact component={Product} />
         <Route path="*" component={Error404} />
       </Switch>
     </Router>

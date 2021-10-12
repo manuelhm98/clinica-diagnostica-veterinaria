@@ -4,7 +4,7 @@ import Form from "../components/Breeds/Form";
 import TableContent from "../components/Breeds/TableContent";
 import InputSearch from "../components/Global/InputSearch";
 import Modal from "../components/Global/Modal";
-import Pagination from "../components/Global/Pagination";
+import Pagination from "../components/Global/Pag";
 import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
@@ -29,11 +29,12 @@ export default function Breeds() {
     dispatch(listSpecies());
     return;
   }, [dispatch, page, type]);
+  console.log(breeds);
   return (
     <Layout>
       <div className="p-8">
         <Title name="Listado de razas" />
-        <div style={{width:"70%"}}>
+        <div style={{ width: "70%" }}>
           <InputSearch
             label="Buscar por el nombre de la raza"
             placeholder="Escribe el nombre de la raza....."
@@ -56,7 +57,14 @@ export default function Breeds() {
         <Table>
           <TableContent user={user?.users} breeds={breeds} />
         </Table>
-        <Pagination method={setPage} data={breeds} />
+        <Pagination
+        last={breeds?.totalpages}
+          className="pagination-bar"
+          onPageChange={setPage}
+          totalCount={breeds?.totalItems}
+          currentPage={breeds?.currentPage}
+          pageSize={10}
+        />
       </div>
     </Layout>
   );
