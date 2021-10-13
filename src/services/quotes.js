@@ -15,7 +15,7 @@ export const addNewQuote = async (data) => {
 
 export const getAllQuotes = async (page, patient) => {
   const response = await fetch(
-    `${API_HOST}/quotes/list?page=${page}&namePatients=${patient}&limit=${10}`,
+    `${API_HOST}/quotes/list?page=${page}&namePatients=${patient}&limit=${25}`,
     { headers: { token: getToken() } }
   );
   return response.json();

@@ -2,8 +2,6 @@ import { useEffect } from "react";
 import NavbarOptions from "../components/Layout/NavbarOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { readEmployeById } from "../redux/actions/employee";
-import { checkRole } from "../utils/checkRole";
-
 export default function Layout({ children }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);

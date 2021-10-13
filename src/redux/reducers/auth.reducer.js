@@ -1,7 +1,7 @@
-import { isUserLoggedApi } from "../../services/token";
+import { decodeToken, isUserLoggedApi, getToken } from "../../services/token";
 import { types } from "../types";
 
-const user = isUserLoggedApi() ? isUserLoggedApi() : undefined;
+const user = isUserLoggedApi() ? decodeToken(getToken()) : undefined;
 const initialState = isUserLoggedApi()
   ? { isLoggedIn: true, user }
   : { isLoggedIn: false, user: undefined };

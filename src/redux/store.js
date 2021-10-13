@@ -22,6 +22,10 @@ import { vaccinationDoseReducer } from "./reducers/vaccination-dose.reducer";
 import { clinicalServiceReducer } from "./reducers/clinical-service.reducer";
 import { quoteTypeReducer } from "./reducers/quote-types.reducer";
 import { userReducer } from "./reducers/employe.reducer";
+import { vendorReducer } from "./reducers/vendors.reducer";
+import { brandReducer } from "./reducers/brand.reducer";
+import { categoryReducer } from "./reducers/category.reducer";
+import { productReducer } from "./reducers/product.reducer";
 
 const reducers = combineReducers({
   breed: breedReducer,
@@ -46,6 +50,10 @@ const reducers = combineReducers({
   vaccinationDose: vaccinationDoseReducer,
   clinicalService: clinicalServiceReducer,
   quoteType: quoteTypeReducer,
+  vendor: vendorReducer,
+  brand: brandReducer,
+  category: categoryReducer,
+  product:productReducer
 });
 
 const composeEnhancers =

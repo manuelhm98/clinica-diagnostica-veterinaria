@@ -22,7 +22,7 @@ const NavbarOptions = ({ user }) => {
   const [showHistDpdw, setShowHistDpdw] = useState(false);
   const [showEmpDpdw, setShowEmpDpdw] = useState(false);
   const [showDocDpdw, setShowDocDpdw] = useState(false);
-  const [showServCli, setShowServCli] = useState(false);
+  const [showPetDpw, setShowPetDpw] = useState(false);
   const dispatch = useDispatch();
   const router = useHistory();
   const handleLoggout = () => {
@@ -35,7 +35,7 @@ const NavbarOptions = ({ user }) => {
     setShowHistDpdw(false);
     setShowEmpDpdw(false);
     setShowDocDpdw(false);
-    setShowServCli(false);
+    setShowPetDpw(false);
   };
 
   const handleShowHistorial = () => {
@@ -43,7 +43,7 @@ const NavbarOptions = ({ user }) => {
     setShowHistDpdw(!showHistDpdw);
     setShowEmpDpdw(false);
     setShowDocDpdw(false);
-    setShowServCli(false);
+    setShowPetDpw(false);
   };
 
   const handleShowEmpleado = () => {
@@ -51,7 +51,7 @@ const NavbarOptions = ({ user }) => {
     setShowHistDpdw(false);
     setShowEmpDpdw(!showEmpDpdw);
     setShowDocDpdw(false);
-    setShowServCli(false);
+    setShowPetDpw(false);
   };
 
   const handleShowDoctors = () => {
@@ -59,15 +59,15 @@ const NavbarOptions = ({ user }) => {
     setShowHistDpdw(false);
     setShowEmpDpdw(false);
     setShowDocDpdw(!showDocDpdw);
-    setShowServCli(false);
+    setShowPetDpw(false);
   };
 
-  const handleShowCliServ = () => {
+  const handleShowPet = () => {
     setShowDpdw(false);
     setShowHistDpdw(false);
     setShowEmpDpdw(false);
     setShowDocDpdw(false);
-    setShowServCli(!showServCli);
+    setShowPetDpw(!showPetDpw);
   };
 
   return (
@@ -81,14 +81,14 @@ const NavbarOptions = ({ user }) => {
           <span>Veterinario</span>
         </p>
         <ul className="mt-12">
-          <li className="flex w-full justify-between  hover:text-gray-500 cursor-pointer items-center mb-6">
+          <li className="flex w-full justify-between cursor-pointer items-center mb-6">
             <div className="flex items-center text-base">
-              <NavLink to="/" className="text-gray-300">
+              <Link to="/" className="text-gray-300">
                 <span className=" ml-2">
                   {" "}
                   <FontAwesomeIcon icon={faHome} /> Inicio
                 </span>
-              </NavLink>
+              </Link>
             </div>
           </li>
 
@@ -209,37 +209,6 @@ const NavbarOptions = ({ user }) => {
               </span>
             </div>
           </li>
-          <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
-            <div className="flex items-center">
-              <span onClick={handleShowCliServ} className="text-base  ml-2">
-                <FontAwesomeIcon icon={faStethoscope} /> Servicios Clinicos{" "}
-                {showServCli ? (
-                  <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
-                ) : (
-                  <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
-                )}
-                <ul
-                  className={
-                    "transition-all duration-700 mt-1 text-white px-3 " +
-                    (showServCli ? "block" : "hidden")
-                  }
-                >
-                  {checkRole(user) === 1 && (
-                    <Link to="/service-type">
-                      <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                        <span>● Tipos de Servicio</span>
-                      </li>
-                    </Link>
-                  )}
-                  <Link to="/clinical-service">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Servicios Clinicos</span>
-                    </li>
-                  </Link>
-                </ul>
-              </span>
-            </div>
-          </li>
           {checkRole(user) === 1 && (
             <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
               <div className="flex items-center">
@@ -273,8 +242,45 @@ const NavbarOptions = ({ user }) => {
           )}
           <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
             <div className="flex items-center">
-              <span className="text-base  ml-2">
-                <FontAwesomeIcon icon={faBone} /> Pet Shop
+              <span onClick={handleShowPet} className="text-base  ml-2">
+                <FontAwesomeIcon icon={faBone} /> Pet Shop{" "}
+                {showPetDpw ? (
+                  <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
+                ) : (
+                  <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
+                )}
+                <ul
+                  className={
+                    "transition-all duration-700 text-white px-6 " +
+                    (showPetDpw ? "block" : "hidden")
+                  }
+                >
+                  <Link to="/vendors">
+                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <span>● Proveedores</span>
+                    </li>
+                  </Link>
+                  <Link to="/brand">
+                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <span>● Marcas</span>
+                    </li>
+                  </Link>
+                  <Link to="/category">
+                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <span>● Categorias</span>
+                    </li>
+                  </Link>
+                  <Link to="/brand-type">
+                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <span>● Tipos de marcas</span>
+                    </li>
+                  </Link>
+                  <Link to="/product">
+                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <span>● Productos</span>
+                    </li>
+                  </Link>
+                </ul>
               </span>
             </div>
           </li>
