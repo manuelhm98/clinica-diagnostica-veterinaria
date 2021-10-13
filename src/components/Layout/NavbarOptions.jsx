@@ -275,6 +275,11 @@ const NavbarOptions = ({ user }) => {
                       <span>● Tipos de marcas</span>
                     </li>
                   </Link>
+                  <Link to="/product">
+                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <span>● Productos</span>
+                    </li>
+                  </Link>
                 </ul>
               </span>
             </div>
