@@ -15,7 +15,7 @@ export const addNewEmployee = async (data) => {
 
 export const getAllEmployees = async (page) => {
   const response = await fetch(
-    `${API_HOST}/users/list?page=${page}&limit=${10}`,
+    `${API_HOST}/users/list?page=${page}&limit=${25}`,
     { headers: { token: getToken() } }
   );
   return response.json();

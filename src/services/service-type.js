@@ -34,7 +34,7 @@ export const putServiceType = async (data, id) => {
 
 export const getPaginServiceTypes = async (page, type) => {
   const response = await fetch(
-    `${API_HOST}/clinicalServicesType/list?page=${page}&type=${type}&limit=${10}`,
+    `${API_HOST}/clinicalServicesType/list?page=${page}&type=${type}&limit=${25}`,
     { headers: { token: getToken() } }
   );
   return response.json();

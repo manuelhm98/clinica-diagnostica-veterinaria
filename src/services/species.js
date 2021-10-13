@@ -15,7 +15,7 @@ export const addNewSpecie = async (data) => {
 
 export const getAllSpecies = async (page, type) => {
   const response = await fetch(
-    `${API_HOST}/species?page=${page}&type=${type}&limit=${10}`,
+    `${API_HOST}/species?page=${page}&type=${type}&limit=${25}`,
     { headers: { token: getToken() } }
   );
   return response.json();

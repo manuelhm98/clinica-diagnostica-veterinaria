@@ -4,7 +4,7 @@ import { types } from "../types/product-type";
 export const addProduct = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readProducts());
+    dispatch(readProducts(1, "", "", "", ""));
   };
 };
 

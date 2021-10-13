@@ -1,15 +1,52 @@
-import React from "react";
+import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { addNewProduct } from "../../services/product";
-import {Success} from "../Global/Alerts/Success"
-import {addProduct} from "../../redux/actions/product"
+import {
+  addNewProduct,
+  putProduct,
+  showImage,
+  uploadProductPhoto,
+} from "../../services/product";
+import { Success } from "../Global/Alerts/Success";
+import { addProduct } from "../../redux/actions/product";
+import { useDropzone } from "react-dropzone";
+import { faFolder } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import IMG from "../../assets/profile.png";
 
-export default function Form({ species, categories, vendors, brands,setShowModal }) {
+export default function Form({
+  species,
+  categories,
+  vendors,
+  brands,
+  setShowModal,
+  product,
+}) {
+  const [petImage, setPetimage] = useState(
+    product
+      ? product?.img !== "producto.png"
+        ? showImage(product?.img)
+        : IMG
+      : IMG
+  );
+  const [productfile, setProductfile] = useState();
+  const onDropImage = useCallback((acceptedFile) => {
+    const file = acceptedFile[0];
+    setPetimage(URL.createObjectURL(file));
+    setProductfile(file);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const { getRootProps: getRootImgProps, getInputProps: getInputImgProps } =
+    useDropzone({
+      accept: "image/jpeg, image/png",
+      noKeyboard: true,
+      multiple: false,
+      onDrop: onDropImage,
+    });
   const dispatch = useDispatch();
   const formik = useFormik({
-    initialValues: initial(),
+    initialValues: initial(product),
     validationSchema: Yup.object({
       name: Yup.string().required("El nombre del producto es requerido"),
       price: Yup.number()
@@ -27,14 +64,42 @@ export default function Form({ species, categories, vendors, brands,setShowModal
       brandsId: Yup.number().required("Debes seleccionar la marca"),
     }),
     onSubmit: (values) => {
-      addNewProduct(values).then((res)=>{
-        if(res.ok){
-          Success("Se agrego el nuevo producto")
-          setShowModal(false)
-          dispatch(addProduct(values))
+      if (product) {
+        putProduct(values, product?.id).then((res) => {
+          if (res.product) {
+            if (productfile) {
+              uploadProductPhoto(res.product?.id, productfile).then(() => {
+                Success("Se actualizo el producto");
+                setShowModal(false);
+                dispatch(addProduct(values));
+              });
+              return;
+            }
+            Success("Se actualizo el producto");
+            setShowModal(false);
+            dispatch(addProduct(values));
+            return;
+          }
+        });
+        return;
+      }
+
+      addNewProduct(values).then((res) => {
+        if (res.product) {
+          if (productfile) {
+            uploadProductPhoto(res.product?.id, productfile).then(() => {
+              Success("Se agrego el nuevo producto");
+              setShowModal(false);
+              dispatch(addProduct(values));
+            });
+            return;
+          }
+          Success("Se agrego el nuevo producto");
+          setShowModal(false);
+          dispatch(addProduct(values));
           return;
         }
-      })
+      });
     },
   });
   return (
@@ -48,7 +113,7 @@ export default function Form({ species, categories, vendors, brands,setShowModal
                 type="text"
                 name="name"
                 onChange={formik.handleChange}
-                defaultValue={""}
+                defaultValue={product && product?.name}
                 placeholder="Ingresa el nombre de la categoria"
                 className={
                   "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
@@ -70,7 +135,7 @@ export default function Form({ species, categories, vendors, brands,setShowModal
                   type="text"
                   name="price"
                   onChange={formik.handleChange}
-                  defaultValue={""}
+                  defaultValue={product && product?.price}
                   placeholder="Ingresa el precio del producto"
                   className={
                     "w-auto border p-1 text-sm rounded outline-none hover:border-green-400 " +
@@ -91,7 +156,7 @@ export default function Form({ species, categories, vendors, brands,setShowModal
                   type="text"
                   name="stock"
                   onChange={formik.handleChange}
-                  defaultValue={""}
+                  defaultValue={product && product?.stock}
                   placeholder="Ingresa el stock del producto"
                   className={
                     "w-auto border p-1 text-sm rounded outline-none hover:border-green-400 " +
@@ -116,7 +181,7 @@ export default function Form({ species, categories, vendors, brands,setShowModal
                   type="date"
                   name="dateAdmission"
                   onChange={formik.handleChange}
-                  defaultValue={""}
+                  defaultValue={product && product?.dateAdmission}
                   className={
                     "w-auto border p-1 text-sm rounded outline-none hover:border-green-400 " +
                     (formik.errors.dateAdmission && formik.touched.dateAdmission
@@ -139,7 +204,7 @@ export default function Form({ species, categories, vendors, brands,setShowModal
                   type="date"
                   name="dateExpiry"
                   onChange={formik.handleChange}
-                  defaultValue={""}
+                  defaultValue={product && product?.dateExpiry}
                   placeholder="Ingresa el nombre de la categoria"
                   className={
                     "w-auto border p-1 text-sm rounded outline-none hover:border-green-400 " +
@@ -164,7 +229,7 @@ export default function Form({ species, categories, vendors, brands,setShowModal
                 rows={4}
                 name="description"
                 onChange={formik.handleChange}
-                defaultValue={""}
+                defaultValue={product && product?.description}
                 placeholder="Ingresa la descripcion del producto"
                 className={
                   "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
@@ -184,7 +249,7 @@ export default function Form({ species, categories, vendors, brands,setShowModal
               <select
                 name="categoryId"
                 onChange={formik.handleChange}
-                defaultValue={"DEFAULT"}
+                defaultValue={product ? product?.categoryId : "DEFAULT"}
                 className={
                   "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
                   (formik.errors.categoryId && formik.touched.categoryId
@@ -211,7 +276,7 @@ export default function Form({ species, categories, vendors, brands,setShowModal
               type="submit"
               className="bg-blue-600 mt-4 w-full text-white rounded px-12 py-1 text-xs"
             >
-              Agregar
+              {product ? "Actualizar" : "Agregar"}
             </button>
           </div>
           <div>
@@ -221,7 +286,7 @@ export default function Form({ species, categories, vendors, brands,setShowModal
                 <select
                   name="speciesId"
                   onChange={formik.handleChange}
-                  defaultValue={"DEFAULT"}
+                  defaultValue={product ? product?.speciesId : "DEFAULT"}
                   className={
                     "border p-1 text-sm rounded outline-none hover:border-green-400 " +
                     (formik.errors.speciesId && formik.touched.speciesId
@@ -249,7 +314,7 @@ export default function Form({ species, categories, vendors, brands,setShowModal
                 <select
                   name="vendorsId"
                   onChange={formik.handleChange}
-                  defaultValue={"DEFAULT"}
+                  defaultValue={product ? product?.vendorsId : "DEFAULT"}
                   className={
                     "border p-1 text-sm rounded outline-none hover:border-green-400 " +
                     (formik.errors.vendorsId && formik.touched.vendorsId
@@ -260,8 +325,10 @@ export default function Form({ species, categories, vendors, brands,setShowModal
                   <option disabled selected value={"DEFAULT"}>
                     Seleccionar el proveedor
                   </option>
-                  {vendors?.map((v)=>(
-                    <option key={v.id} value={v.id}>{v.nameVendor}</option>
+                  {vendors?.map((v) => (
+                    <option key={v.id} value={v.id}>
+                      {v.nameVendor}
+                    </option>
                   ))}
                 </select>
                 {formik.errors.vendorsId && formik.touched.vendorsId && (
@@ -277,7 +344,7 @@ export default function Form({ species, categories, vendors, brands,setShowModal
               <select
                 name="brandsId"
                 onChange={formik.handleChange}
-                defaultValue={"DEFAULT"}
+                defaultValue={product ? product?.brandsId : "DEFAULT"}
                 className={
                   "border p-1 text-sm rounded outline-none hover:border-green-400 " +
                   (formik.errors.brandsId && formik.touched.brandsId
@@ -300,23 +367,45 @@ export default function Form({ species, categories, vendors, brands,setShowModal
                 </span>
               )}
             </div>
+            <div>
+              <div
+                {...getRootImgProps()}
+                className="flex justify-center shadow rounded p-4 items-center mt-4"
+              >
+                <img
+                  src={petImage}
+                  className="rounded max-w-full max-h-56"
+                  alt="null"
+                />
+              </div>
+              <label className="w-full text-xs py-1 mt-3 p-1 flex items-center bg-white rounded-lg tracking-wide  border cursor-pointer">
+                <FontAwesomeIcon
+                  className="text-gray-600 ml-2"
+                  icon={faFolder}
+                />
+                <span className="text-gray-500 leading-normal ml-4 ">
+                  Seleccionar una imagen
+                </span>
+                <input {...getInputImgProps()} type="file" className="hidden" />
+              </label>
+            </div>
           </div>
         </div>
       </form>
     </div>
   );
 }
-function initial() {
+function initial(product) {
   return {
-    name: "",
-    price: "",
-    dateAdmission: "",
-    dateExpiry: "",
-    description: "",
-    stock: "",
-    categoryId: "",
-    speciesId: "",
-    vendorsId: "",
-    brandsId: "",
+    name: "" || product?.name,
+    price: "" || product?.price,
+    dateAdmission: "" || product?.dateAdmission,
+    dateExpiry: "" || product?.dateExpiry,
+    description: "" || product?.description,
+    stock: "" || product?.price,
+    categoryId: "" || product?.categoryId,
+    speciesId: "" || product?.speciesId,
+    vendorsId: "" || product?.vendorsId,
+    brandsId: "" || product?.brandsId,
   };
 }

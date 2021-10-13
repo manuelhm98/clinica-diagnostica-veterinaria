@@ -137,7 +137,13 @@ export default function Product() {
             </div>
           </div>
         </div>
-        <ProductList products={products} />
+        <ProductList
+          brands={brands}
+          vendors={vendors?.vendors}
+          categories={categories}
+          species={species?.specie}
+          products={products}
+        />
         <Pagination data={products} method={setPage} />
         <Modal
           showModal={showModal}

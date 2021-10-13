@@ -15,7 +15,7 @@ export const addNewVendor = async (data) => {
 
 export const getAllVendors = async (page, name, nameVendors) => {
   const response = await fetch(
-    `${API_HOST}/vendors/list?page=${page}&name=${name}&nameVendors=${nameVendors}`,
+    `${API_HOST}/vendors/list?page=${page}&name=${name}&nameVendors=${nameVendors}&limit=${25}`,
     {
       headers: { token: getToken() },
     }

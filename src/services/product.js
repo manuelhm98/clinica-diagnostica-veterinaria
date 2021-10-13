@@ -10,10 +10,10 @@ export const addNewProduct = async (data) => {
     },
     body: JSON.stringify(data),
   });
-  return response;
+  return response.json();
 };
-export const putBrand = async (data, id) => {
-  const response = await fetch(`${API_HOST}/brands/${id}`, {
+export const putProduct = async (data, id) => {
+  const response = await fetch(`${API_HOST}/products/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export const putBrand = async (data, id) => {
     },
     body: JSON.stringify(data),
   });
-  return response;
+  return response.json();
 };
 
 export const getAllProducts = async (
@@ -32,10 +32,25 @@ export const getAllProducts = async (
   vendors = ""
 ) => {
   const response = await fetch(
-    `${API_HOST}/products/list?page=${page}&name=${name}&category=${category}&species=${species}&vendors=${vendors}`,
+    `${API_HOST}/products/list?page=${page}&name=${name}&category=${category}&species=${species}&vendors=${vendors}&limit=${25}`,
     {
       headers: { token: getToken() },
     }
   );
   return response.json();
+};
+
+export const uploadProductPhoto = async (id, file) => {
+  const formData = new FormData();
+  formData.append("foto", file);
+  const response = await fetch(`${API_HOST}/products/image/${id}`, {
+    method: "POST",
+    headers: { token: getToken() },
+    body: formData,
+  });
+  return response.json();
+};
+
+export const showImage = (name) => {
+  return `${API_HOST}/products/view-image?name=${name}`;
 };
