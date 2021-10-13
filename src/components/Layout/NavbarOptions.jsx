@@ -270,11 +270,6 @@ const NavbarOptions = ({ user }) => {
                       <span>● Categorias</span>
                     </li>
                   </Link>
-                  <Link to="/brand-type">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Tipos de marcas</span>
-                    </li>
-                  </Link>
                   <Link to="/product">
                     <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
                       <span>● Productos</span>
