@@ -16,7 +16,6 @@ const Brand = () => {
   useEffect(() => {
     return dispatch(readBrands())
   }, [dispatch]);
-  console.log(brand)
   return (
     <Layout>
       <div className="p-8">

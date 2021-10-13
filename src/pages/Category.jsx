@@ -15,7 +15,6 @@ const Category = () => {
   useEffect(() => {
     return dispatch(readCategories());
   }, [dispatch]);
-  console.log(category)
   return (
     <Layout>
       <div className="p-8">
