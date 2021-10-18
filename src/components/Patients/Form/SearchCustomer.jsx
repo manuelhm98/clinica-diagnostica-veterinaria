@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { readCustomers } from "../../../redux/actions/customers";
 import InputSearch from "../../Global/InputSearch";
-import Pagination from "../../Global/Pagination";
+import Pagination from "../../Global/Pag";
 import TH from "../../Global/TH";
-import Label from "./Label";
 
 export default function SearchCustomer({
   clientToPet,
@@ -19,7 +18,7 @@ export default function SearchCustomer({
   const dispatch = useDispatch();
   useEffect(() => {
     const searchCustom = () => {
-      dispatch(readCustomers(search.name, search.last, page));
+      dispatch(readCustomers(search.name, search.last, page, 5));
     };
     return searchCustom();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,7 +37,7 @@ export default function SearchCustomer({
             placeholder="Escribe el nombre para buscar"
             label="Buscar cliente por nombre"
           />
-         <InputSearch
+          <InputSearch
             handleChange={(e) =>
               setSearch({ ...search, name: e.currentTarget.value })
             }
@@ -99,7 +98,14 @@ export default function SearchCustomer({
               </tbody>
             </table>
           </div>
-          <Pagination data={customers} method={setPage} />
+          <Pagination
+            last={customers?.totalpages}
+            className="pagination-bar"
+            onPageChange={setPage}
+            totalCount={customers?.totalItems}
+            currentPage={customers?.currentPage}
+            pageSize={customers?.take}
+          />
         </div>
       </div>
     </div>
