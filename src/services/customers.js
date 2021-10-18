@@ -20,9 +20,9 @@ export const getAllCustomers = async () => {
   return response.json();
 };
 
-export const searchCustomer = async (name, last, page) => {
+export const searchCustomer = async (name, last, page,limit=25) => {
   const response = await fetch(
-    `${API_HOST}/customers/search?name=${name}&last=${last}&page=${page}&limit=${25}`,
+    `${API_HOST}/customers/search?name=${name}&last=${last}&page=${page}&limit=${limit}`,
     { headers: { token: getToken() } }
   );
   return response.json();

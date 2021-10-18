@@ -15,12 +15,12 @@ export function add(data) {
   };
 }
 
-export const readCustomers = (name = "", last = "", page = 1) => {
+export const readCustomers = (name = "", last = "", page = 1,limit=25) => {
   return (dispatch) => {
     if (name !== "" || last !== "") {
       page = 1;
     }
-    searchCustomer(name, last, page).then((res) => {
+    searchCustomer(name, last, page,limit).then((res) => {
       if (!res.ok) {
         dispatch(read({}));
         return;
