@@ -1,6 +1,6 @@
 export const types = {
   login: "[Auth] login",
-  loggout:"[Auth] loggout",
+  loggout: "[Auth] loggout",
   //breeds types
   breedAdd: "[Breed] add",
   breedList: "[Breed] list",
@@ -46,7 +46,7 @@ export const types = {
   serviceTypeDelete: "[ServiceType] delete",
   serviceTypeReadById: "[ServiceType] readById",
   serviceTypeRead: "[ServiceType] read",
-  serviceTypePagin : "[ServiceType] pagin",
+  serviceTypePagin: "[ServiceType] pagin",
 
   //Roles
   roleAdd: "[Role] add",
@@ -82,7 +82,6 @@ export const types = {
   quoteAdd: "[Quote] add",
   quoteDelete: "[Quote] delete",
   quoteReadById: "[Quote] readById",
-  quoteRead: "[Quote] read",
 
-  //
+  quoteRead: "[Quote] read",
 };

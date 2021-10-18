@@ -7,14 +7,14 @@ import TableContent from "../components/Species/TableContent";
 import Layout from "../layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { readSpecies } from "../redux/actions/species";
-import Pagination from "../components/Global/Pagination"
+import Pagination from "../components/Global/Pag";
 import InputSearch from "../components/Global/InputSearch";
 import { readEmployeById } from "../redux/actions/employee";
 
 export default function Species() {
   const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
-  const [type, setType] = useState("")
+  const [type, setType] = useState("");
   const dispatch = useDispatch();
   const species = useSelector((state) => state.specie.data);
   const user = useSelector((state) => state.user.data);
@@ -23,18 +23,20 @@ export default function Species() {
     return dispatch(readEmployeById(auth?.user?.userid));
   }, [dispatch, auth]);
   useEffect(() => {
-    return dispatch(readSpecies(page,type));
+    return dispatch(readSpecies(page, type));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page,type]);
-  
+  }, [page, type]);
+
   return (
     <Layout>
       <div className="p-8">
         <Title name="Listado de especies" />
-        <div style={{width:"70%"}}>
-         <InputSearch label="Buscar por el nombre de la especie"
-              placeholder="Escribe el nombre de la especie....."
-              handleChange={(e) => setType(e.currentTarget.value)} />
+        <div style={{ width: "70%" }}>
+          <InputSearch
+            label="Buscar por el nombre de la especie"
+            placeholder="Escribe el nombre de la especie....."
+            handleChange={(e) => setType(e.currentTarget.value)}
+          />
         </div>
         <button
           onClick={() => setShowModal(true)}
@@ -52,7 +54,14 @@ export default function Species() {
         <Table>
           <TableContent user={user?.users} species={species} />
         </Table>
-        <Pagination data={species} method={setPage}/>
+        <Pagination
+          last={species?.totalpages}
+          className="pagination-bar"
+          onPageChange={setPage}
+          totalCount={species?.totalItems}
+          currentPage={species?.currentPage}
+          pageSize={species?.take}
+        />
       </div>
     </Layout>
   );

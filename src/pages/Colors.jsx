@@ -7,7 +7,7 @@ import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { readColors } from "../redux/actions/colors";
-import Pagination from "../components/Global/Pagination";
+import Pagination from "../components/Global/Pag";
 import InputSearch from "../components/Global/InputSearch";
 import { readEmployeById } from "../redux/actions/employee";
 
@@ -38,14 +38,13 @@ export default function Colors() {
               handleChange={(e) => setType(e.currentTarget.value)}
             />
           </div>
-          
         </div>
         <button
-            onClick={() => setShowModal(true)}
-            className="bg-blue-600 text-white px-8 ml-4 float-right text-xs py-1 rounded"
-          >
-            Agregar
-          </button>
+          onClick={() => setShowModal(true)}
+          className="bg-blue-600 text-white px-8 ml-4 float-right text-xs py-1 rounded"
+        >
+          Agregar
+        </button>
         <Modal
           title="Agregar Color"
           showModal={showModal}
@@ -61,7 +60,14 @@ export default function Colors() {
             colors={colors.color}
           />
         </Table>
-        <Pagination method={setPage} data={colors} />
+        <Pagination
+          last={colors?.totalpages}
+          className="pagination-bar"
+          onPageChange={setPage}
+          totalCount={colors?.totalItems}
+          currentPage={colors?.currentPage}
+          pageSize={colors?.take}
+        />
       </div>
     </Layout>
   );

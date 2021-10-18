@@ -58,12 +58,12 @@ export default function Breeds() {
           <TableContent user={user?.users} breeds={breeds} />
         </Table>
         <Pagination
-        last={breeds?.totalpages}
+          last={breeds?.totalpages}
           className="pagination-bar"
           onPageChange={setPage}
           totalCount={breeds?.totalItems}
           currentPage={breeds?.currentPage}
-          pageSize={10}
+          pageSize={breeds?.take}
         />
       </div>
     </Layout>
