@@ -6,7 +6,7 @@ import TableContent from "../components/Quotes/TableContent";
 import { useDispatch, useSelector } from "react-redux";
 import { readQuotes } from "../redux/actions/quote";
 import { Link } from "react-router-dom";
-import Pagination from "../components/Global/Pagination";
+import Pagination from "../components/Global/Pag";
 import InputSearch from "../components/Global/InputSearch";
 
 export default function Quotes() {
@@ -34,7 +34,14 @@ export default function Quotes() {
         <Table>
           <TableContent quotes={quotes.quotes} />
         </Table>
-        <Pagination data={quotes} method={setPage} />
+        <Pagination
+          last={quotes?.totalpages}
+          className="pagination-bar"
+          onPageChange={setPage}
+          totalCount={quotes?.totalItems}
+          currentPage={quotes?.currentPage}
+          pageSize={quotes?.take}
+        />
       </div>
     </Layout>
   );

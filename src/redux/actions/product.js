@@ -1,4 +1,4 @@
-import { getAllProducts } from "../../services/product";
+import { getAllProducts, getProductById } from "../../services/product";
 import { types } from "../types/product-type";
 
 export const addProduct = (data) => {
@@ -39,6 +39,25 @@ export const readProducts = (
 export function read(data) {
   return {
     type: types.readProducts,
+    payload: data,
+  };
+}
+
+export const readProductById = (id) => {
+  return (dispatch) => {
+    getProductById(id).then((res) => {
+      if (res.msg) {
+        dispatch(readById({}));
+        return;
+      }
+      dispatch(readById(res));
+    });
+  };
+};
+
+export function readById(data) {
+  return {
+    type: types.cartReadItem,
     payload: data,
   };
 }

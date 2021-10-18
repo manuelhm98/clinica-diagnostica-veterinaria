@@ -6,7 +6,7 @@ import Layout from "../layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { readDoctors } from "../redux/actions/doctors";
 import TableContent from "../components/Doctors/TableContent";
-import Pagination from "../components/Global/Pagination";
+import Pagination from "../components/Global/Pag";
 import InputSearch from "../components/Global/InputSearch";
 
 export default function Doctors() {
@@ -36,7 +36,14 @@ export default function Doctors() {
         <Table>
           <TableContent doctors={doctors} />
         </Table>
-        <Pagination data={doctors} method={setPage} />
+        <Pagination
+          last={doctors?.totalpages}
+          className="pagination-bar"
+          onPageChange={setPage}
+          totalCount={doctors?.totalItems}
+          currentPage={doctors?.currentPage}
+          pageSize={doctors?.take}
+        />
       </div>
     </Layout>
   );

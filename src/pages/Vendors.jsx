@@ -8,7 +8,7 @@ import Modal from "../components/Global/Modal";
 import Form from "../components/Vendors/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { readVendors } from "../redux/actions/vendors";
-import Pagination from "../components/Global/Pagination";
+import Pagination from "../components/Global/Pag";
 
 export default function Vendors() {
   const [showModal, setShowModal] = useState(false);
@@ -56,7 +56,14 @@ export default function Vendors() {
         <Table>
           <TableContent vendors={vendors?.vendors} />
         </Table>
-        <Pagination data={vendors} method={setPage} />
+        <Pagination
+          last={vendors?.totalpages}
+          className="pagination-bar"
+          onPageChange={setPage}
+          totalCount={vendors?.totalItems}
+          currentPage={vendors?.currentPage}
+          pageSize={vendors?.take}
+        />
       </div>
     </Layout>
   );

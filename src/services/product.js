@@ -54,3 +54,10 @@ export const uploadProductPhoto = async (id, file) => {
 export const showImage = (name) => {
   return `${API_HOST}/products/view-image?name=${name}`;
 };
+
+export const getProductById = async (id) => {
+  const response = await fetch(`${API_HOST}/products/${id}`, {
+    headers: { token: getToken() },
+  });
+  return response.json();
+};

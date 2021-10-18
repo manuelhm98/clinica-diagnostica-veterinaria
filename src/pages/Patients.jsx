@@ -5,7 +5,7 @@ import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { readPatients } from "../redux/actions/patiences";
-import Pagination from "../components/Global/Pagination";
+import Pagination from "../components/Global/Pag";
 import { Link } from "react-router-dom";
 import InputSearch from "../components/Global/InputSearch";
 import { readEmployeById } from "../redux/actions/employee";
@@ -28,10 +28,11 @@ export default function Patients() {
   //redux dispatch states
   useEffect(() => {
     setReload(false);
-    dispatch(readPatients(page, name, custom, 5));
+    dispatch(readPatients(page, name, custom, 25));
     return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, name, custom, reload]);
+  console.log(patients);
   return (
     <Layout>
       <div className="p-8">
@@ -58,7 +59,14 @@ export default function Patients() {
             patients={patients}
           />
         </Table>
-        <Pagination data={patients} method={setPage} />
+        <Pagination
+          pageSize={patients?.take}
+          currentPage={patients?.currentPage}
+          data={patients}
+          totalCount={patients?.totalItems}
+          last={patients?.totalpages}
+          onPageChange={setPage}
+        />
       </div>
     </Layout>
   );

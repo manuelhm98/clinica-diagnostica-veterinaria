@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { showImage } from "../../services/product";
+import { setItemCart } from "../../utils/cart";
 import Modal from "../Global/Modal";
 import Form from "./Form";
 
@@ -9,18 +10,36 @@ export default function ProductList({
   categories,
   vendors,
   brands,
+  setLoadCart,
 }) {
   const [editProd, setEditProd] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [prod, setProd] = useState();
   const handleEdit = (prd) => {
     setEditProd(prd);
     setShowModal(true);
   };
+  useEffect(() => {
+    if (prod) {
+      let values = {
+        id: prod?.id,
+        qt: 1,
+        price: Number(prod?.price),
+        original_price: Number(prod?.price),
+        img: prod?.img,
+        name: prod?.name,
+      };
+      setItemCart(values);
+      setProd(undefined);
+      setLoadCart(true);
+    }
+    return;
+  }, [prod, setLoadCart]);
   return (
     <div className="grid grid-cols-4 gap-4 mt-6">
       {products?.products &&
         products?.products.map((prod) => (
-          <div className="border shadow-md h-80 rounded p-5">
+          <div key={prod.id} className="border shadow-md h-80 rounded p-5">
             <div className="grid grid-cols-2">
               <img src={showImage(prod.img)} alt="" className="w-20 h-20" />
               <div className="bg-green-500 w-12 h-12 ml-12 rounded-full flex justify-center items-center">
@@ -50,7 +69,10 @@ export default function ProductList({
             <p className="mt-2">
               <span className="font-semibold">Stock:</span> {prod.stock}
             </p>
-            <button className="bg-blue-500 text-white rounded px-4 py-1 mt-2">
+            <button
+              onClick={() => setProd(prod)}
+              className="bg-blue-500 text-white rounded px-4 py-1 mt-2"
+            >
               Agregar al carrito
             </button>
           </div>

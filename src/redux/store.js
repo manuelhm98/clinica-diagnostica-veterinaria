@@ -26,6 +26,7 @@ import { vendorReducer } from "./reducers/vendors.reducer";
 import { brandReducer } from "./reducers/brand.reducer";
 import { categoryReducer } from "./reducers/category.reducer";
 import { productReducer } from "./reducers/product.reducer";
+import { cartReducer } from "./reducers/cart.reducer";
 
 const reducers = combineReducers({
   breed: breedReducer,
@@ -53,7 +54,8 @@ const reducers = combineReducers({
   vendor: vendorReducer,
   brand: brandReducer,
   category: categoryReducer,
-  product:productReducer
+  product: productReducer,
+  cart: cartReducer,
 });
 
 const composeEnhancers =

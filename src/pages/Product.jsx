@@ -11,10 +11,12 @@ import { readBrands } from "../redux/actions/brand";
 import InputSearch from "../components/Global/InputSearch";
 import { readProducts } from "../redux/actions/product";
 import ProductList from "../components/Product/ProductList";
-import Pagination from "../components/Global/Pagination";
+import Pagination from "../components/Global/Pag";
+import CartButton from "../components/Cart/CartButton";
 
 export default function Product() {
   const [showModal, setShowModal] = useState(false);
+  const [loadCart, setLoadCart] = useState(false);
   const [search, setSearch] = useState({
     name: "",
     category: "",
@@ -61,6 +63,7 @@ export default function Product() {
           >
             Agregar
           </button>
+          <CartButton setLoadCart={setLoadCart} loadCart={loadCart} />
           <InputSearch
             handleChange={(e) =>
               setSearch({ ...search, name: e.currentTarget.value })
@@ -143,8 +146,16 @@ export default function Product() {
           categories={categories}
           species={species?.specie}
           products={products}
+          setLoadCart={setLoadCart}
         />
-        <Pagination data={products} method={setPage} />
+        <Pagination
+          last={products?.totalpages}
+          className="pagination-bar"
+          onPageChange={setPage}
+          totalCount={products?.totalItems}
+          currentPage={products?.currentPage}
+          pageSize={products?.take}
+        />
         <Modal
           showModal={showModal}
           setShowModal={setShowModal}

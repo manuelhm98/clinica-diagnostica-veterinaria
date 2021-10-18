@@ -44,11 +44,16 @@
   border-color: #68d391;
 }
 
-.toggle-checkbox:checked+.toggle-label {
+.toggle-checkbox:checked + .toggle-label {
   @apply: bg-green-400;
   background-color: #68d391;
 }
 
 .modal {
   transition: opacity 3s ease;
+}
+
+.dpdown {
+  position: absolute;
+  z-index: 99999999;
 }

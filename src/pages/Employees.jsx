@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { readRoles } from "../redux/actions/role";
 import { readShifts } from "../redux/actions/shifts";
 import { readEmployees } from "../redux/actions/employee";
-import Pagination from "../components/Global/Pagination";
+import Pagination from "../components/Global/Pag";
 import AddForm from "../components/Employee/AddForm";
 
 export default function Employees() {
@@ -48,7 +48,14 @@ export default function Employees() {
         >
           <AddForm setShowModal={setShowModal} roles={roles} shifts={shifts} />
         </Modal>
-        <Pagination data={employees} method={setPage} />
+        <Pagination
+          last={employees?.totalpages}
+          className="pagination-bar"
+          onPageChange={setPage}
+          totalCount={employees?.totalItems}
+          currentPage={employees?.currentPage}
+          pageSize={employees?.take}
+        />
       </div>
     </Layout>
   );
