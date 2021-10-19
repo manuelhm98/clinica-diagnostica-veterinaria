@@ -34,6 +34,8 @@ import BrandType from "../pages/BrandType";
 import Vendors from "../pages/Vendors";
 import Category from "../pages/Category";
 import Product from "../pages/Product";
+import ShoppingHistory from "../pages/ShoppingHistory";
+import AddShoppingHistory from "../pages/AddShoppingHistory";
 
 export default function Routes() {
   const dispatch = useDispatch();
@@ -163,6 +165,8 @@ export default function Routes() {
         <Route path="/vendors" exact component={Vendors} />
         <Route path="/category" exact component={Category} />
         <Route path="/product" exact component={Product} />
+        <Route path="/shopping-history" exact component={ShoppingHistory} />
+        <Route path="/add-shopping-history" exact component={AddShoppingHistory} />
         <Route path="*" component={Error404} />
       </Switch>
     </Router>

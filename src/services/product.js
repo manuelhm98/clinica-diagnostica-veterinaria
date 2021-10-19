@@ -29,10 +29,11 @@ export const getAllProducts = async (
   name = "",
   category = "",
   species = "",
-  vendors = ""
+  brands = "",
+  limit=25
 ) => {
   const response = await fetch(
-    `${API_HOST}/products/list?page=${page}&name=${name}&category=${category}&species=${species}&vendors=${vendors}&limit=${25}`,
+    `${API_HOST}/products/list?page=${page}&name=${name}&category=${category}&species=${species}&v=${brands}&limit=${limit}`,
     {
       headers: { token: getToken() },
     }
