@@ -11,6 +11,7 @@ export default function SearchCustomer({
   clientToPet,
   setClientToPet,
   isAdded,
+  setShowModal
 }) {
   const [search, setSearch] = useState({ name: "", last: "" });
   const [page, setPage] = useState(1);
@@ -25,6 +26,7 @@ export default function SearchCustomer({
   }, [search, page]);
   const selectCustom = (custom) => {
     setClientToPet(custom);
+    setShowModal(false)
   };
   return (
     <div>
@@ -39,7 +41,7 @@ export default function SearchCustomer({
           />
           <InputSearch
             handleChange={(e) =>
-              setSearch({ ...search, name: e.currentTarget.value })
+              setSearch({ ...search, last: e.currentTarget.value })
             }
             placeholder="Escribe el apellido para buscar"
             label="Buscar cliente por apelllido"
