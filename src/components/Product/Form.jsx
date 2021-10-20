@@ -52,8 +52,6 @@ export default function Form({
       price: Yup.number()
         .required("El precio es requerido")
         .typeError("Precio invalido"),
-      dateAdmission: Yup.date().required("La fecha de admision es requerida"),
-      dateExpiry: Yup.date().required("La fecha de expiracion es requerida"),
       description: Yup.string().required("La descripcion es requerida"),
       stock: Yup.number()
         .required("El stock es requerido")
@@ -167,54 +165,6 @@ export default function Form({
                 {formik.errors.stock && formik.touched.stock && (
                   <span className="text-sm font-normal text-red-400">
                     {formik.errors.stock}
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className="grid grid-cols-2 p-1 mt-1">
-              <div className="flex flex-col p-1 mt-1">
-                <label className="text-sm text-gray-400">
-                  Fecha de admision
-                </label>
-                <input
-                  type="date"
-                  name="dateAdmission"
-                  onChange={formik.handleChange}
-                  defaultValue={product && product?.dateAdmission}
-                  className={
-                    "w-auto border p-1 text-sm rounded outline-none hover:border-green-400 " +
-                    (formik.errors.dateAdmission && formik.touched.dateAdmission
-                      ? "border-red-400"
-                      : "border-gray-300")
-                  }
-                />
-                {formik.errors.dateAdmission &&
-                  formik.touched.dateAdmission && (
-                    <span className="text-sm font-normal text-red-400">
-                      {formik.errors.dateAdmission}
-                    </span>
-                  )}
-              </div>
-              <div className="flex flex-col p-1 mt-1">
-                <label className="text-sm text-gray-400">
-                  Fecha de expiracion
-                </label>
-                <input
-                  type="date"
-                  name="dateExpiry"
-                  onChange={formik.handleChange}
-                  defaultValue={product && product?.dateExpiry}
-                  placeholder="Ingresa el nombre de la categoria"
-                  className={
-                    "w-auto border p-1 text-sm rounded outline-none hover:border-green-400 " +
-                    (formik.errors.dateExpiry && formik.touched.dateExpiry
-                      ? "border-red-400"
-                      : "border-gray-300")
-                  }
-                />
-                {formik.errors.dateExpiry && formik.touched.dateExpiry && (
-                  <span className="text-sm font-normal text-red-400">
-                    {formik.errors.dateExpiry}
                   </span>
                 )}
               </div>
@@ -368,8 +318,6 @@ function initial(product) {
   return {
     name: "" || product?.name,
     price: "" || product?.price,
-    dateAdmission: "" || product?.dateAdmission,
-    dateExpiry: "" || product?.dateExpiry,
     description: "" || product?.description,
     stock: "" || product?.price,
     categoryId: "" || product?.categoryId,
