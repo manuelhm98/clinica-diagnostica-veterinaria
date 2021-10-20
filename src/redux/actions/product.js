@@ -20,13 +20,14 @@ export const readProducts = (
   name = "",
   category = "",
   species = "",
-  vendors = ""
+  brands = "",
+  limit=25
 ) => {
   return (dispatch) => {
-    if (name !== "" || category !== "" || species !== "" || vendors !== "") {
+    if (name !== "" || category !== "" || species !== "" || brands !== "") {
       page = 1;
     }
-    getAllProducts(page, name, category, species, vendors).then((res) => {
+    getAllProducts(page, name, category, species, brands,limit).then((res) => {
       if (!res.ok) {
         dispatch(read({}));
         return;

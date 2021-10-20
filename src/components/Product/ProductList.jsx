@@ -43,7 +43,7 @@ export default function ProductList({
             <div className="grid grid-cols-2">
               <img src={showImage(prod.img)} alt="" className="w-20 h-20" />
               <div className="bg-green-500 w-12 h-12 ml-12 rounded-full flex justify-center items-center">
-                <span className="text-white font-semibold">
+                <span className="text-white text-xs font-semibold">
                   {"$" + prod.price}
                 </span>
               </div>
@@ -59,12 +59,12 @@ export default function ProductList({
               {prod.species?.type}
             </p>
             <p className="mt-2">
-              <span className="font-semibold">Proveedor:</span>{" "}
-              {prod.vendors?.name}
-            </p>
-            <p className="mt-2">
               <span className="font-semibold">Categoria:</span>{" "}
               {prod.category?.type}
+            </p>
+            <p className="mt-2">
+              <span className="font-semibold">Marca:</span>{" "}
+              {prod.brands?.brand}
             </p>
             <p className="mt-2">
               <span className="font-semibold">Stock:</span> {prod.stock}

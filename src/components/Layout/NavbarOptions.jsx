@@ -6,13 +6,12 @@ import {
   faHome,
   faPaw,
   faSignOutAlt,
-  faStethoscope,
   faUserMd,
   faUsers,
   faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { newLoggout } from "../../redux/actions/auth";
@@ -258,6 +257,11 @@ const NavbarOptions = ({ user }) => {
                   <Link to="/vendors">
                     <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
                       <span>● Proveedores</span>
+                    </li>
+                  </Link>
+                  <Link to="/shopping-history">
+                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <span>● Historial de compras</span>
                     </li>
                   </Link>
                   <Link to="/brand">

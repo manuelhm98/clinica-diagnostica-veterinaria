@@ -84,4 +84,7 @@ export const types = {
   quoteReadById: "[Quote] readById",
 
   quoteRead: "[Quote] read",
+ 
+  shoppingAdd : "[Shopping] Add",
+  shoppingRead : "[Shopping] Read"
 };

@@ -60,7 +60,6 @@ export default function Form({
         .typeError("Stock invalido"),
       categoryId: Yup.number().required("Debes seleccionar una categoria"),
       speciesId: Yup.number().required("Debes seleccionar la especie"),
-      vendorsId: Yup.number().required("Debes seleccionar el proveedor"),
       brandsId: Yup.number().required("Debes seleccionar la marca"),
     }),
     onSubmit: (values) => {
@@ -280,7 +279,6 @@ export default function Form({
             </button>
           </div>
           <div>
-            <div className="grid grid-cols-2 gap-2">
               <div className="flex flex-col p-1 mt-1">
                 <label className="text-sm text-gray-400">Especie</label>
                 <select
@@ -309,35 +307,6 @@ export default function Form({
                   </span>
                 )}
               </div>
-              <div className="flex flex-col p-1 mt-1">
-                <label className="text-sm text-gray-400">Proveedor</label>
-                <select
-                  name="vendorsId"
-                  onChange={formik.handleChange}
-                  defaultValue={product ? product?.vendorsId : "DEFAULT"}
-                  className={
-                    "border p-1 text-sm rounded outline-none hover:border-green-400 " +
-                    (formik.errors.vendorsId && formik.touched.vendorsId
-                      ? "border-red-400"
-                      : "border-gray-300")
-                  }
-                >
-                  <option disabled selected value={"DEFAULT"}>
-                    Seleccionar el proveedor
-                  </option>
-                  {vendors?.map((v) => (
-                    <option key={v.id} value={v.id}>
-                      {v.nameVendor}
-                    </option>
-                  ))}
-                </select>
-                {formik.errors.vendorsId && formik.touched.vendorsId && (
-                  <span className="text-sm font-normal text-red-400">
-                    {formik.errors.vendorsId}
-                  </span>
-                )}
-              </div>
-            </div>
 
             <div className="flex flex-col p-1 mt-1">
               <label className="text-sm text-gray-400">Marca</label>
@@ -405,7 +374,6 @@ function initial(product) {
     stock: "" || product?.price,
     categoryId: "" || product?.categoryId,
     speciesId: "" || product?.speciesId,
-    vendorsId: "" || product?.vendorsId,
     brandsId: "" || product?.brandsId,
   };
 }

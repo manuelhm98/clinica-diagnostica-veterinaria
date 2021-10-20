@@ -21,13 +21,12 @@ export default function Product() {
     name: "",
     category: "",
     species: "",
-    vendors: "",
+    brands: "",
   });
   const [page, setPage] = useState(1);
 
   const species = useSelector((state) => state.specie.data);
   const categories = useSelector((state) => state.category.data);
-  const vendors = useSelector((state) => state.vendor.data);
   const brands = useSelector((state) => state.brand.data);
   const products = useSelector((state) => state.product.data);
 
@@ -47,7 +46,7 @@ export default function Product() {
         search.name,
         search.category,
         search.species,
-        search.vendors
+        search.brands
       )
     );
   }, [dispatch, search, page]);
@@ -118,22 +117,22 @@ export default function Product() {
             </div>
             <div className="grid grid-rows-2">
               <label className="text-gray-500 text-xs">
-                Buscar por proveedor
+                Buscar por marca
               </label>
               <select
                 onChange={(e) =>
-                  setSearch({ ...search, vendors: e.currentTarget.value })
+                  setSearch({ ...search, brands: e.currentTarget.value })
                 }
                 defaultValue={"DEFAULT"}
                 className="border mr-6 py-1 text-xs px-2 rounded outline-none"
               >
                 <option disabled selected value={"DEFAULT"}>
-                  Selecciona el proveedor
+                  Selecciona la marca
                 </option>
-                {vendors?.vendors &&
-                  vendors?.vendors.map((v) => (
-                    <option key={v.id} value={v.name}>
-                      {v.name}
+                {brands &&
+                  brands?.map((b) => (
+                    <option key={b.id} value={b.brand}>
+                      {b.brand}
                     </option>
                   ))}
               </select>
@@ -142,7 +141,6 @@ export default function Product() {
         </div>
         <ProductList
           brands={brands}
-          vendors={vendors?.vendors}
           categories={categories}
           species={species?.specie}
           products={products}
@@ -163,7 +161,6 @@ export default function Product() {
         >
           <Form
             brands={brands}
-            vendors={vendors?.vendors}
             categories={categories}
             species={species?.specie}
             setShowModal={setShowModal}
