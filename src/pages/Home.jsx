@@ -7,47 +7,47 @@ export default function Home() {
     {
       image:
         "https://wallpapercave.com/wp/wp2544022.jpg",
-      caption: "San Francisco",
+      caption: "Clinica de diagnostico veterinario",
     },
     {
       image:
         "https://wallpapercave.com/wp/wp2544122.jpg",
-      caption: "Scotland",
+      caption: "Clinica de diagnostico veterinario",
     },
     {
       image:
         "https://wallpapercave.com/wp/wp2544043.jpg",
-      caption: "Darjeeling",
+      caption: "Clinica de diagnostico veterinario",
     },
     {
       image:
         "https://wallpapercave.com/wp/wp2544051.jpg",
-      caption: "San Francisco",
+      caption: "Clinica de diagnostico veterinario",
     },
     {
       image:
         "https://wallpapercave.com/wp/wp2544086.jpg",
-      caption: "Scotland",
+      caption: "Clinica de diagnostico veterinario",
     },
     {
       image:
         "https://wallpapercave.com/wp/wp2544107.jpg",
-      caption: "Darjeeling",
+      caption: "Clinica de diagnostico veterinario",
     },
     {
       image:
         "https://wallpapercave.com/wp/wp2507512.jpg",
-      caption: "San Francisco",
+      caption: "Clinica de diagnostico veterinario",
     },
     {
       image:
         "https://wallpapercave.com/wp/wp2544148.jpg",
-      caption: "Scotland",
+      caption: "Clinica de diagnostico veterinario",
     },
     {
       image:
         "https://wallpapercave.com/wp/wp2446992.jpg",
-      caption: "Darjeeling",
+      caption: "Clinica de diagnostico veterinario",
     },
   ];
 
@@ -69,7 +69,7 @@ export default function Home() {
               data={data}
               time={10000}
               width="100%"
-              height="450px"
+              height="475px"
               captionStyle={captionStyle}
               radius="10px"
               automatic={true}
@@ -78,7 +78,7 @@ export default function Home() {
               pauseIconSize="40px"
               slideBackgroundColor="darkgrey"
               slideImageFit="cover"
-              thumbnails={true}
+              thumbnails={false}
               thumbnailWidth="100px"
               style={{
                 textAlign: "center",
