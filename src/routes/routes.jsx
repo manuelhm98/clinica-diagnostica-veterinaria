@@ -30,7 +30,6 @@ import Brand from "../pages/Brand";
 import { useDispatch, useSelector } from "react-redux";
 import { readEmployeById } from "../redux/actions/employee";
 import { checkRole } from "../utils/checkRole";
-import BrandType from "../pages/BrandType";
 import Vendors from "../pages/Vendors";
 import Category from "../pages/Category";
 import Product from "../pages/Product";
@@ -160,13 +159,48 @@ export default function Routes() {
             <>{checkRole(user?.users) === 1 ? <Specialties /> : <Error404 />}</>
           )}
         </Route>
-        <Route path="/brand" exact component={Brand} />
-        <Route path="/brand-type" exact component={BrandType} />
-        <Route path="/vendors" exact component={Vendors} />
-        <Route path="/category" exact component={Category} />
-        <Route path="/product" exact component={Product} />
-        <Route path="/shopping-history" exact component={ShoppingHistory} />
-        <Route path="/add-shopping-history" exact component={AddShoppingHistory} />
+        <Route path="/brand" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Brand /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/vendors" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Vendors /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/category" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Category /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/product" exact>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Product /> : <Error404 />}</>
+          )}
+        </Route>
+        <Route path="/shopping-history" exact>
+          {user?.users && (
+            <>
+              {checkRole(user?.users) === 1 ? (
+                <ShoppingHistory />
+              ) : (
+                <Error404 />
+              )}
+            </>
+          )}
+        </Route>
+        <Route path="/add-shopping-history" exact>
+          {user?.users && (
+            <>
+              {checkRole(user?.users) === 1 ? (
+                <AddShoppingHistory />
+              ) : (
+                <Error404 />
+              )}
+            </>
+          )}
+        </Route>
         <Route path="*" component={Error404} />
       </Switch>
     </Router>

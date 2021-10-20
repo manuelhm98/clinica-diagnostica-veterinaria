@@ -239,10 +239,11 @@ const NavbarOptions = ({ user }) => {
               </div>
             </li>
           )}
+          {checkRole(user) === 1 && (
           <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
             <div className="flex items-center">
               <span onClick={handleShowPet} className="text-base  ml-2">
-                <FontAwesomeIcon icon={faBone} /> Pet Shop{" "}
+                <FontAwesomeIcon icon={faBone} /> Inventario{" "}
                 {showPetDpw ? (
                   <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
                 ) : (
@@ -283,6 +284,7 @@ const NavbarOptions = ({ user }) => {
               </span>
             </div>
           </li>
+          )}
           {checkRole(user) === 1 && (
             <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
               <div className="flex items-center">
