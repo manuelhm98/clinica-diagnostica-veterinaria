@@ -92,8 +92,7 @@ export default function AddPatient() {
         .required("La raza es requerida")
         .typeError("Raza invalida"),
       exp: yup
-        .number()
-        .typeError("Numero de expediente invalido")
+        .string()
         .required("EL numero de expediente es requerido"),
       weight: yup.string().required("El peso del paciente es requerido"),
     }),

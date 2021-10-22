@@ -34,6 +34,7 @@ const AddQuote = () => {
   const doctors = useSelector((state) => state.doctor.data);
   const quoteTypes = useSelector((state) => state.quoteType.data);
   //socket io logic
+
   const serverURL = SOCKET_URL;
   const socket = useMemo(
     () =>
