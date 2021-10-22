@@ -16,6 +16,7 @@ export default function Patients() {
   const [custom, setCustom] = useState("");
   const [page, setPage] = useState(1);
   const [reload, setReload] = useState(false);
+  const [state, setState] = useState(true);
 
   //redux get states
   const dispatch = useDispatch();
@@ -28,10 +29,10 @@ export default function Patients() {
   //redux dispatch states
   useEffect(() => {
     setReload(false);
-    dispatch(readPatients(page, name, custom, 25));
+    dispatch(readPatients(page, name, custom, 25, state ? 1 : 0));
     return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, name, custom, reload]);
+  }, [page, name, custom, reload,state]);
   console.log(patients);
   return (
     <Layout>
@@ -48,6 +49,28 @@ export default function Patients() {
             placeholder="Escribe el nombre del dueño de la mascota para buscar..."
             handleChange={(e) => setCustom(e.currentTarget.value)}
           />
+        </div>
+        <div>
+          <label className="text-xs">Mostrar</label>
+          <div className="text-xl font-semibold flex mt-1">
+            <div className="relative mt-1 ml-3 inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+              <input
+                type="checkbox"
+                nameName="toggle"
+                id="toggle"
+                defaultChecked={state}
+                onChange={() => setState(!state)}
+                className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
+              />
+              <label
+                for="toggle"
+                className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
+              ></label>
+            </div>
+            <span className="text-sm font-normal text-gray-600 mt-1">
+              {state ? "Activos" : "Inactivos"}
+            </span>
+          </div>
         </div>
         <button className="bg-blue-600 text-white mt-3 px-8 ml-4 float-right text-xs py-1 rounded">
           <Link to="/new-patient">Agregar</Link>

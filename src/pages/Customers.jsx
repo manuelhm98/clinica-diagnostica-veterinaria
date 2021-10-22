@@ -16,6 +16,7 @@ export default function Customers() {
   const [name, setName] = useState();
   const [last, setLast] = useState();
   const [page, setPage] = useState(1);
+  const [state, setState] = useState(true);
   const dispatch = useDispatch();
   const customers = useSelector((state) => state.customer.data);
   const user = useSelector((state) => state.user.data);
@@ -24,9 +25,9 @@ export default function Customers() {
     return dispatch(readEmployeById(auth?.user?.userid));
   }, [dispatch, auth]);
   useEffect(() => {
-    return dispatch(readCustomers(name, last, page));
+    return dispatch(readCustomers(name, last, page, 25, state ? 1 : 0));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, last, page]);
+  }, [name, last, page, state]);
   return (
     <Layout>
       <div className="p-5">
@@ -42,6 +43,28 @@ export default function Customers() {
             placeholder="Escribe el apellido para buscar"
             handleChange={(e) => setLast(e.currentTarget.value)}
           />
+        </div>
+        <div>
+          <label className="text-xs">Mostrar</label>
+          <div className="text-xl font-semibold flex mt-1">
+            <div className="relative mt-1 ml-3 inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+              <input
+                type="checkbox"
+                name="toggle"
+                id="toggle"
+                defaultChecked={state}
+                onChange={() => setState(!state)}
+                className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
+              />
+              <label
+                for="toggle"
+                className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
+              ></label>
+            </div>
+            <span className="text-sm font-normal text-gray-600 mt-1">
+              {state ? "Activos" : "Inactivos"}
+            </span>
+          </div>
         </div>
         <button
           onClick={() => setShowModal(true)}

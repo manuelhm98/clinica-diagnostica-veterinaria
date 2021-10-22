@@ -3,6 +3,9 @@ import TD from "../Global/TD";
 import Modal from "../Global/Modal";
 import Form from "./Form";
 import { checkRole } from "../../utils/checkRole";
+import { useDispatch } from "react-redux";
+import { changeState } from "../../services/customers";
+import { addCustomer } from "../../redux/actions/customers";
 
 export default function TableBody({ customers, user }) {
   const [customer, setCustomer] = useState();
@@ -11,10 +14,17 @@ export default function TableBody({ customers, user }) {
     setCustomer(customer);
     setShowModal(true);
   };
+
+  const dispatch = useDispatch();
+  const handlechange = (cust) => {
+    changeState(cust?.id).then(() => {
+      dispatch(addCustomer(cust));
+    });
+  };
   return (
     <>
       {customers?.length >= 1 ? (
-        customers?.map((cust) => (
+        customers?.map((cust, index) => (
           <tr key={cust.id}>
             <TD>
               <span className="text-gray-600 uppercase whitespace-nowrap text-xs">
@@ -33,15 +43,14 @@ export default function TableBody({ customers, user }) {
                 <div className="relative mt-1 ml-3 inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
                   <input
                     type="checkbox"
-                    nameName="toggle"
-                    id="toggle"
+                    name="toggle"
+                    id={"toggle" + index}
                     defaultChecked={cust.state}
-                    readOnly
-                    disabled
+                    onChange={() => handlechange(cust)}
                     className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
                   />
                   <label
-                    htmlFor="toggle"
+                    htmlFor={"toggle" + index}
                     className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
                   ></label>
                 </div>

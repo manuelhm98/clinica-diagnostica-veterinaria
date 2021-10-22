@@ -3,7 +3,12 @@ import { useState, useEffect } from "react";
 import Modal from "../Global/Modal";
 import TD from "../Global/TD";
 import Details from "./Details";
-import { putPatient, showImage, uploadPetPhoto } from "../../services/patients";
+import {
+  changeStatus,
+  putPatient,
+  showImage,
+  uploadPetPhoto,
+} from "../../services/patients";
 import SelectImage from "./Form/SelectImage";
 import { Warning } from "../Global/Alerts/Warning";
 import { Success } from "../Global/Alerts/Success";
@@ -86,6 +91,11 @@ export default function TableBody({ patients, setReload, user }) {
     Warning("Debes seleccionar el nuevo dueño");
   };
 
+  const handlechange = (patient) => {
+    changeStatus(patient?.id).then(() => {
+      dispatch(addPatient(patient));
+    });
+  };
   //method change profile pic
   const addPhoto = () => {
     if (petProfile) {
@@ -102,7 +112,7 @@ export default function TableBody({ patients, setReload, user }) {
   return (
     <>
       {patients.patients?.length >= 1 ? (
-        patients.patients?.map((pat) => (
+        patients.patients?.map((pat, index) => (
           <tr key={pat.id}>
             <TD onclick={() => setPetDetails(pat)}>
               <span className="text-red-500 font-semibold">{pat.exp}</span>
@@ -127,15 +137,14 @@ export default function TableBody({ patients, setReload, user }) {
                 <div className="relative mt-1 ml-3 inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
                   <input
                     type="checkbox"
-                    nameName="toggle"
-                    id="toggle"
+                    name="toggle"
+                    id={"toggle" + index}
                     defaultChecked={pat.state}
-                    readOnly
-                    disabled
+                    onChange={() => handlechange(pat)}
                     className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
                   />
                   <label
-                    htmlFor="toggle"
+                    htmlFor={"toggle" + index}
                     className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
                   ></label>
                 </div>

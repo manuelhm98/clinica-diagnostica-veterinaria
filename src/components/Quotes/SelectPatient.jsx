@@ -1,7 +1,7 @@
 import React from "react";
 import { showImage } from "../../services/patients";
 import InputSearch from "../Global/InputSearch";
-import Pagination from "../Global/Pagination";
+import Pagination from "../Global/Pag";
 import Table from "../Global/Table";
 import TD from "../Global/TD";
 import TH from "../Global/TH";
@@ -70,7 +70,14 @@ export default function SelectPatient({
             ))}
         </tbody>
       </Table>
-      <Pagination method={setPage} data={patients} />
+      <Pagination
+        pageSize={patients?.take}
+        currentPage={patients?.currentPage}
+        data={patients}
+        totalCount={patients?.totalItems}
+        last={patients?.totalpages}
+        onPageChange={setPage}
+      />
     </div>
   );
 }

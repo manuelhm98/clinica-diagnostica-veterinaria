@@ -10,9 +10,9 @@ export const addNewPatient = async (data) => {
   return response.json();
 };
 
-export const getAllPatients = async (page, name, customer, limit) => {
+export const getAllPatients = async (page, name, customer, limit,state) => {
   const response = await fetch(
-    `${API_HOST}/patients?page=${page}&names=${name}&nameCustomer=${customer}&limit=${limit}`,
+    `${API_HOST}/patients?page=${page}&names=${name}&nameCustomer=${customer}&limit=${limit}&state=${state}`,
     {
       headers: {
         token: getToken(),
@@ -46,6 +46,19 @@ export const showImage = (name) => {
 
 export const putPatient = async (id, data) => {
   const response = await fetch(`${API_HOST}/patients/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      token: getToken(),
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};
+
+export const changeStatus = async (id) => {
+  const data = { id };
+  const response = await fetch(`${API_HOST}/patients/delete`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

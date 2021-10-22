@@ -4,7 +4,7 @@ import { types } from "../types";
 export const addPatient = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readPatients(1,"","",25));
+    dispatch(readPatients(1, "", "", 25));
   };
 };
 
@@ -15,12 +15,12 @@ export function add(data) {
   };
 }
 
-export const readPatients = (page, name, custom,limit) => {
+export const readPatients = (page, name, custom, limit, state = 1) => {
   return (dispatch) => {
     if (name !== "" || custom !== "") {
       page = 1;
     }
-    getAllPatients(page, name, custom,limit).then((res) => {
+    getAllPatients(page, name, custom, limit, state).then((res) => {
       if (res.msg) {
         dispatch(read([]));
         return;
