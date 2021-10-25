@@ -12,8 +12,7 @@ import { readEmployeById } from "../redux/actions/employee";
 
 export default function Patients() {
   //react states logic
-  const [name, setName] = useState("");
-  const [custom, setCustom] = useState("");
+  const [search, setSearch] = useState({ name: "", custom: "", exp: "" });
   const [page, setPage] = useState(1);
   const [reload, setReload] = useState(false);
   const [state, setState] = useState(true);
@@ -29,25 +28,45 @@ export default function Patients() {
   //redux dispatch states
   useEffect(() => {
     setReload(false);
-    dispatch(readPatients(page, name, custom, 25, state ? 1 : 0));
+    dispatch(
+      readPatients(
+        page,
+        search.name,
+        search.custom,
+        search.exp,
+        25,
+        state ? 1 : 0
+      )
+    );
     return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, name, custom, reload,state]);
+  }, [page, search, reload, state]);
   console.log(patients);
   return (
     <Layout>
       <div className="p-8">
         <Title name="Listado de Pacientes" />
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <InputSearch
             label="Buscar por el nombre de la mascota"
-            placeholder="Escribe el nombre de la mascota para buscar..."
-            handleChange={(e) => setName(e.currentTarget.value)}
+            placeholder="Escribe el nombre de la mascota..."
+            handleChange={(e) =>
+              setSearch({ ...search, name: e.currentTarget.value })
+            }
           />
           <InputSearch
             label="Buscar por el dueño de la mascota"
-            placeholder="Escribe el nombre del dueño de la mascota para buscar..."
-            handleChange={(e) => setCustom(e.currentTarget.value)}
+            placeholder="Escribe el nombre del dueño de la mascota..."
+            handleChange={(e) =>
+              setSearch({ ...search, custom: e.currentTarget.value })
+            }
+          />
+          <InputSearch
+            label="Buscar por numero de expediente"
+            placeholder="Escribe el numero de expediente..."
+            handleChange={(e) =>
+              setSearch({ ...search, exp: e.currentTarget.value })
+            }
           />
         </div>
         <div>
@@ -58,8 +77,8 @@ export default function Patients() {
                 type="checkbox"
                 nameName="toggle"
                 id="toggle"
-                defaultChecked={state}
-                onChange={() => setState(!state)}
+                checked={state}
+                onClick={() => setState(!state)}
                 className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
               />
               <label
@@ -77,6 +96,7 @@ export default function Patients() {
         </button>
         <Table>
           <TableContent
+          setState={setState}
             user={user?.users}
             setReload={setReload}
             patients={patients}

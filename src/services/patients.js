@@ -10,9 +10,16 @@ export const addNewPatient = async (data) => {
   return response.json();
 };
 
-export const getAllPatients = async (page, name, customer, limit,state) => {
+export const getAllPatients = async (
+  page,
+  name,
+  customer,
+  exp,
+  limit,
+  state
+) => {
   const response = await fetch(
-    `${API_HOST}/patients?page=${page}&names=${name}&nameCustomer=${customer}&limit=${limit}&state=${state}`,
+    `${API_HOST}/patients?page=${page}&names=${name}&nameCustomer=${customer}&limit=${limit}&state=${state}&exp=${exp}`,
     {
       headers: {
         token: getToken(),
@@ -56,8 +63,8 @@ export const putPatient = async (id, data) => {
   return response.json();
 };
 
-export const changeStatus = async (id) => {
-  const data = { id };
+export const changeStatus = async (id, state) => {
+  const data = { id, state: !state };
   const response = await fetch(`${API_HOST}/patients/delete`, {
     method: "PUT",
     headers: {

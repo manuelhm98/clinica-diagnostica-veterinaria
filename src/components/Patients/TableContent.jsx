@@ -3,7 +3,7 @@ import { checkRole } from "../../utils/checkRole";
 import TH from "../Global/TH";
 import TableBody from "./TableBody";
 
-export default function TableContent({ patients, setReload, user }) {
+export default function TableContent({ patients, setReload, user,setState }) {
   return (
     <>
       <thead>
@@ -17,7 +17,7 @@ export default function TableContent({ patients, setReload, user }) {
         </tr>
       </thead>
       <tbody>
-        <TableBody user={user} patients={patients} setReload={setReload} />
+        <TableBody user={user} setState={setState} patients={patients} setReload={setReload} />
       </tbody>
     </>
   );

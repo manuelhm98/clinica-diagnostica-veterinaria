@@ -11,7 +11,6 @@ export default function TableContent({vendors}) {
           <TH name="Nombre" />
           <TH name="Nombre de vendedor" />
           <TH name="Telefono" />
-          <TH name="Direccion" />
           <TH name="N° de banco" />
           <TH name="Acciones"/>
         </tr>

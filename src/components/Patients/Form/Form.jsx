@@ -11,7 +11,16 @@ export default function Form({
   patTypes,
   setReload,
   setShowEditModal,
+  breeds,
+  species,
 }) {
+  const [newBreeds, setNewBreeds] = React.useState();
+  const setBreedToInput = (id) => {
+    const filterBreeds = breeds.breed.filter(
+      (breed) => breed.speciesId === Number(id)
+    );
+    setNewBreeds(filterBreeds);
+  };
   const formik = useFormik({
     initialValues: initialValues(patient),
     validationSchema: yup.object({
@@ -23,6 +32,9 @@ export default function Form({
       exp: yup
         .string()
         .required("El numero de expediente de la mascota es requerido"),
+      breedsId: yup
+        .number()
+        .required("Debes seleccionar la raza de la mascota"),
     }),
     onSubmit: (values) => {
       const newValues = {
@@ -33,6 +45,7 @@ export default function Form({
         sexesId: values.sexesId,
         weight: values.weight,
         exp: values.exp,
+        breedsId:values.breedsId
       };
       putPatient(patient?.id, newValues).then(() => {
         Success("Se actualizo el paciente");
@@ -42,7 +55,6 @@ export default function Form({
       });
     },
   });
-  console.log(sexes);
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="flex flex-col">
@@ -125,6 +137,58 @@ export default function Form({
             </span>
           )}
         </div>
+        <div className="flex flex-col mt-2">
+          <label className="text-gray-500 text-xs">Especie</label>
+          <select
+            defaultValue={"DEFAULT"}
+            className="border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1"
+            onChange={(e) => setBreedToInput(e.currentTarget.value)}
+          >
+            <option disabled value={"DEFAULT"}>
+              Selecciona la especie
+            </option>
+            {species.specie &&
+              species.specie.map((specie) => (
+                <option key={specie.id} value={specie.id}>
+                  {specie.type}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="mt-2 flex flex-col">
+          <label className="text-gray-500 text-xs">Raza</label>
+          <select
+            defaultValue={patient?.breedsId}
+            onChange={formik.handleChange}
+            name="breedsId"
+            className={
+              "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1 " +
+              (formik.errors.breedsId && formik.touched.breedsId
+                ? "border-red-400"
+                : "border-gray-300")
+            }
+          >
+            <option disabled value={"DEFAULT"}>
+              Selecciona la raza
+            </option>
+            {newBreeds
+              ? newBreeds?.map((breed) => (
+                  <option key={breed.id} value={breed.id}>
+                    {breed.type}
+                  </option>
+                ))
+              : breeds.breed?.map((breed) => (
+                  <option key={breed.id} value={breed.id}>
+                    {breed.type}
+                  </option>
+                ))}
+          </select>
+          {formik.errors.breedsId && formik.touched.breedsId && (
+            <span className="text-sm font-normal text-red-400">
+              {formik.errors.breedsId}
+            </span>
+          )}
+        </div>
         <div className="flex flex-col mt-1">
           <label className="text-gray-500 text-xs">Peso</label>
           <input
@@ -173,5 +237,6 @@ function initialValues(patient) {
     patientstypeId: "" || patient?.patientstypeId,
     weight: "" || patient?.weight,
     exp: "" || patient?.exp,
+    breedsId: "" || patient?.breedsId,
   };
 }

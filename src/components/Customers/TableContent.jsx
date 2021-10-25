@@ -3,7 +3,7 @@ import { checkRole } from "../../utils/checkRole";
 import TH from "../Global/TH";
 import TableBody from "./TableBody";
 
-export default function TableContent({ customers, user }) {
+export default function TableContent({ customers, user,setState }) {
   return (
     <>
       <thead>
@@ -17,7 +17,7 @@ export default function TableContent({ customers, user }) {
         </tr>
       </thead>
       <tbody>
-        <TableBody user={user} customers={customers} />
+        <TableBody setState={setState} user={user} customers={customers} />
       </tbody>
     </>
   );

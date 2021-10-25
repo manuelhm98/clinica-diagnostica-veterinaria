@@ -52,12 +52,12 @@ export default function Customers() {
                 type="checkbox"
                 name="toggle"
                 id="toggle"
-                defaultChecked={state}
-                onChange={() => setState(!state)}
+                checked={state}
+                onClick={() => setState(!state)}
                 className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
               />
               <label
-                for="toggle"
+                htmlFor="toggle"
                 className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
               ></label>
             </div>
@@ -80,7 +80,7 @@ export default function Customers() {
           <Form setShowModal={setShowModal} />
         </Modal>
         <Table>
-          <TableContent user={user?.users} customers={customers.customers} />
+          <TableContent setState={setState} user={user?.users} customers={customers.customers} />
         </Table>
         <Pagination
           last={customers?.totalpages}

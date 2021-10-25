@@ -20,7 +20,7 @@ export const getAllCustomers = async () => {
   return response.json();
 };
 
-export const searchCustomer = async (name, last, page, limit = 25,state) => {
+export const searchCustomer = async (name, last, page, limit = 25, state) => {
   const response = await fetch(
     `${API_HOST}/customers/search?name=${name}&last=${last}&page=${page}&limit=${limit}&state=${state}`,
     { headers: { token: getToken() } }
@@ -40,8 +40,8 @@ export const putCustomer = async (id, data) => {
   return response.json();
 };
 
-export const changeState = async (id) => {
-  const data = { id };
+export const changeState = async (id, state) => {
+  const data = { id, state: !state };
   const response = await fetch(`${API_HOST}/customers/delete`, {
     method: "PUT",
     headers: {

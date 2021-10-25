@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { changeState } from "../../services/customers";
 import { addCustomer } from "../../redux/actions/customers";
 
-export default function TableBody({ customers, user }) {
+export default function TableBody({ customers, user, setState }) {
   const [customer, setCustomer] = useState();
   const [showModal, setShowModal] = useState(false);
   const edit = (customer) => {
@@ -16,9 +16,10 @@ export default function TableBody({ customers, user }) {
   };
 
   const dispatch = useDispatch();
-  const handlechange = (cust) => {
-    changeState(cust?.id).then(() => {
+  const handlechange = (cust, state) => {
+    changeState(cust?.id, state).then(() => {
       dispatch(addCustomer(cust));
+      setState(!state);
     });
   };
   return (
@@ -43,10 +44,10 @@ export default function TableBody({ customers, user }) {
                 <div className="relative mt-1 ml-3 inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
                   <input
                     type="checkbox"
-                    name="toggle"
+                    name={"toggle" + index}
                     id={"toggle" + index}
                     defaultChecked={cust.state}
-                    onChange={() => handlechange(cust)}
+                    onChange={() => handlechange(cust, cust.state)}
                     className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
                   />
                   <label

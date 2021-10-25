@@ -15,12 +15,12 @@ export function add(data) {
   };
 }
 
-export const readPatients = (page, name, custom, limit, state = 1) => {
+export const readPatients = (page, name, custom, exp, limit, state = 1) => {
   return (dispatch) => {
-    if (name !== "" || custom !== "") {
+    if (name !== "" || custom !== "" || exp !== "") {
       page = 1;
     }
-    getAllPatients(page, name, custom, limit, state).then((res) => {
+    getAllPatients(page, name, custom,exp, limit, state).then((res) => {
       if (res.msg) {
         dispatch(read([]));
         return;

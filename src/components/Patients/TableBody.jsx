@@ -23,7 +23,7 @@ import { listSpecies } from "../../redux/actions/species";
 import { readSexes } from "../../redux/actions/sexes";
 import { checkRole } from "../../utils/checkRole";
 
-export default function TableBody({ patients, setReload, user }) {
+export default function TableBody({ patients, setReload, user, setState }) {
   //redux dispatch
   const dispatch = useDispatch();
   const alldispatch = () => {
@@ -92,8 +92,9 @@ export default function TableBody({ patients, setReload, user }) {
   };
 
   const handlechange = (patient) => {
-    changeStatus(patient?.id).then(() => {
+    changeStatus(patient?.id, patient?.state).then(() => {
       dispatch(addPatient(patient));
+      setState(!patient?.state);
     });
   };
   //method change profile pic

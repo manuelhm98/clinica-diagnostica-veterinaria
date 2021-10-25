@@ -17,6 +17,8 @@ export default function Form({ setShowModal, vendor }) {
       phone: Yup.string().required("El numero de telefono es requerido"),
       addres: Yup.string().required("La direccion es requerida"),
       nBank: Yup.string().required("El numero de banco es requerido"),
+      bank: Yup.string().notRequired(),
+      celPhone: Yup.string().notRequired(),
     }),
     onSubmit: (values) => {
       if (vendor) {
@@ -105,6 +107,27 @@ export default function Form({ setShowModal, vendor }) {
           )}
         </div>
         <div className="flex flex-col p-1 mt-1">
+          <label className="text-sm text-gray-400">Celular</label>
+          <input
+            type="text"
+            name="celPhone"
+            onChange={formik.handleChange}
+            placeholder="Ingresa el numero de celular"
+            defaultValue={vendor && vendor?.celPhone}
+            className={
+              "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              (formik.errors.celPhone && formik.touched.celPhone
+                ? "border-red-400"
+                : "border-gray-300")
+            }
+          />
+          {formik.errors.celPhone && formik.touched.celPhone && (
+            <span className="text-sm font-normal text-red-400">
+              {formik.errors.celPhone}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-col p-1 mt-1">
           <label className="text-sm text-gray-400">Direccion</label>
           <input
             type="text"
@@ -146,6 +169,27 @@ export default function Form({ setShowModal, vendor }) {
             </span>
           )}
         </div>
+        <div className="flex flex-col p-1 mt-1">
+          <label className="text-sm text-gray-400">Banco</label>
+          <input
+            type="text"
+            name="bank"
+            onChange={formik.handleChange}
+            placeholder="Ingresa el nombre del banco"
+            defaultValue={vendor && vendor?.bank}
+            className={
+              "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              (formik.errors.bank && formik.touched.bank
+                ? "border-red-400"
+                : "border-gray-300")
+            }
+          />
+          {formik.errors.bank && formik.touched.bank && (
+            <span className="text-sm font-normal text-red-400">
+              {formik.errors.bank}
+            </span>
+          )}
+        </div>
         <button
           type="submit"
           className="bg-blue-600 mt-4 w-full text-white rounded px-12 py-1 text-xs"
@@ -164,5 +208,7 @@ function initialValues(vendor) {
     phone: "" || vendor?.phone,
     addres: "" || vendor?.addres,
     nBank: "" || vendor?.nBank,
+    bank: "" || vendor?.bank,
+    celPhone: "" || vendor?.celPhone,
   };
 }
