@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "../components/Customers/Form";
-import TableContent from "../components/Customers/TableContent";
+
 import InputSearch from "../components/Global/InputSearch";
 import Modal from "../components/Global/Modal";
-import Pagination from "../components/Global/Pag";
-import Table from "../components/Global/Table";
+
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { readCustomers } from "../redux/actions/customers";
 import { readEmployeById } from "../redux/actions/employee";
+import Waiting from "../components/Global/Waiting";
+const Pagination = lazy(() => import("../components/Global/Pag"));
+const TableContent = lazy(() => import("../components/Customers/TableContent"));
+const Table = lazy(() => import("../components/Global/Table"));
 
 export default function Customers() {
   const [showModal, setShowModal] = useState(false);
@@ -79,17 +82,23 @@ export default function Customers() {
         >
           <Form setShowModal={setShowModal} />
         </Modal>
-        <Table>
-          <TableContent setState={setState} user={user?.users} customers={customers.customers} />
-        </Table>
-        <Pagination
-          last={customers?.totalpages}
-          className="pagination-bar"
-          onPageChange={setPage}
-          totalCount={customers?.totalItems}
-          currentPage={customers?.currentPage}
-          pageSize={customers?.take}
-        />
+        <Suspense fallback={<Waiting />}>
+          <Table>
+            <TableContent
+              setState={setState}
+              user={user?.users}
+              customers={customers.customers}
+            />
+          </Table>
+          <Pagination
+            last={customers?.totalpages}
+            className="pagination-bar"
+            onPageChange={setPage}
+            totalCount={customers?.totalItems}
+            currentPage={customers?.currentPage}
+            pageSize={customers?.take}
+          />
+        </Suspense>
       </div>
     </Layout>
   );

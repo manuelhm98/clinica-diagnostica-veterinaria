@@ -1,15 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Form from "../components/Colors/Form";
-import TableContent from "../components/Colors/TableContent";
-import Modal from "../components/Global/Modal";
-import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { readColors } from "../redux/actions/colors";
-import Pagination from "../components/Global/Pag";
 import InputSearch from "../components/Global/InputSearch";
 import { readEmployeById } from "../redux/actions/employee";
+import Waiting from "../components/Global/Waiting";
+const TableContent = lazy(() => import("../components/Colors/TableContent"));
+const Pagination = lazy(() => import("../components/Global/Pag"));
+const Modal = lazy(() => import("../components/Global/Modal"));
+const Table = lazy(() => import("../components/Global/Table"));
+const Form = lazy(() => import("../components/Colors/Form"));
 
 export default function Colors() {
   const [showModal, setShowModal] = useState(false);
@@ -45,29 +46,31 @@ export default function Colors() {
         >
           Agregar
         </button>
-        <Modal
-          title="Agregar Color"
-          showModal={showModal}
-          setShowModal={setShowModal}
-        >
-          <Form setShowModal={setShowModal} />
-        </Modal>
-        <Table>
-          <TableContent
-            setShowModal={setShowModal}
+        <Suspense fallback={<Waiting />}>
+          <Modal
+            title="Agregar Color"
             showModal={showModal}
-            user={user?.users}
-            colors={colors.color}
+            setShowModal={setShowModal}
+          >
+            <Form setShowModal={setShowModal} />
+          </Modal>
+          <Table>
+            <TableContent
+              setShowModal={setShowModal}
+              showModal={showModal}
+              user={user?.users}
+              colors={colors.color}
+            />
+          </Table>
+          <Pagination
+            last={colors?.totalpages}
+            className="pagination-bar"
+            onPageChange={setPage}
+            totalCount={colors?.totalItems}
+            currentPage={colors?.currentPage}
+            pageSize={colors?.take}
           />
-        </Table>
-        <Pagination
-          last={colors?.totalpages}
-          className="pagination-bar"
-          onPageChange={setPage}
-          totalCount={colors?.totalItems}
-          currentPage={colors?.currentPage}
-          pageSize={colors?.take}
-        />
+        </Suspense>
       </div>
     </Layout>
   );

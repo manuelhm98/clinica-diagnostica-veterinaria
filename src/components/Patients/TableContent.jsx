@@ -1,9 +1,10 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 import { checkRole } from "../../utils/checkRole";
+import TableLoading from "../Global/TableLoading";
 import TH from "../Global/TH";
-import TableBody from "./TableBody";
+const TableBody = lazy(() => import("./TableBody"));
 
-export default function TableContent({ patients, setReload, user,setState }) {
+export default function TableContent({ patients, setReload, user, setState }) {
   return (
     <>
       <thead>
@@ -17,7 +18,14 @@ export default function TableContent({ patients, setReload, user,setState }) {
         </tr>
       </thead>
       <tbody>
-        <TableBody user={user} setState={setState} patients={patients} setReload={setReload} />
+        <Suspense fallback={<TableLoading />}>
+          <TableBody
+            user={user}
+            setState={setState}
+            patients={patients}
+            setReload={setReload}
+          />
+        </Suspense>
       </tbody>
     </>
   );

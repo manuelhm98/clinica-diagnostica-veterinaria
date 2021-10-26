@@ -91,9 +91,7 @@ export default function AddPatient() {
         .number()
         .required("La raza es requerida")
         .typeError("Raza invalida"),
-      exp: yup
-        .string()
-        .required("EL numero de expediente es requerido"),
+      exp: yup.string().required("EL numero de expediente es requerido"),
       weight: yup.string().required("El peso del paciente es requerido"),
     }),
     onSubmit: (values) => {
@@ -474,6 +472,7 @@ export default function AddPatient() {
               </div>
             </div>
             <button
+              disabled={formik.isSubmitting}
               type="submit"
               className="bg-blue-500 text-white rounded text-sm py-1 mt-3 w-full"
             >

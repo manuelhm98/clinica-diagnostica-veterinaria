@@ -14,31 +14,35 @@ export default function TableBody({ colors, user }) {
 
   return (
     <>
-      {colors?.length >= 1 ? (
-        colors?.map((color) => (
-          <tr key={color.type}>
-            <TD name={color.id} />
-            <TD name={color.type} />
-            {checkRole(user) === 1 && (
-              <TD>
-                <div className="flex">
-                  <button
-                    onClick={() => edit(color)}
-                    className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
-                  >
-                    Editar
-                  </button>
-                </div>
-              </TD>
-            )}
+      {colors ? (
+        colors.length ? (
+          colors?.map((color) => (
+            <tr key={color.type}>
+              <TD name={color.id} />
+              <TD name={color.type} />
+              {checkRole(user) === 1 && (
+                <TD>
+                  <div className="flex">
+                    <button
+                      onClick={() => edit(color)}
+                      className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
+                    >
+                      Editar
+                    </button>
+                  </div>
+                </TD>
+              )}
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td>
+              <p className="p-4">No hay registros para mostrar</p>
+            </td>
           </tr>
-        ))
+        )
       ) : (
-        <tr>
-          <td>
-            <p className="p-4">No hay registros para mostrar</p>
-          </td>
-        </tr>
+        ""
       )}
       <Modal
         title="Actualizar color"

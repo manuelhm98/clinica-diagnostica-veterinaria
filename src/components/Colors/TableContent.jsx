@@ -1,7 +1,8 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 import { checkRole } from "../../utils/checkRole";
+import TableLoading from "../Global/TableLoading";
 import TH from "../Global/TH";
-import TableBody from "./TableBody";
+const TableBody = lazy(() => import("./TableBody"));
 
 export default function TableContent({ colors, user }) {
   return (
@@ -14,7 +15,9 @@ export default function TableContent({ colors, user }) {
         </tr>
       </thead>
       <tbody>
-        <TableBody user={user} colors={colors} />
+        <Suspense fallback={<TableLoading />}>
+          <TableBody user={user} colors={colors} />
+        </Suspense>
       </tbody>
     </>
   );
