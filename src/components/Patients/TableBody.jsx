@@ -112,7 +112,7 @@ export default function TableBody({ patients, setReload, user, setState }) {
   };
   return (
     <>
-      {patients.patients?.length >= 1 ? (
+      {patients.patients && patients.patients?.length >= 1 ? (
         patients.patients?.map((pat, index) => (
           <tr key={pat.id}>
             <TD onclick={() => setPetDetails(pat)}>

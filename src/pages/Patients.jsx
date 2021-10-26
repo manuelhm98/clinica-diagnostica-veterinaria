@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import TableContent from "../components/Patients/TableContent";
-import Table from "../components/Global/Table";
 import Title from "../components/Global/Title";
 import Layout from "../layout/Layout";
 import { readPatients } from "../redux/actions/patiences";
-import Pagination from "../components/Global/Pag";
 import { Link } from "react-router-dom";
 import InputSearch from "../components/Global/InputSearch";
 import { readEmployeById } from "../redux/actions/employee";
+const Table = React.lazy(() => import("../components/Global/Table"));
+const Pagination = React.lazy(() => import("../components/Global/Pag"));
+const TableContent = React.lazy(() =>
+  import("../components/Patients/TableContent")
+);
 
 export default function Patients() {
   //react states logic
@@ -94,23 +96,41 @@ export default function Patients() {
         <button className="bg-blue-600 text-white mt-3 px-8 ml-4 float-right text-xs py-1 rounded">
           <Link to="/new-patient">Agregar</Link>
         </button>
-        <Table>
-          <TableContent
-          setState={setState}
-            user={user?.users}
-            setReload={setReload}
-            patients={patients}
+        <Suspense fallback={<Waiting />}>
+          <Table>
+            <TableContent
+              setState={setState}
+              user={user?.users}
+              setReload={setReload}
+              patients={patients}
+            />
+          </Table>
+          <Pagination
+            pageSize={patients?.take}
+            currentPage={patients?.currentPage}
+            data={patients}
+            totalCount={patients?.totalItems}
+            last={patients?.totalpages}
+            onPageChange={setPage}
           />
-        </Table>
-        <Pagination
-          pageSize={patients?.take}
-          currentPage={patients?.currentPage}
-          data={patients}
-          totalCount={patients?.totalItems}
-          last={patients?.totalpages}
-          onPageChange={setPage}
-        />
+        </Suspense>
       </div>
     </Layout>
+  );
+}
+
+function Waiting() {
+  return (
+    <div className="py-8 px-5 rounded-lg flex items-center">
+      <div className="text-gray-500 text-md font-semibold text-center">
+        Cargando resultados...
+      </div>
+      <div className="loader-dots block relative w-32 h-5 ml-8">
+        <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-indigo-500"></div>
+        <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-indigo-500"></div>
+        <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-indigo-500"></div>
+        <div className="absolute top-0 mt-1 w-3 h-3 rounded-full bg-indigo-500"></div>
+      </div>
+    </div>
   );
 }
