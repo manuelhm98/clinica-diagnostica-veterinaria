@@ -97,7 +97,7 @@ const AddQuote = () => {
 
   //react useEffect logic
   useEffect(() => {
-    dispatch(readPatients(page, search.name, search.custom, 3));
+    dispatch(readPatients(page, search.name, search.custom,"", 3));
     dispatch(readDoctors(1, ""));
     dispatch(readQuoteTypes());
     return;
