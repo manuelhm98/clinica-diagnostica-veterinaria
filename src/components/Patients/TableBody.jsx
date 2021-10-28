@@ -22,6 +22,7 @@ import { readPatTypes } from "../../redux/actions/pat-type";
 import { listSpecies } from "../../redux/actions/species";
 import { readSexes } from "../../redux/actions/sexes";
 import { checkRole } from "../../utils/checkRole";
+import AddPDF from "./Form/AddPDF";
 
 export default function TableBody({ patients, setReload, user, setState }) {
   //redux dispatch
@@ -48,6 +49,7 @@ export default function TableBody({ patients, setReload, user, setState }) {
   const [showModalEditPhoto, setShowModalEditPhoto] = useState(false);
   const [showModalEditCustom, setShowModalEditCustom] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showAddPDF, setShowAddPDF] = useState(false);
   const [details, setDetails] = useState();
   const [petProfile, setPetProfile] = useState();
   const [clientToPet, setClientToPet] = useState();
@@ -69,6 +71,11 @@ export default function TableBody({ patients, setReload, user, setState }) {
   const profilePic = (pet) => {
     setPatient(pet);
     setShowModalEditPhoto(true);
+  };
+
+  const handlePDF = (pet) => {
+    setPatient(pet);
+    setShowAddPDF(true);
   };
 
   const setEditMethod = (pet) => {
@@ -125,7 +132,7 @@ export default function TableBody({ patients, setReload, user, setState }) {
               </span>
             </TD>
             <TD onclick={() => profilePic(pat)}>
-              <div className=" w-20">
+              <div className=" w-16">
                 <img
                   src={showImage(pat.img)}
                   alt="null"
@@ -154,18 +161,24 @@ export default function TableBody({ patients, setReload, user, setState }) {
                 </span>
               </div>
             </TD>
-            {checkRole(user) === 1 && (
-              <TD>
-                <div className="flex">
+            <TD>
+              <div className="flex">
+                {checkRole(user) === 1 && (
                   <button
                     onClick={() => setEditMethod(pat)}
-                    className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
+                    className="bg-green-500 text-white text-xs px-3 m-1 py-1 rounded"
                   >
                     Editar
                   </button>
-                </div>
-              </TD>
-            )}
+                )}
+                <button
+                  onClick={() => handlePDF(pat)}
+                  className="bg-blue-500 text-white whitespace-nowrap text-xs px-3 m-1 py-1 rounded"
+                >
+                  Agregar PDF
+                </button>
+              </div>
+            </TD>
           </tr>
         ))
       ) : (
@@ -229,6 +242,17 @@ export default function TableBody({ patients, setReload, user, setState }) {
         setShowModal={setShowDetails}
       >
         <Details patient={details} />
+      </Modal>
+      <Modal
+        showModal={showAddPDF}
+        setShowModal={setShowAddPDF}
+        title="Agregar expediente"
+      >
+        <AddPDF
+          setShowModal={setShowAddPDF}
+          patient={patient}
+          setreload={setReload}
+        />
       </Modal>
     </>
   );

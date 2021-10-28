@@ -11,12 +11,12 @@ export const addNewPatient = async (data) => {
 };
 
 export const getAllPatients = async (
-  page,
-  name,
-  customer,
-  exp,
-  limit,
-  state
+  page = 1,
+  name = "",
+  customer = "",
+  exp = "",
+  limit = 25,
+  state = 1
 ) => {
   const response = await fetch(
     `${API_HOST}/patients?page=${page}&names=${name}&nameCustomer=${customer}&limit=${limit}&state=${state}&exp=${exp}`,
@@ -74,4 +74,19 @@ export const changeStatus = async (id, state) => {
     body: JSON.stringify(data),
   });
   return response.json();
+};
+
+export const uploadPetPDF = async (id, file) => {
+  const formData = new FormData();
+  formData.append("pdf", file);
+  const response = await fetch(`${API_HOST}/patients/pdf/${id}`, {
+    method: "POST",
+    headers: { token: getToken() },
+    body: formData,
+  });
+  return response.json();
+};
+
+export const showPDF = (name) => {
+  return `${API_HOST}/patients/view-pdf?name=${name}`;
 };
