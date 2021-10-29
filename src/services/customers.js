@@ -52,3 +52,15 @@ export const changeState = async (id, state) => {
   });
   return response.json();
 };
+
+export const validPhone = async (data) => {
+  const response = await fetch(`${API_HOST}/customers/valid-cell`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      token: getToken(),
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};

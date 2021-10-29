@@ -16,7 +16,7 @@ import { Warning } from "../components/Global/Alerts/Warning";
 import { Success } from "../components/Global/Alerts/Success";
 import { Info } from "../components/Global/Alerts/Info";
 import { Error } from "../components/Global/Alerts/Error";
-import { addNewPatient, uploadPetPhoto } from "../services/patients";
+import { addNewPatient, uploadPetPhoto, validExp } from "../services/patients";
 import { addPatient } from "../redux/actions/patiences";
 import { useHistory } from "react-router-dom";
 
@@ -33,6 +33,7 @@ export default function AddPatient() {
   const inputDays = useRef(null);
   const inputMonths = useRef(null);
   const inputYears = useRef(null);
+  const exp = useRef();
 
   //redux states
   const dispatch = useDispatch();
@@ -140,6 +141,22 @@ export default function AddPatient() {
       (breed) => breed.speciesId === Number(id)
     );
     setNewBreeds(filterBreeds);
+  };
+
+  const handlecheck = () => {
+    const value = exp.current.value;
+    if (value.trim() === "") {
+      Warning("Debes escribir el expediente de la mascota");
+      return;
+    }
+    const data = { exp: value };
+    validExp(data).then((res) => {
+      if (!res.ok) {
+        Error("Ya existe un paciente con este expediente");
+        return;
+      }
+      Success("Este expediente no ah sido registrado");
+    });
   };
   return (
     <Layout>
@@ -387,6 +404,7 @@ export default function AddPatient() {
                 <input
                   placeholder="Escribe el numero de expediente"
                   name="exp"
+                  ref={exp}
                   onChange={formik.handleChange}
                   className={
                     "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1 " +
@@ -401,25 +419,32 @@ export default function AddPatient() {
                   </span>
                 )}
               </div>
-              <div className="p-2 flex flex-col">
-                <label className="text-gray-500 text-xs">Peso</label>
-                <input
-                  placeholder="Escribe el peso de la mascota"
-                  name="weight"
-                  onChange={formik.handleChange}
-                  className={
-                    "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1 " +
-                    (formik.errors.weight && formik.touched.weight
-                      ? "border-red-400"
-                      : "border-gray-300")
-                  }
-                />
-                {formik.errors.weight && formik.touched.weight && (
-                  <span className="text-sm font-normal text-red-400">
-                    {formik.errors.weight}
-                  </span>
-                )}
-              </div>
+              <button
+                onClick={handlecheck}
+                type="button"
+                className="bg-green-500 text-white rounded h-6 mt-7 mr-3"
+              >
+                Verificar
+              </button>
+            </div>
+            <div className="p-2 flex flex-col">
+              <label className="text-gray-500 text-xs">Peso</label>
+              <input
+                placeholder="Escribe el peso de la mascota"
+                name="weight"
+                onChange={formik.handleChange}
+                className={
+                  "border hover:border-green-500 outline-none mt-1 w-full rounded text-gray-700 text-sm px-2 py-1 " +
+                  (formik.errors.weight && formik.touched.weight
+                    ? "border-red-400"
+                    : "border-gray-300")
+                }
+              />
+              {formik.errors.weight && formik.touched.weight && (
+                <span className="text-sm font-normal text-red-400">
+                  {formik.errors.weight}
+                </span>
+              )}
             </div>
           </div>
           <div>

@@ -29,7 +29,6 @@ export default function Breeds() {
     dispatch(listSpecies());
     return;
   }, [dispatch, page, type]);
-  console.log(breeds);
   return (
     <Layout>
       <div className="p-8">

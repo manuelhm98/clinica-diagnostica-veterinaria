@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { addNewCustomer, putCustomer } from "../../services/customers";
+import {
+  addNewCustomer,
+  putCustomer,
+  validPhone,
+} from "../../services/customers";
 import { addCustomer } from "../../redux/actions/customers";
 import { Success } from "../Global/Alerts/Success";
 import { Error } from "../Global/Alerts/Error";
+import { Warning } from "../Global/Alerts/Warning";
 
 export default function Form({ setShowModal, customer }) {
   const dispatch = useDispatch();
+  const cellphone = useRef();
   const formik = useFormik({
     initialValues: initialValues(customer),
     validationSchema: Yup.object({
@@ -41,6 +47,23 @@ export default function Form({ setShowModal, customer }) {
       });
     },
   });
+  const handlecheck = () => {
+    const value = cellphone.current.value;
+    if (value.trim() === "") {
+      Warning("Debes escribir el numero de celular");
+      return;
+    }
+    const data = {
+      cellphone: value,
+    };
+    validPhone(data).then((res) => {
+      if (!res.ok) {
+        Error("Ya existe un cliente con este telefono");
+        return;
+      }
+      Success("Este telefono no ah sido registrado");
+    });
+  };
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
@@ -53,7 +76,7 @@ export default function Form({ setShowModal, customer }) {
             placeholder="Ingresa el nombre completo"
             defaultValue={customer && customer?.names}
             className={
-              "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.names && formik.touched.names
                 ? "border-red-400"
                 : "border-gray-300")
@@ -74,7 +97,7 @@ export default function Form({ setShowModal, customer }) {
             placeholder="Ingresa los apellidos"
             defaultValue={customer && customer?.lastname}
             className={
-              "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.lastname && formik.touched.lastname
                 ? "border-red-400"
                 : "border-gray-300")
@@ -95,7 +118,7 @@ export default function Form({ setShowModal, customer }) {
             placeholder="Ingresa la direccion"
             defaultValue={customer && customer?.direction}
             className={
-              "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.direction && formik.touched.direction
                 ? "border-red-400"
                 : "border-gray-300")
@@ -108,22 +131,62 @@ export default function Form({ setShowModal, customer }) {
           )}
         </div>
         <div className="flex flex-col p-1 mt-1">
-          <label className="text-sm text-gray-400">Numero de Celular</label>
-          <input
-            type="text"
-            name="cellphone"
-            onChange={formik.handleChange}
-            placeholder="Ingresa el numero de celular"
-            defaultValue={
-              customer && customer?.cellphone !== "0" ? customer?.cellphone : ""
-            }
-            className={
-              "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
-              (formik.errors.cellphone && formik.touched.cellphone
-                ? "border-red-400"
-                : "border-gray-300")
-            }
-          />
+          {!customer ? (
+            <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col">
+                <label className="text-sm text-gray-400">
+                  Numero de Celular
+                </label>
+                <input
+                  type="text"
+                  ref={cellphone}
+                  name="cellphone"
+                  onChange={formik.handleChange}
+                  placeholder="Ingresa el numero de celular"
+                  defaultValue={
+                    customer && customer?.cellphone !== "0"
+                      ? customer?.cellphone
+                      : ""
+                  }
+                  className={
+                    " border p-1 text-sm rounded outline-none hover:border-green-400 " +
+                    (formik.errors.cellphone && formik.touched.cellphone
+                      ? "border-red-400"
+                      : "border-gray-300")
+                  }
+                />
+              </div>
+              <button
+                onClick={handlecheck}
+                type="button"
+                className="bg-green-500 text-white rounded py-1 mt-4"
+              >
+                Verificar
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-col p-1 mt-1">
+              <label className="text-sm text-gray-400">Celular</label>
+              <input
+                type="text"
+                name="cellphone"
+                onChange={formik.handleChange}
+                placeholder="Ingresa el numero de celular"
+                className={
+                  "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
+                  (formik.errors.cellphone && formik.touched.cellphone
+                    ? "border-red-400"
+                    : "border-gray-300")
+                }
+              />
+              {formik.errors.cellphone && formik.touched.cellphone && (
+                <span className="text-sm font-normal text-red-400">
+                  {formik.errors.cellphone}
+                </span>
+              )}
+            </div>
+          )}
+
           {formik.errors.cellphone && formik.touched.cellphone && (
             <span className="text-sm font-normal text-red-400">
               {formik.errors.cellphone}
@@ -141,7 +204,7 @@ export default function Form({ setShowModal, customer }) {
               customer && customer?.phone !== "0" ? customer?.phone : ""
             }
             className={
-              "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.phone && formik.touched.phone
                 ? "border-red-400"
                 : "border-gray-300")
@@ -164,7 +227,7 @@ export default function Form({ setShowModal, customer }) {
               customer && customer?.email !== " " ? customer?.email : ""
             }
             className={
-              "w-80 border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.email && formik.touched.email
                 ? "border-red-400"
                 : "border-gray-300")

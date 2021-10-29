@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { usePagination, DOTS } from "../../hooks/usePagination";
 import "./Pagination.css";
 const Pagination = (props) => {
@@ -10,6 +10,10 @@ const Pagination = (props) => {
     pageSize,
     last,
   } = props;
+
+  useEffect(() => {
+    return;
+  }, [last, totalCount, currentPage]);
 
   const paginationRange = usePagination({
     currentPage,
@@ -59,6 +63,7 @@ const Pagination = (props) => {
           {paginationRange?.map((pageNumber) => {
             return (
               <li
+                key={pageNumber}
                 className={
                   (currentPage === pageNumber
                     ? "bg-green-500 text-white"

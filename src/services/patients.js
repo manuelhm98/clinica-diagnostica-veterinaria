@@ -90,3 +90,14 @@ export const uploadPetPDF = async (id, file) => {
 export const showPDF = (name) => {
   return `${API_HOST}/patients/view-pdf?name=${name}`;
 };
+export const validExp = async (data) => {
+  const response = await fetch(`${API_HOST}/patients/valid-exp`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      token: getToken(),
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};
