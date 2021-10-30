@@ -36,6 +36,8 @@ export default function ProductList({
     return;
   }, [prod, setLoadCart]);
   return (
+    <>
+     {typeof products?.products === "undefined" && <p className="flex mt-8">No hay productos para mostrar</p>}
     <div className="grid grid-cols-4 gap-4 mt-6">
       {products?.products &&
         products?.products.map((prod) => (
@@ -92,5 +94,6 @@ export default function ProductList({
         />
       </Modal>
     </div>
+    </>
   );
 }

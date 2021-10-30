@@ -17,13 +17,17 @@ export default function Quotes() {
   useEffect(() => {
     return dispatch(readQuotes(page, search));
   }, [dispatch, page, search]);
+  const handleChange = (e) => {
+    setSearch(e.currentPage.value);
+    setPage(1);
+  };
   return (
     <Layout>
       <div className="p-8">
         <Title name="Listado de consultas" />
         <div style={{ width: "80%" }}>
           <InputSearch
-            handleChange={(e) => setSearch(e.currentTarget.value)}
+            handleChange={(e) => handleChange(e)}
             placeholder="Escribe el nombre del paciente..."
             label="Buscar consultas por paciente"
           />

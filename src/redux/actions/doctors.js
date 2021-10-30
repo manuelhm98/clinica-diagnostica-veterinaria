@@ -17,9 +17,6 @@ export function add(data) {
 
 export const readDoctors = (page, search) => {
   return (dispatch) => {
-    if (search !== "") {
-      page = 1;
-    }
     getPaginatedDoctors(page, search).then((res) => {
       if (!res.ok) {
         dispatch(read({}));

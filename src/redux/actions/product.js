@@ -24,9 +24,6 @@ export const readProducts = (
   limit=25
 ) => {
   return (dispatch) => {
-    if (name !== "" || category !== "" || species !== "" || brands !== "") {
-      page = 1;
-    }
     getAllProducts(page, name, category, species, brands,limit).then((res) => {
       if (!res.ok) {
         dispatch(read({}));

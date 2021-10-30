@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePagination, DOTS } from "../../hooks/usePagination";
 import "./Pagination.css";
 const Pagination = (props) => {
@@ -11,27 +11,39 @@ const Pagination = (props) => {
     last,
   } = props;
 
-  useEffect(() => {
-    return;
-  }, [last, totalCount, currentPage]);
-
-  const paginationRange = usePagination({
-    currentPage,
-    totalCount,
-    siblingCount,
-    pageSize,
+  const [pagination, setPagination] = useState({
+    totalCount: 0,
+    currentPage: 0,
+    pageSize: 0,
+    last: 0,
   });
 
-  if (currentPage === 0 || paginationRange?.length < 2) {
+  useEffect(() => {
+    return setPagination({
+      totalCount: totalCount,
+      currentPage: currentPage,
+      pageSize: pageSize,
+      last: last,
+    });
+  }, [last, totalCount, currentPage, pageSize]);
+
+  const paginationRange = usePagination({
+    currentPage: pagination.currentPage,
+    totalCount: pagination.totalCount,
+    siblingCount,
+    pageSize: pagination.pageSize,
+  });
+
+  if (pagination.currentPage === 0 || paginationRange?.length < 2) {
     return null;
   }
 
   const onNext = () => {
-    onPageChange(currentPage + 1);
+    onPageChange(pagination.currentPage + 1);
   };
 
   const onPrevious = () => {
-    onPageChange(currentPage - 1);
+    onPageChange(pagination.currentPage - 1);
   };
 
   return (
@@ -40,7 +52,7 @@ const Pagination = (props) => {
         <div className="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
           <button
             className="hover:border-0"
-            disabled={currentPage === 1}
+            disabled={pagination.currentPage === 1}
             onClick={onPrevious}
           >
             <svg
@@ -65,7 +77,7 @@ const Pagination = (props) => {
               <li
                 key={pageNumber}
                 className={
-                  (currentPage === pageNumber
+                  (pagination.currentPage === pageNumber
                     ? "bg-green-500 text-white"
                     : "") +
                   " w-8 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full"
@@ -78,7 +90,7 @@ const Pagination = (props) => {
           })}
         </div>
         <div className="h-8 w-8 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
-          <button disabled={currentPage === last} onClick={onNext}>
+          <button disabled={pagination.currentPage === last} onClick={onNext}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="100%"

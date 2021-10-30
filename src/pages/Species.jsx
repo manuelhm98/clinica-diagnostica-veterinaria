@@ -26,7 +26,10 @@ export default function Species() {
     return dispatch(readSpecies(page, type));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, type]);
-
+  const handleChange = (e) => {
+    setType(e.currentTarget.value);
+    setPage(1);
+  };
   return (
     <Layout>
       <div className="p-8">
@@ -35,7 +38,7 @@ export default function Species() {
           <InputSearch
             label="Buscar por el nombre de la especie"
             placeholder="Escribe el nombre de la especie....."
-            handleChange={(e) => setType(e.currentTarget.value)}
+            handleChange={(e) => handleChange(e)}
           />
         </div>
         <button

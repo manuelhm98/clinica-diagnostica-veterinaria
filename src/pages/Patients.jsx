@@ -36,14 +36,17 @@ export default function Patients() {
         search.name,
         search.custom,
         search.exp,
-        25,
+        1,
         state ? 1 : 0
       )
     );
     return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, search, reload, state]);
-  console.log(patients);
+  const handleChange = (e) => {
+    setSearch({ ...search, [e.currentTarget.name]: e.currentTarget.value });
+    setPage(1);
+  };
   return (
     <Layout>
       <div className="p-8">
@@ -52,23 +55,20 @@ export default function Patients() {
           <InputSearch
             label="Buscar por el nombre de la mascota"
             placeholder="Escribe el nombre de la mascota..."
-            handleChange={(e) =>
-              setSearch({ ...search, name: e.currentTarget.value })
-            }
+            name="name"
+            handleChange={(e) => handleChange(e)}
           />
           <InputSearch
             label="Buscar por el dueño de la mascota"
             placeholder="Escribe el nombre del dueño de la mascota..."
-            handleChange={(e) =>
-              setSearch({ ...search, custom: e.currentTarget.value })
-            }
+            handleChange={(e) => handleChange(e)}
+            name="custom"
           />
           <InputSearch
             label="Buscar por numero de expediente"
             placeholder="Escribe el numero de expediente..."
-            handleChange={(e) =>
-              setSearch({ ...search, exp: e.currentTarget.value })
-            }
+            name="exp"
+            handleChange={(e) => handleChange(e)}
           />
         </div>
         <div>

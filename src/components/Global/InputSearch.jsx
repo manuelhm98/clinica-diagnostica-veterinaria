@@ -1,7 +1,7 @@
 import React from "react";
 import InputIcon from "./InputIcon";
 
-export default function InputSearch({ handleChange, placeholder, label }) {
+export default function InputSearch({ handleChange, placeholder, label,name }) {
   return (
     <div className="flex flex-col">
       <label className="text-gray-500 text-xs">{label}</label>
@@ -9,7 +9,7 @@ export default function InputSearch({ handleChange, placeholder, label }) {
         <InputIcon />
         <input
           type="search"
-          name="q"
+          name={name}
           className="w-full py-1 text-xs pl-10 rounded border outline-none"
           placeholder={placeholder}
           onChange={handleChange}

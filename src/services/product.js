@@ -33,7 +33,7 @@ export const getAllProducts = async (
   limit=25
 ) => {
   const response = await fetch(
-    `${API_HOST}/products/list?page=${page}&name=${name}&category=${category}&species=${species}&v=${brands}&limit=${limit}`,
+    `${API_HOST}/products/list?page=${page}&name=${name}&category=${category}&species=${species}&brands=${brands}&limit=${limit}`,
     {
       headers: { token: getToken() },
     }

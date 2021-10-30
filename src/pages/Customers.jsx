@@ -16,8 +16,7 @@ const Table = lazy(() => import("../components/Global/Table"));
 
 export default function Customers() {
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState();
-  const [last, setLast] = useState();
+  const [search, setSearch] = useState({ name: "", last: "" });
   const [page, setPage] = useState(1);
   const [state, setState] = useState(true);
   const dispatch = useDispatch();
@@ -28,9 +27,16 @@ export default function Customers() {
     return dispatch(readEmployeById(auth?.user?.userid));
   }, [dispatch, auth]);
   useEffect(() => {
-    return dispatch(readCustomers(name, last, page, 25, state ? 1 : 0));
+    return dispatch(
+      readCustomers(search.name, search.last, page, 25, state ? 1 : 0)
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, last, page, state]);
+  }, [search, page, state]);
+
+  const handleChange = (e) => {
+    setSearch({ ...search, [e.currentTarget.name]: e.currentTarget.value });
+    setPage(1);
+  };
   return (
     <Layout>
       <div className="p-5">
@@ -39,12 +45,14 @@ export default function Customers() {
           <InputSearch
             label="Buscar por nombre"
             placeholder="Escribe el nombre para buscar"
-            handleChange={(e) => setName(e.currentTarget.value)}
+            name="name"
+            handleChange={(e) => handleChange(e)}
           />
           <InputSearch
             label="Buscar por apellido"
             placeholder="Escribe el apellido para buscar"
-            handleChange={(e) => setLast(e.currentTarget.value)}
+            name="last"
+            handleChange={(e) => handleChange(e)}
           />
         </div>
         <div>

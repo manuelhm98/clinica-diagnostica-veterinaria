@@ -7,6 +7,7 @@ import { readEmployeById } from "../redux/actions/employee";
 import { checkRole } from "../utils/checkRole";
 
 import Loading from "../components/Global/Loading";
+import Breeds from "../pages/Breeds"
 const Product = lazy(() => import("../pages/Product"));
 const Customers = lazy(() => import("../pages/Customers"));
 const Patients = lazy(() => import("../pages/Patients"));
@@ -32,7 +33,6 @@ const QuoteType = lazy(() => import("../pages/QuoteType"));
 const Brand = lazy(() => import("../pages/Brand"));
 const AddDoctor = lazy(() => import("../pages/AddDoctor"));
 const AddPatient = lazy(() => import("../pages/AddPatient"));
-const Breeds = lazy(() => import("../pages/Breeds"));
 const Colors = lazy(() => import("../pages/Colors"));
 const Doctors = lazy(() => import("../pages/Doctors"));
 const Employees = lazy(() => import("../pages/Employees"));
@@ -49,12 +49,13 @@ export default function Routes() {
     <Router>
       <Switch>
         <Route path="/" exact component={Home} />
-        <Suspense fallback={<Loading />}>
-          <Route path="/breeds" exact>
+        <Route path="/breeds" exact>
             {user?.users && (
               <>{checkRole(user?.users) === 1 ? <Breeds /> : <Error404 />}</>
             )}
           </Route>
+        <Suspense fallback={<Loading />}>
+         
           <Route path="/species" exact>
             {user?.users && (
               <>{checkRole(user?.users) === 1 ? <Species /> : <Error404 />}</>

@@ -50,6 +50,11 @@ export default function Product() {
       )
     );
   }, [dispatch, search, page]);
+  
+  const handleChange = (e) => {
+    setSearch({ ...search, [e.currentTarget.name]: e.currentTarget.value });
+    setPage(1);
+  };
 
   return (
     <Layout>
@@ -64,10 +69,9 @@ export default function Product() {
           </button>
           <CartButton setLoadCart={setLoadCart} loadCart={loadCart} />
           <InputSearch
-            handleChange={(e) =>
-              setSearch({ ...search, name: e.currentTarget.value })
-            }
+            handleChange={(e) => handleChange(e)}
             label="Buscar por nombre"
+            name="name"
             placeholder="Escribe el nombre del producto para buscar"
           />
           <div className="grid grid-cols-3 mt-3">
@@ -76,10 +80,9 @@ export default function Product() {
                 Buscar por categoria
               </label>
               <select
-                onChange={(e) =>
-                  setSearch({ ...search, category: e.currentTarget.value })
-                }
+                onChange={(e) => handleChange(e)}
                 defaultValue={"DEFAULT"}
+                name="category"
                 className="border mr-6 py-1 text-xs px-2 rounded outline-none"
               >
                 <option disabled selected value={"DEFAULT"}>
@@ -98,10 +101,9 @@ export default function Product() {
                 Buscar por especie
               </label>
               <select
-                onChange={(e) =>
-                  setSearch({ ...search, species: e.currentTarget.value })
-                }
+                onChange={(e) => handleChange(e)}
                 defaultValue={"DEFAULT"}
+                name="species"
                 className="border mr-6 py-1 text-xs px-2 rounded outline-none"
               >
                 <option disabled selected value={"DEFAULT"}>
@@ -116,14 +118,11 @@ export default function Product() {
               </select>
             </div>
             <div className="grid grid-rows-2">
-              <label className="text-gray-500 text-xs">
-                Buscar por marca
-              </label>
+              <label className="text-gray-500 text-xs">Buscar por marca</label>
               <select
-                onChange={(e) =>
-                  setSearch({ ...search, brands: e.currentTarget.value })
-                }
+                onChange={(e) => handleChange(e)}
                 defaultValue={"DEFAULT"}
+                name="brands"
                 className="border mr-6 py-1 text-xs px-2 rounded outline-none"
               >
                 <option disabled selected value={"DEFAULT"}>

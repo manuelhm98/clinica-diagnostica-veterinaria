@@ -29,6 +29,10 @@ export default function Breeds() {
     dispatch(listSpecies());
     return;
   }, [dispatch, page, type]);
+  const handleChange = (e) => {
+    setType(e.currentTarget.value);
+    setPage(1);
+  };
   return (
     <Layout>
       <div className="p-8">
@@ -37,7 +41,7 @@ export default function Breeds() {
           <InputSearch
             label="Buscar por el nombre de la raza"
             placeholder="Escribe el nombre de la raza....."
-            handleChange={(e) => setType(e.currentTarget.value)}
+            handleChange={(e) => handleChange(e)}
           />
         </div>
         <button

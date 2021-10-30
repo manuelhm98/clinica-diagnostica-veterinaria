@@ -22,7 +22,7 @@ export default function TableBody({ breeds, user }) {
   }, []);
   return (
     <>
-      {breeds.breeds?.map((breed) => (
+      {breeds?.breeds?.map((breed) => (
         <tr key={breed.type}>
           <TD name={breed.id} />
           <TD name={breed.type} />

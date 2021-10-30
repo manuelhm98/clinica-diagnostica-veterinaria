@@ -17,9 +17,6 @@ export function add(data) {
 
 export const readSpecies = (page = 1, type = "") => {
   return (dispatch) => {
-    if (type !== "") {
-      page = 1;
-    }
     getAllSpecies(page, type).then((res) => {
       if (!res.ok) {
         dispatch(read({}));

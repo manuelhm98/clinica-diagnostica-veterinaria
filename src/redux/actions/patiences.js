@@ -24,9 +24,6 @@ export const readPatients = (
   state = 1
 ) => {
   return (dispatch) => {
-    if (name !== "" || custom !== "" || exp !== "") {
-      page = 1;
-    }
     getAllPatients(page, name, custom, exp, limit, state).then((res) => {
       if (res.msg) {
         dispatch(read([]));

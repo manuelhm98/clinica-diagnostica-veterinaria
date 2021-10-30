@@ -17,6 +17,10 @@ export default function Doctors() {
   useEffect(() => {
     return dispatch(readDoctors(page, search));
   }, [dispatch, page, search]);
+  const handleChange = (e) => {
+    setSearch(e.currentTarget.value);
+    setPage(1);
+  };
   return (
     <Layout>
       <div className="p-8 ">
@@ -25,7 +29,7 @@ export default function Doctors() {
           <InputSearch
             label="Buscar por el nombre ddel doctor"
             placeholder="Escribe el nombre del doctor....."
-            handleChange={(e) => setSearch(e.currentTarget.value)}
+            handleChange={(e) => handleChange(e)}
           />
         </div>
         <Link to="/new-doctor">

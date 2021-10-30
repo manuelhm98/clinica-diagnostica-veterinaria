@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Form from "../components/Employee/Form";
 import TableContent from "../components/Employee/TableContent";
 import Modal from "../components/Global/Modal";
 import Table from "../components/Global/Table";

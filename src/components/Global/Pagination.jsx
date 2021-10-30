@@ -13,12 +13,12 @@ const Pagination = ({ method, data }) => {
   };
   const setPaginationData = () => {
     setPagination({
-      nextPage: data.nextPage,
-      prevPage: data.prevPage,
-      currentPage: data.currentPage,
-      totalPages: data.totalpages,
+      nextPage: data?.nextPage,
+      prevPage: data?.prevPage,
+      currentPage: data?.currentPage,
+      totalPages: data?.totalpages,
     });
-    range(1, data.totalpages);
+    range(1, data?.totalpages);
   };
   useEffect(() => {
     return setPaginationData();
@@ -31,8 +31,8 @@ const Pagination = ({ method, data }) => {
         <div className="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
           <button
             className="hover:border-0"
-            disabled={pagination.currentPage === 1}
-            onClick={() => method(pagination.prevPage)}
+            disabled={pagination?.currentPage === 1}
+            onClick={() => method(pagination?.prevPage)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +56,7 @@ const Pagination = ({ method, data }) => {
               onClick={() => method(pag)}
               key={index}
               className={
-                (pagination.currentPage === pag
+                (pagination?.currentPage === pag
                   ? "bg-green-500 text-white"
                   : "") +
                 " w-8 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full"
@@ -68,8 +68,8 @@ const Pagination = ({ method, data }) => {
         </div>
         <div className="h-8 w-8 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
           <button
-            disabled={pagination.currentPage === pagination.totalPages}
-            onClick={() => method(pagination.nextPage)}
+            disabled={pagination?.currentPage === pagination?.totalPages}
+            onClick={() => method(pagination?.nextPage)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

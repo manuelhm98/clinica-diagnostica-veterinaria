@@ -119,7 +119,12 @@ export default function TableBody({ patients, setReload, user, setState }) {
   };
   return (
     <>
-      {patients.patients && patients.patients?.length >= 1 ? (
+      {typeof patients?.patients === "undefined" && (
+        <p className="text-xs font-semibold py-4 px-4">
+          No hay datos para mostrar
+        </p>
+      )}
+      {patients.patients &&
         patients.patients?.map((pat, index) => (
           <tr key={pat.id}>
             <TD onclick={() => setPetDetails(pat)}>
@@ -180,14 +185,7 @@ export default function TableBody({ patients, setReload, user, setState }) {
               </div>
             </TD>
           </tr>
-        ))
-      ) : (
-        <tr>
-          <td>
-            <p className="p-4">No hay registros para mostrar</p>
-          </td>
-        </tr>
-      )}
+        ))}
       <Modal
         title="Editar paciente"
         setShowModal={setShowEditModal}

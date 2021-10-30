@@ -17,11 +17,8 @@ export function add(data) {
 
 export const readBreeds = (page = 1, type = "") => {
   return (dispatch) => {
-    if (type !== "") {
-      page = 1;
-    }
     getAllBreeds(page, type).then((res) => {
-      if (res.msg) {
+      if (!res.ok) {
         dispatch(read({}));
         return;
       }

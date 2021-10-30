@@ -17,9 +17,6 @@ export function add(data) {
 
 export const readVendors = (page = 1, name = "", vendor = "") => {
   return (dispatch) => {
-    if (name !== "" && vendor !== "") {
-      page = 1;
-    }
     getAllVendors(page, name, vendor).then((res) => {
       if (!res.ok) {
         dispatch(read({}));

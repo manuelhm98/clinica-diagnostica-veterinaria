@@ -19,7 +19,10 @@ export default function Vendors() {
   useEffect(() => {
     return dispatch(readVendors(page, search.name, search.vendorName));
   }, [dispatch, search, page]);
-
+  const handleChange = (e) => {
+    setSearch({ ...search, [e.currentTarget.name]: e.currentTarget.value });
+    setPage(1);
+  };
   return (
     <Layout>
       <div className="p-8">
@@ -28,16 +31,14 @@ export default function Vendors() {
           <InputSearch
             label="Buscar por el nombre del proveedor"
             placeholder="Escribe el nombre del proveedor....."
-            handleChange={(e) =>
-              setSearch({ ...search, name: e.currentTarget.value })
-            }
+            name="name"
+            handleChange={(e) => handleChange(e)}
           />
           <InputSearch
             label="Buscar por el nombre de vendedor"
             placeholder="Escribe el nombre de vendedor....."
-            handleChange={(e) =>
-              setSearch({ ...search, vendorName: e.currentTarget.value })
-            }
+            name="vendorName"
+            handleChange={(e) => handleChange(e)}
           />
         </div>
         <button
