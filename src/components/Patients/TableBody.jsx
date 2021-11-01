@@ -23,6 +23,7 @@ import { listSpecies } from "../../redux/actions/species";
 import { readSexes } from "../../redux/actions/sexes";
 import { checkRole } from "../../utils/checkRole";
 import AddPDF from "./Form/AddPDF";
+import { Error } from "../Global/Alerts/Error";
 
 export default function TableBody({ patients, setReload, user, setState }) {
   //redux dispatch
@@ -54,6 +55,7 @@ export default function TableBody({ patients, setReload, user, setState }) {
   const [petProfile, setPetProfile] = useState();
   const [clientToPet, setClientToPet] = useState();
   const [patient, setPatient] = useState();
+  const [spinner, setSpinner] = useState(false);
 
   //view pet detail modal
   const setPetDetails = (pet) => {
@@ -107,7 +109,15 @@ export default function TableBody({ patients, setReload, user, setState }) {
   //method change profile pic
   const addPhoto = () => {
     if (petProfile) {
-      uploadPetPhoto(patient?.id, petProfile).then(() => {
+      setSpinner(true);
+      uploadPetPhoto(patient?.id, petProfile).then((res) => {
+        if (!res.ok) {
+          setSpinner(false);
+          setShowModalEditPhoto(false);
+          Error("Error al guardar la imagen");
+          return;
+        }
+        setSpinner(false);
         setShowModalEditPhoto(false);
         setReload(true);
         Success("Se agrego la imagen con exito!");
@@ -211,9 +221,16 @@ export default function TableBody({ patients, setReload, user, setState }) {
           <SelectImage patient={patient} setPetfile={setPetProfile} />
           <button
             onClick={addPhoto}
-            className="bg-blue-500 text-white w-full mt-2 rounded"
+            className="bg-blue-500 text-white w-full flex justify-center mt-2 rounded"
           >
-            Guardar
+           {spinner ? (
+                <div
+                  style={{ borderTopColor: "transparent" }}
+                  className="w-5 h-5 border-2 border-white border-solid rounded-full animate-spin"
+                />
+              ) : (
+                "Guardar"
+              )}
           </button>
         </div>
       </Modal>

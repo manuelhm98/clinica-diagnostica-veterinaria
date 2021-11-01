@@ -25,6 +25,7 @@ export default function AddPatient() {
   const [petProfile, setPetProfile] = useState();
   const [age, setAge] = useState({ years: 0, months: 0, days: 0 });
   const [birthDay, setBirthDay] = useState();
+  const [spinner, setSpinner] = useState(false);
   const [newBreeds, setNewBreeds] = useState();
   const [showModal, setShowModal] = useState(false);
   const [clientToPet, setClientToPet] = useState();
@@ -47,7 +48,15 @@ export default function AddPatient() {
   const addNewPhotoProfile = (patient) => {
     if (petProfile) {
       uploadPetPhoto(patient?.id, petProfile)
-        .then(() => {
+        .then((res) => {
+          if (!res.ok) {
+            Error("Ah ocurrido un error al guardar la foto del paciente");
+            setSpinner(false);
+            dispatch(addPatient(patient));
+            route.push("/patients");
+            return;
+          }
+          setSpinner(false);
           Success("Se guardo el registro con exito");
           dispatch(addPatient(patient));
           route.push("/patients");
@@ -106,6 +115,7 @@ export default function AddPatient() {
           };
           addNewPatient(newData).then((res) => {
             if (res.patient) {
+              setSpinner(true);
               addNewPhotoProfile(res.patient);
               return;
             }
@@ -499,10 +509,18 @@ export default function AddPatient() {
             <button
               disabled={formik.isSubmitting}
               type="submit"
-              className="bg-blue-500 text-white rounded text-sm py-1 mt-3 w-full"
+              className="bg-blue-500 text-white  rounded text-sm py-2 flex justify-center mt-3 w-full"
             >
-              Guardar
+              {spinner ? (
+                <div
+                  style={{ borderTopColor: "transparent" }}
+                  className="w-5 h-5 border-2 border-white border-solid rounded-full animate-spin"
+                />
+              ) : (
+                "Agregar"
+              )}
             </button>
+            <div></div>
           </div>
         </form>
       </div>

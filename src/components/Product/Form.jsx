@@ -14,6 +14,7 @@ import { useDropzone } from "react-dropzone";
 import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import IMG from "../../assets/profile.png";
+import { Error } from "../Global/Alerts/Error";
 
 export default function Form({
   species,
@@ -31,6 +32,7 @@ export default function Form({
       : IMG
   );
   const [productfile, setProductfile] = useState();
+  const [spinner, setSpinner] = useState(false);
   const onDropImage = useCallback((acceptedFile) => {
     const file = acceptedFile[0];
     setPetimage(URL.createObjectURL(file));
@@ -62,36 +64,55 @@ export default function Form({
     }),
     onSubmit: (values) => {
       if (product) {
+        setSpinner(true)
         putProduct(values, product?.id).then((res) => {
           if (res.product) {
             if (productfile) {
-              uploadProductPhoto(res.product?.id, productfile).then(() => {
+              uploadProductPhoto(res.product?.id, productfile).then((res) => {
+                console.log(res)
+                if(!res.ok){
+                  Error("Error al guardar la foto del producto")
+                  setSpinner(false)
+                  setShowModal(false);
+                  return;
+                }
                 Success("Se actualizo el producto");
                 setShowModal(false);
+                setSpinner(false)
                 dispatch(addProduct(values));
               });
               return;
             }
             Success("Se actualizo el producto");
             setShowModal(false);
+            setSpinner(false)
             dispatch(addProduct(values));
             return;
           }
         });
         return;
       }
-
+      setSpinner(true)
       addNewProduct(values).then((res) => {
         if (res.product) {
           if (productfile) {
-            uploadProductPhoto(res.product?.id, productfile).then(() => {
+            uploadProductPhoto(res.product?.id, productfile).then((res) => {
+            if(!res.ok){
+              Error("Error al guardar la foto del producto")
+              setShowModal(false);
+              setSpinner(false)
+              return
+            }
               Success("Se agrego el nuevo producto");
+              setSpinner(false)
               setShowModal(false);
               dispatch(addProduct(values));
+
             });
             return;
           }
           Success("Se agrego el nuevo producto");
+          setSpinner(false)
           setShowModal(false);
           dispatch(addProduct(values));
           return;
@@ -223,40 +244,49 @@ export default function Form({
             </div>
             <button
               type="submit"
-              className="bg-blue-600 mt-4 w-full text-white rounded px-12 py-1 text-xs"
+              className="bg-blue-600 mt-4 w-full text-white flex justify-center rounded px-12 py-1 text-xs"
             >
-              {product ? "Actualizar" : "Agregar"}
+              {spinner ? (
+                <div
+                  style={{ borderTopColor: "transparent" }}
+                  className="w-5 h-5 border-2 border-white border-solid  rounded-full animate-spin"
+                />
+              ) : product ? (
+                "Actualizar"
+              ) : (
+                "Agregar"
+              )}
             </button>
           </div>
           <div>
-              <div className="flex flex-col p-1 mt-1">
-                <label className="text-sm text-gray-400">Especie</label>
-                <select
-                  name="speciesId"
-                  onChange={formik.handleChange}
-                  defaultValue={product ? product?.speciesId : "DEFAULT"}
-                  className={
-                    "border p-1 text-sm rounded outline-none hover:border-green-400 " +
-                    (formik.errors.speciesId && formik.touched.speciesId
-                      ? "border-red-400"
-                      : "border-gray-300")
-                  }
-                >
-                  <option disabled selected value={"DEFAULT"}>
-                    Selecciona la especie
+            <div className="flex flex-col p-1 mt-1">
+              <label className="text-sm text-gray-400">Especie</label>
+              <select
+                name="speciesId"
+                onChange={formik.handleChange}
+                defaultValue={product ? product?.speciesId : "DEFAULT"}
+                className={
+                  "border p-1 text-sm rounded outline-none hover:border-green-400 " +
+                  (formik.errors.speciesId && formik.touched.speciesId
+                    ? "border-red-400"
+                    : "border-gray-300")
+                }
+              >
+                <option disabled selected value={"DEFAULT"}>
+                  Selecciona la especie
+                </option>
+                {species?.map((sp) => (
+                  <option key={sp.id} value={sp.id}>
+                    {sp.type}
                   </option>
-                  {species?.map((sp) => (
-                    <option key={sp.id} value={sp.id}>
-                      {sp.type}
-                    </option>
-                  ))}
-                </select>
-                {formik.errors.speciesId && formik.touched.speciesId && (
-                  <span className="text-sm font-normal text-red-400">
-                    {formik.errors.speciesId}
-                  </span>
-                )}
-              </div>
+                ))}
+              </select>
+              {formik.errors.speciesId && formik.touched.speciesId && (
+                <span className="text-sm font-normal text-red-400">
+                  {formik.errors.speciesId}
+                </span>
+              )}
+            </div>
 
             <div className="flex flex-col p-1 mt-1">
               <label className="text-sm text-gray-400">Marca</label>

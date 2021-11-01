@@ -6,11 +6,13 @@ import File from "../../../assets/file.png";
 import { uploadPetPDF } from "../../../services/patients";
 import { Success } from "../../Global/Alerts/Success";
 import { Warning } from "../../Global/Alerts/Warning";
+import { Error } from "../../Global/Alerts/Error";
 import { useDispatch } from "react-redux";
 import { addPatient } from "../../../redux/actions/patiences";
 
 export default function AddPDF({ patient, setreload, setShowModal }) {
   const [petFile, setPetFile] = useState();
+  const [spinner, setSpinner] = useState(false);
   const [name, setName] = useState();
   const dispatch = useDispatch();
   const onDropImage = useCallback((acceptedFile) => {
@@ -32,7 +34,15 @@ export default function AddPDF({ patient, setreload, setShowModal }) {
       Warning("Debes seleccinar un documento");
       return;
     }
-    uploadPetPDF(patient?.id, petFile).then(() => {
+    setSpinner(true);
+    uploadPetPDF(patient?.id, petFile).then((res) => {
+      if (!res.ok) {
+        setSpinner(false);
+        Error("Ah ocurrido un error inesperado");
+        setShowModal(false);
+        return;
+      }
+      setSpinner(false);
       Success("Se guardo el documento");
       setreload(true);
       setShowModal(false);
@@ -62,9 +72,16 @@ export default function AddPDF({ patient, setreload, setShowModal }) {
       {name && <p>{name}</p>}
       <button
         onClick={handleAddPDF}
-        className="px-12 mt-5 text-white bg-blue-500 py-1 rounded"
+        className="px-12 mt-5 text-white bg-blue-500 w-full flex justify-center py-2 rounded"
       >
-        Guardar
+        {spinner ? (
+          <div
+            style={{ borderTopColor: "transparent" }}
+            className="w-5 h-5 border-2 border-white border-solid rounded-full animate-spin"
+          />
+        ) : (
+          "Guardar"
+        )}
       </button>
     </>
   );
