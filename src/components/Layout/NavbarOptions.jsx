@@ -265,6 +265,11 @@ const NavbarOptions = ({ user }) => {
                       <span>● Historial de compras</span>
                     </li>
                   </Link>
+                  <Link to="/sales-history">
+                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <span>● Historial de ventas</span>
+                    </li>
+                  </Link>
                   <Link to="/brand">
                     <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
                       <span>● Marcas</span>

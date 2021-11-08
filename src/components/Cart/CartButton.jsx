@@ -46,7 +46,7 @@ const CartButton = (props) => {
         }
         ref={popoverDropdownRef}
       >
-        <CartDropdown setLoadCart={setLoadCart} loadCart={loadCart} />
+        <CartDropdown setDropdownPopoverShow={setDropdownPopoverShow} setLoadCart={setLoadCart} loadCart={loadCart} />
       </div>
     </>
   );

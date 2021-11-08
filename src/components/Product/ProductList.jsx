@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { showImage } from "../../services/product";
-import { setItemCart } from "../../utils/cart";
+import { getItems, setItemCart } from "../../utils/cart";
 import Modal from "../Global/Modal";
 import Form from "./Form";
 
@@ -21,14 +21,10 @@ export default function ProductList({
   };
   useEffect(() => {
     if (prod) {
-      let total =
-        Number(prod?.costo_standar) -
-        (Number(prod?.costo_standar) * ( Number(prod?.descuento)) / 100);
       let values = {
         id: prod?.id,
         qt: 1,
-        price: total,
-        original_price: Number(prod?.costo_standar),
+        price: prod?.price,
         img: prod?.img,
         name: prod?.name,
       };
@@ -38,6 +34,7 @@ export default function ProductList({
     }
     return;
   }, [prod, setLoadCart]);
+  console.log(getItems())
   return (
     <>
       {typeof products?.products === "undefined" && (

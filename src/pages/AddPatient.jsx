@@ -53,13 +53,13 @@ export default function AddPatient() {
             Error("Ah ocurrido un error al guardar la foto del paciente");
             setSpinner(false);
             dispatch(addPatient(patient));
-            route.push("/patients");
+            window.location.href = "/patients";
             return;
           }
           setSpinner(false);
           Success("Se guardo el registro con exito");
           dispatch(addPatient(patient));
-          route.push("/patients");
+          window.location.href = "/patients";
         })
         .catch(() => {
           Error("Error al intentar guardar el paciente");
@@ -67,7 +67,7 @@ export default function AddPatient() {
       return;
     }
     Info("Se guardo el registro con una foto por defecto");
-    route.push("/patients");
+    window.location.href = "/patients";
   };
 
   //redux get states

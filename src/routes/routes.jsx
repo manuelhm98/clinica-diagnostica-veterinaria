@@ -7,7 +7,7 @@ import { readEmployeById } from "../redux/actions/employee";
 import { checkRole } from "../utils/checkRole";
 
 import Loading from "../components/Global/Loading";
-import Breeds from "../pages/Breeds"
+import Breeds from "../pages/Breeds";
 const Product = lazy(() => import("../pages/Product"));
 const Customers = lazy(() => import("../pages/Customers"));
 const Patients = lazy(() => import("../pages/Patients"));
@@ -37,6 +37,8 @@ const Colors = lazy(() => import("../pages/Colors"));
 const Doctors = lazy(() => import("../pages/Doctors"));
 const Employees = lazy(() => import("../pages/Employees"));
 const PatType = lazy(() => import("../pages/PatType"));
+const SalesHistory = lazy(() => import("../pages/SalesHistory"));
+const Sale = lazy(() => import("../pages/Sale"));
 
 export default function Routes() {
   const dispatch = useDispatch();
@@ -50,12 +52,11 @@ export default function Routes() {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/breeds" exact>
-            {user?.users && (
-              <>{checkRole(user?.users) === 1 ? <Breeds /> : <Error404 />}</>
-            )}
-          </Route>
+          {user?.users && (
+            <>{checkRole(user?.users) === 1 ? <Breeds /> : <Error404 />}</>
+          )}
+        </Route>
         <Suspense fallback={<Loading />}>
-         
           <Route path="/species" exact>
             {user?.users && (
               <>{checkRole(user?.users) === 1 ? <Species /> : <Error404 />}</>
@@ -205,6 +206,18 @@ export default function Routes() {
                   <Error404 />
                 )}
               </>
+            )}
+          </Route>
+          <Route path="/sales-history" exact>
+            {user?.users && (
+              <>
+                {checkRole(user?.users) === 1 ? <SalesHistory /> : <Error404 />}
+              </>
+            )}
+          </Route>
+          <Route path="/sale/:id" exact>
+            {user?.users && (
+              <>{checkRole(user?.users) === 1 ? <Sale /> : <Error404 />}</>
             )}
           </Route>
           <Route path="/add-shopping-history" exact>

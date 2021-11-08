@@ -36,7 +36,7 @@ export default function Patients() {
         search.name,
         search.custom,
         search.exp,
-        1,
+        25,
         state ? 1 : 0
       )
     );

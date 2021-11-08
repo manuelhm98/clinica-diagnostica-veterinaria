@@ -22,7 +22,7 @@ export default function ItemDetails(props) {
       </span>
       <div className="ml-4 float-right mt-4 flex">
         <span className="text-xs font-extralight mr-6">{item?.qt}</span>
-        <span className="text-xs w-14">${item?.price.toFixed(2)}</span>
+        <span className="text-xs w-14">${Number(item?.price).toFixed(2)}</span>
         <div onClick={remove} className="cursor-pointer">
           <FontAwesomeIcon icon={faTimes} />
         </div>
