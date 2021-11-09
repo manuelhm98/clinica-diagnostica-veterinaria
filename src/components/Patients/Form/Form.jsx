@@ -14,7 +14,7 @@ export default function Form({
   breeds,
   species,
 }) {
-  const [newBreeds, setNewBreeds] = React.useState();
+  const [newBreeds, setNewBreeds] = React.useState(undefined);
   const setBreedToInput = (id) => {
     const filterBreeds = breeds.breed.filter(
       (breed) => breed.speciesId === Number(id)
@@ -45,7 +45,7 @@ export default function Form({
         sexesId: values.sexesId,
         weight: values.weight,
         exp: values.exp,
-        breedsId:values.breedsId
+        breedsId: Number(values.breedsId),
       };
       putPatient(patient?.id, newValues).then(() => {
         Success("Se actualizo el paciente");
@@ -158,7 +158,7 @@ export default function Form({
         <div className="mt-2 flex flex-col">
           <label className="text-gray-500 text-xs">Raza</label>
           <select
-            defaultValue={patient?.breedsId}
+            defaultValue={"DEFAULT"}
             onChange={formik.handleChange}
             name="breedsId"
             className={
