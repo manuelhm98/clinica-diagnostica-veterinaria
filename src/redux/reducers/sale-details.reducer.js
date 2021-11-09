@@ -1,7 +1,7 @@
 import { types } from "../types/sale-history";
 
 const initialState = {
-  data: {},
+  data: [],
 };
 
 export const salesDetailReducer = (state = initialState, action) => {

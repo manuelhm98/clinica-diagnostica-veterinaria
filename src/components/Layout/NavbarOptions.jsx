@@ -4,6 +4,7 @@ import {
   faChevronUp,
   faClipboardList,
   faHome,
+  faMoneyCheckAlt,
   faPaw,
   faSignOutAlt,
   faUserMd,
@@ -240,6 +241,16 @@ const NavbarOptions = ({ user }) => {
             </li>
           )}
           {checkRole(user) === 1 && (
+            <>
+            <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+            <Link to="/sales-history">
+              <div className="flex items-center">
+                <span className="text-base  ml-2">
+                  <FontAwesomeIcon icon={faMoneyCheckAlt} /> Ventas
+                </span>
+              </div>
+            </Link>
+          </li>
           <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
             <div className="flex items-center">
               <span onClick={handleShowPet} className="text-base  ml-2">
@@ -265,11 +276,6 @@ const NavbarOptions = ({ user }) => {
                       <span>● Historial de compras</span>
                     </li>
                   </Link>
-                  <Link to="/sales-history">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Historial de ventas</span>
-                    </li>
-                  </Link>
                   <Link to="/brand">
                     <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
                       <span>● Marcas</span>
@@ -289,6 +295,7 @@ const NavbarOptions = ({ user }) => {
               </span>
             </div>
           </li>
+          </>
           )}
           {checkRole(user) === 1 && (
             <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">

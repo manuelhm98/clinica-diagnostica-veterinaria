@@ -37,7 +37,7 @@ export default function Sale() {
               </tr>
             </thead>
             <tbody>
-                {details.map((det)=>(
+                {details && details?.map((det)=>(
                     <tr key={det.id}>
                         <TD name={det.id}/>
                         <TD name={det.products?.name}/>
