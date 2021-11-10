@@ -158,7 +158,7 @@ export default function Form({
         <div className="mt-2 flex flex-col">
           <label className="text-gray-500 text-xs">Raza</label>
           <select
-            defaultValue={"DEFAULT"}
+            defaultValue={newBreeds ? "DEFAULT" : patient?.breedsId}
             onChange={formik.handleChange}
             name="breedsId"
             className={

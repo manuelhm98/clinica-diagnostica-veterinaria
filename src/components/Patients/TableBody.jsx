@@ -190,7 +190,9 @@ export default function TableBody({ patients, setReload, user, setState }) {
                   onClick={() => handlePDF(pat)}
                   className="bg-blue-500 text-white whitespace-nowrap text-xs px-3 m-1 py-1 rounded"
                 >
-                  Agregar PDF
+                  {pat?.expPdf === "expediente.pdf"
+                    ? "Agregar PDF"
+                    : "Actualizar PDF"}
                 </button>
               </div>
             </TD>
@@ -223,14 +225,14 @@ export default function TableBody({ patients, setReload, user, setState }) {
             onClick={addPhoto}
             className="bg-blue-500 text-white w-full flex justify-center mt-2 rounded"
           >
-           {spinner ? (
-                <div
-                  style={{ borderTopColor: "transparent" }}
-                  className="w-5 h-5 border-2 border-white border-solid rounded-full animate-spin"
-                />
-              ) : (
-                "Guardar"
-              )}
+            {spinner ? (
+              <div
+                style={{ borderTopColor: "transparent" }}
+                className="w-5 h-5 border-2 border-white border-solid rounded-full animate-spin"
+              />
+            ) : (
+              "Guardar"
+            )}
           </button>
         </div>
       </Modal>
