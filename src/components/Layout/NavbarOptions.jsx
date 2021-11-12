@@ -7,6 +7,7 @@ import {
   faMoneyCheckAlt,
   faPaw,
   faSignOutAlt,
+  faStethoscope,
   faUserMd,
   faUsers,
   faUserTie,
@@ -23,6 +24,7 @@ const NavbarOptions = ({ user }) => {
   const [showEmpDpdw, setShowEmpDpdw] = useState(false);
   const [showDocDpdw, setShowDocDpdw] = useState(false);
   const [showPetDpw, setShowPetDpw] = useState(false);
+  const [showHosp, setShowHosp] = useState(false);
   const dispatch = useDispatch();
   const router = useHistory();
   const handleLoggout = () => {
@@ -36,6 +38,7 @@ const NavbarOptions = ({ user }) => {
     setShowEmpDpdw(false);
     setShowDocDpdw(false);
     setShowPetDpw(false);
+    setShowHosp(false)
   };
 
   const handleShowHistorial = () => {
@@ -44,6 +47,7 @@ const NavbarOptions = ({ user }) => {
     setShowEmpDpdw(false);
     setShowDocDpdw(false);
     setShowPetDpw(false);
+    setShowHosp(false)
   };
 
   const handleShowEmpleado = () => {
@@ -52,6 +56,7 @@ const NavbarOptions = ({ user }) => {
     setShowEmpDpdw(!showEmpDpdw);
     setShowDocDpdw(false);
     setShowPetDpw(false);
+    setShowHosp(false)
   };
 
   const handleShowDoctors = () => {
@@ -60,6 +65,7 @@ const NavbarOptions = ({ user }) => {
     setShowEmpDpdw(false);
     setShowDocDpdw(!showDocDpdw);
     setShowPetDpw(false);
+    setShowHosp(false)
   };
 
   const handleShowPet = () => {
@@ -68,7 +74,18 @@ const NavbarOptions = ({ user }) => {
     setShowEmpDpdw(false);
     setShowDocDpdw(false);
     setShowPetDpw(!showPetDpw);
+    setShowHosp(false)
   };
+
+  const handleShowHosp = () => {
+    setShowDpdw(false);
+    setShowHistDpdw(false);
+    setShowEmpDpdw(false);
+    setShowDocDpdw(false);
+    setShowPetDpw(false);
+    setShowHosp(!showHosp)
+  };
+
 
   return (
     <div
@@ -250,6 +267,35 @@ const NavbarOptions = ({ user }) => {
                 </span>
               </div>
             </Link>
+          </li>
+          <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+            <div className="flex items-center">
+              <span onClick={handleShowHosp} className="text-base  ml-2">
+                <FontAwesomeIcon icon={faStethoscope} /> Hospital{" "}
+                {showHosp ? (
+                  <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
+                ) : (
+                  <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
+                )}
+                <ul
+                  className={
+                    "transition-all duration-700 text-white px-6 " +
+                    (showHosp ? "block" : "hidden")
+                  }
+                >
+                  <Link to="/hospital-service">
+                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <span>● Tipos de servicio</span>
+                    </li>
+                  </Link>
+                  <Link to="/order-service">
+                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <span>● Servicios</span>
+                    </li>
+                  </Link>
+                </ul>
+              </span>
+            </div>
           </li>
           <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
             <div className="flex items-center">

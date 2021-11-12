@@ -27,7 +27,6 @@ const VaccinationType = lazy(() => import("../pages/VaccinationType"));
 const DewormingType = lazy(() => import("../pages/DewormingType"));
 const PestControlType = lazy(() => import("../pages/PestControlType"));
 const VaccinationDose = lazy(() => import("../pages/VaccinationDose"));
-const ClinicalService = lazy(() => import("../pages/ClinicalService"));
 const AddClinicalService = lazy(() => import("../pages/AddClinicalService"));
 const QuoteType = lazy(() => import("../pages/QuoteType"));
 const Brand = lazy(() => import("../pages/Brand"));
@@ -39,6 +38,10 @@ const Employees = lazy(() => import("../pages/Employees"));
 const PatType = lazy(() => import("../pages/PatType"));
 const SalesHistory = lazy(() => import("../pages/SalesHistory"));
 const Sale = lazy(() => import("../pages/Sale"));
+const HospitalService = lazy(() => import("../pages/HospitalService"));
+const AddOrderService = lazy(() => import("../pages/AddServiceOrder"));
+const OrderService = lazy(() => import("../pages/OrderService"));
+const OrderServiceDetails = lazy(() => import("../pages/OrderServiceDetails"));
 
 export default function Routes() {
   const dispatch = useDispatch();
@@ -133,7 +136,6 @@ export default function Routes() {
               </>
             )}
           </Route>
-          <Route path="/clinical-service" exact component={ClinicalService} />
           <Route
             path="/add-clinical-service"
             exact
@@ -218,6 +220,46 @@ export default function Routes() {
           <Route path="/sale/:id" exact>
             {user?.users && (
               <>{checkRole(user?.users) === 1 ? <Sale /> : <Error404 />}</>
+            )}
+          </Route>
+          <Route path="/hospital-service" exact>
+            {user?.users && (
+              <>
+                {checkRole(user?.users) === 1 ? (
+                  <HospitalService />
+                ) : (
+                  <Error404 />
+                )}
+              </>
+            )}
+          </Route>
+          <Route path="/add-order-service" exact>
+            {user?.users && (
+              <>
+                {checkRole(user?.users) === 1 ? (
+                  <AddOrderService />
+                ) : (
+                  <Error404 />
+                )}
+              </>
+            )}
+          </Route>
+          <Route path="/order-service" exact>
+            {user?.users && (
+              <>
+                {checkRole(user?.users) === 1 ? <OrderService /> : <Error404 />}
+              </>
+            )}
+          </Route>
+          <Route path="/order-service-details/:id" exact>
+            {user?.users && (
+              <>
+                {checkRole(user?.users) === 1 ? (
+                  <OrderServiceDetails />
+                ) : (
+                  <Error404 />
+                )}
+              </>
             )}
           </Route>
           <Route path="/add-shopping-history" exact>

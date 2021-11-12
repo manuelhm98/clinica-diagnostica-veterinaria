@@ -30,6 +30,10 @@ import { cartReducer } from "./reducers/cart.reducer";
 import { shoppingReducer } from "./reducers/shopping.reducer";
 import { salesReducer } from "./reducers/sales-history.reducer";
 import { salesDetailReducer } from "./reducers/sale-details.reducer";
+import { hospitalServiceReducer } from "./reducers/hospital-services.reducer";
+import { resultReducer } from "./reducers/result.reducer";
+import { orderServiceReducer } from "./reducers/order-service.reducer";
+import { orderServiceDetailReducer } from "./reducers/order-service-details-reducer";
 
 const reducers = combineReducers({
   breed: breedReducer,
@@ -61,7 +65,11 @@ const reducers = combineReducers({
   cart: cartReducer,
   shopping:shoppingReducer,
   sale:salesReducer,
-  saleDetail:salesDetailReducer
+  saleDetail:salesDetailReducer,
+  hospitalService:hospitalServiceReducer,
+  result:resultReducer,
+  orderService:orderServiceReducer,
+  orderDetail:orderServiceDetailReducer
 });
 
 const composeEnhancers =
