@@ -10,6 +10,7 @@ export default function TableContent({ orderService }) {
           <TH name="ID" />
           <TH name="Fecha" />
           <TH name="Total" />
+          <TH name="Forma de pago" />
           <TH name="Acciones" />
         </tr>
       </thead>

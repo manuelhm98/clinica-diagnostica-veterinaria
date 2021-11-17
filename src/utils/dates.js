@@ -118,3 +118,54 @@ export const returnTime = () => {
   }
   return `T${date.getHours()}:${date.getMinutes()}`;
 };
+
+export const dateDiff = (endingDate) => {
+  let startDate = new Date(new Date().toISOString().substr(0, 10));
+  if (!endingDate) {
+    endingDate = new Date().toISOString().substr(0, 10); // need date in YYYY-MM-DD format
+  }
+  let endDate = new Date(endingDate);
+  if (startDate > endDate) {
+    let swap = startDate;
+    startDate = endDate;
+    endDate = swap;
+  }
+  let startYear = startDate.getFullYear();
+  let february =
+    (startYear % 4 === 0 && startYear % 100 !== 0) || startYear % 400 === 0
+      ? 29
+      : 28;
+  let daysInMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  let yearDiff = endDate.getFullYear() - startYear;
+  let monthDiff = endDate.getMonth() - startDate.getMonth();
+  if (monthDiff < 0) {
+    yearDiff--;
+    monthDiff += 12;
+  }
+  let dayDiff = endDate.getDate() - startDate.getDate();
+  if (dayDiff < 0) {
+    if (monthDiff > 0) {
+      monthDiff--;
+    } else {
+      yearDiff--;
+      monthDiff = 11;
+    }
+    dayDiff += daysInMonth[startDate.getMonth()];
+  }
+
+  return { years: yearDiff, months: monthDiff, days: dayDiff };
+};
+
+export const ageToDate = (years, months, days) => {
+  const date = new Date();
+
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const month = date.getMonth() - 1;
+
+  date.setDate(day - days);
+  date.setFullYear(year - years);
+  date.setMonth(month - months);
+  return date.toISOString().split("T")[0];
+};

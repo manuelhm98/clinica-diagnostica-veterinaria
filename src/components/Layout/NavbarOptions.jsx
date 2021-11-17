@@ -6,6 +6,7 @@ import {
   faHome,
   faMoneyCheckAlt,
   faPaw,
+  faShower,
   faSignOutAlt,
   faStethoscope,
   faUserMd,
@@ -25,6 +26,7 @@ const NavbarOptions = ({ user }) => {
   const [showDocDpdw, setShowDocDpdw] = useState(false);
   const [showPetDpw, setShowPetDpw] = useState(false);
   const [showHosp, setShowHosp] = useState(false);
+  const [showEst, setShowEst] = useState(false);
   const dispatch = useDispatch();
   const router = useHistory();
   const handleLoggout = () => {
@@ -38,7 +40,8 @@ const NavbarOptions = ({ user }) => {
     setShowEmpDpdw(false);
     setShowDocDpdw(false);
     setShowPetDpw(false);
-    setShowHosp(false)
+    setShowHosp(false);
+    setShowEst(false);
   };
 
   const handleShowHistorial = () => {
@@ -47,7 +50,8 @@ const NavbarOptions = ({ user }) => {
     setShowEmpDpdw(false);
     setShowDocDpdw(false);
     setShowPetDpw(false);
-    setShowHosp(false)
+    setShowHosp(false);
+    setShowEst(false);
   };
 
   const handleShowEmpleado = () => {
@@ -56,7 +60,8 @@ const NavbarOptions = ({ user }) => {
     setShowEmpDpdw(!showEmpDpdw);
     setShowDocDpdw(false);
     setShowPetDpw(false);
-    setShowHosp(false)
+    setShowHosp(false);
+    setShowEst(false);
   };
 
   const handleShowDoctors = () => {
@@ -65,7 +70,8 @@ const NavbarOptions = ({ user }) => {
     setShowEmpDpdw(false);
     setShowDocDpdw(!showDocDpdw);
     setShowPetDpw(false);
-    setShowHosp(false)
+    setShowHosp(false);
+    setShowEst(false);
   };
 
   const handleShowPet = () => {
@@ -74,7 +80,8 @@ const NavbarOptions = ({ user }) => {
     setShowEmpDpdw(false);
     setShowDocDpdw(false);
     setShowPetDpw(!showPetDpw);
-    setShowHosp(false)
+    setShowHosp(false);
+    setShowEst(false);
   };
 
   const handleShowHosp = () => {
@@ -83,9 +90,19 @@ const NavbarOptions = ({ user }) => {
     setShowEmpDpdw(false);
     setShowDocDpdw(false);
     setShowPetDpw(false);
-    setShowHosp(!showHosp)
+    setShowHosp(!showHosp);
+    setShowEst(false);
   };
 
+  const handleShowEst = () => {
+    setShowDpdw(false);
+    setShowHistDpdw(false);
+    setShowEmpDpdw(false);
+    setShowDocDpdw(false);
+    setShowPetDpw(false);
+    setShowHosp(false);
+    setShowEst(!showEst);
+  };
 
   return (
     <div
@@ -259,89 +276,118 @@ const NavbarOptions = ({ user }) => {
           )}
           {checkRole(user) === 1 && (
             <>
-            <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
-            <Link to="/sales-history">
-              <div className="flex items-center">
-                <span className="text-base  ml-2">
-                  <FontAwesomeIcon icon={faMoneyCheckAlt} /> Ventas
-                </span>
-              </div>
-            </Link>
-          </li>
-          <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
-            <div className="flex items-center">
-              <span onClick={handleShowHosp} className="text-base  ml-2">
-                <FontAwesomeIcon icon={faStethoscope} /> Hospital{" "}
-                {showHosp ? (
-                  <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
-                ) : (
-                  <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
-                )}
-                <ul
-                  className={
-                    "transition-all duration-700 text-white px-6 " +
-                    (showHosp ? "block" : "hidden")
-                  }
-                >
-                  <Link to="/hospital-service">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Tipos de servicio</span>
-                    </li>
-                  </Link>
-                  <Link to="/order-service">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Servicios</span>
-                    </li>
-                  </Link>
-                </ul>
-              </span>
-            </div>
-          </li>
-          <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
-            <div className="flex items-center">
-              <span onClick={handleShowPet} className="text-base  ml-2">
-                <FontAwesomeIcon icon={faBone} /> Inventario{" "}
-                {showPetDpw ? (
-                  <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
-                ) : (
-                  <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
-                )}
-                <ul
-                  className={
-                    "transition-all duration-700 text-white px-6 " +
-                    (showPetDpw ? "block" : "hidden")
-                  }
-                >
-                  <Link to="/vendors">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Proveedores</span>
-                    </li>
-                  </Link>
-                  <Link to="/shopping-history">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Historial de compras</span>
-                    </li>
-                  </Link>
-                  <Link to="/brand">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Marcas</span>
-                    </li>
-                  </Link>
-                  <Link to="/category">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Categorias</span>
-                    </li>
-                  </Link>
-                  <Link to="/product">
-                    <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
-                      <span>● Productos</span>
-                    </li>
-                  </Link>
-                </ul>
-              </span>
-            </div>
-          </li>
-          </>
+              <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+                <Link to="/sales-history">
+                  <div className="flex items-center">
+                    <span className="text-base  ml-2">
+                      <FontAwesomeIcon icon={faMoneyCheckAlt} /> Ventas
+                    </span>
+                  </div>
+                </Link>
+              </li>
+              <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+                <div className="flex items-center">
+                  <span onClick={handleShowHosp} className="text-base  ml-2">
+                    <FontAwesomeIcon icon={faStethoscope} /> Hospital{" "}
+                    {showHosp ? (
+                      <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
+                    ) : (
+                      <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
+                    )}
+                    <ul
+                      className={
+                        "transition-all duration-700 text-white px-6 " +
+                        (showHosp ? "block" : "hidden")
+                      }
+                    >
+                      <Link to="/hospital-service">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Tipos de servicio</span>
+                        </li>
+                      </Link>
+                      <Link to="/order-service">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Servicios</span>
+                        </li>
+                      </Link>
+                    </ul>
+                  </span>
+                </div>
+              </li>
+              <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+                <div className="flex items-center">
+                  <span onClick={handleShowPet} className="text-base  ml-2">
+                    <FontAwesomeIcon icon={faBone} /> Inventario{" "}
+                    {showPetDpw ? (
+                      <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
+                    ) : (
+                      <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
+                    )}
+                    <ul
+                      className={
+                        "transition-all duration-700 text-white px-6 " +
+                        (showPetDpw ? "block" : "hidden")
+                      }
+                    >
+                      <Link to="/vendors">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Proveedores</span>
+                        </li>
+                      </Link>
+                      <Link to="/shopping-history">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Historial de compras</span>
+                        </li>
+                      </Link>
+                      <Link to="/brand">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Marcas</span>
+                        </li>
+                      </Link>
+                      <Link to="/category">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Categorias</span>
+                        </li>
+                      </Link>
+                      <Link to="/product">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Productos</span>
+                        </li>
+                      </Link>
+                    </ul>
+                  </span>
+                </div>
+              </li>
+              <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+                <div className="flex items-center">
+                  <span onClick={handleShowEst} className="text-base  ml-2">
+                    <FontAwesomeIcon icon={faShower} /> Estetica{" "}
+                    {showEst ? (
+                      <FontAwesomeIcon className="ml-3" icon={faChevronUp} />
+                    ) : (
+                      <FontAwesomeIcon className="ml-3" icon={faChevronDown} />
+                    )}
+                    <ul
+                      className={
+                        "transition-all duration-700 text-white px-6 " +
+                        (showEst ? "block" : "hidden")
+                      }
+                    >
+                      <Link to="/estethic-service">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Servicios Esteticos</span>
+                        </li>
+                      </Link>
+                      <Link to="/history-esthetic">
+                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <span>● Historial de estetica</span>
+                        </li>
+                      </Link>
+                    </ul>
+                  </span>
+                </div>
+              </li>
+            </>
           )}
           {checkRole(user) === 1 && (
             <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">

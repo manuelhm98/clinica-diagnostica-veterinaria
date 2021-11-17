@@ -34,6 +34,9 @@ import { hospitalServiceReducer } from "./reducers/hospital-services.reducer";
 import { resultReducer } from "./reducers/result.reducer";
 import { orderServiceReducer } from "./reducers/order-service.reducer";
 import { orderServiceDetailReducer } from "./reducers/order-service-details-reducer";
+import { estethicServiceReducer } from "./reducers/aestethic.reducer";
+import { estethicServiceOrderReducer } from "./reducers/esthetic-service-order";
+import { estheticDetailReducer } from "./reducers/esthetic-details.reducer";
 
 const reducers = combineReducers({
   breed: breedReducer,
@@ -69,7 +72,10 @@ const reducers = combineReducers({
   hospitalService:hospitalServiceReducer,
   result:resultReducer,
   orderService:orderServiceReducer,
-  orderDetail:orderServiceDetailReducer
+  orderDetail:orderServiceDetailReducer,
+  estethicService:estethicServiceReducer,
+  estheticOrder:estethicServiceOrderReducer,
+  estheticDetail:estheticDetailReducer
 });
 
 const composeEnhancers =

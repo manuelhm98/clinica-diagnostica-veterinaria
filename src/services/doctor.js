@@ -20,6 +20,13 @@ export const getAllDoctors = async () => {
   return response.json();
 };
 
+export const getDoctorID = async (id) => {
+  const response = await fetch(`${API_HOST}/doctors/${id}`, {
+    headers: { token: getToken() },
+  });
+  return response.json();
+};
+
 export const getPaginatedDoctors = async (page, search) => {
   const response = await fetch(
     `${API_HOST}/doctors/list?page=${page}&names=${search}&limit=${25}`,

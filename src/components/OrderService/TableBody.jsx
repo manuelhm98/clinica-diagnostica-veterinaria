@@ -28,6 +28,7 @@ export default function TableBody({ orderService }) {
             )}
           />
           <TD name={"$" + Number(od.totalPrice)} />
+          <TD name={od.wayToPay} />
           <TD>
             <Link to={`/order-service-details/${od.id}`}>
               <button

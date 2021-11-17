@@ -1,10 +1,11 @@
 import { useState, createRef, useEffect } from "react";
 import Popper from "popper.js";
-import CartDropdown from "./CartDropdown";
-import { getItems } from "../../utils/cart";
-import IMG from "../../assets/cart.png";
+import EstheticDropdowm from "./EstheticDropdowm";
+import IMG from "../../assets/book.png";
+import { getServices } from "../../utils/services";
+import { getEsthetic } from "../../utils/esthetic";
 
-const CartButton = (props) => {
+const EstheticBotton = (props) => {
   const { loadCart, setLoadCart } = props;
   const [countCart, setCountCart] = useState(0);
   const btnDropdownRef = createRef();
@@ -21,10 +22,11 @@ const CartButton = (props) => {
     setDropdownPopoverShow(false);
   };
   useEffect(() => {
-    const items = getItems();
+    const items = getEsthetic();
     setCountCart(items.length);
     setLoadCart(false);
   }, [loadCart, setLoadCart, setCountCart]);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -40,6 +42,7 @@ const CartButton = (props) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [popoverDropdownRef, btnDropdownRef]);
+
   return (
     <>
       <div
@@ -57,14 +60,19 @@ const CartButton = (props) => {
       <div
         className={
           (dropdownPopoverShow ? "block " : "hidden ") +
-          "text-base lg:left-0 border dpdown p-4 float-left list-none text-left rounded shadow-xl h-auto left-20 mr-10 -ml-28 bg-white"
+          "text-base lg:left-0 border dpdown p-4 float-left list-none text-left rounded mt-32 shadow-xl h-auto left-20 mr-10 -ml-28 bg-white"
         }
         ref={popoverDropdownRef}
       >
-        <CartDropdown close={setDropdownPopoverShow} setDropdownPopoverShow={setDropdownPopoverShow} setLoadCart={setLoadCart} loadCart={loadCart} />
+        <EstheticDropdowm
+          close={setDropdownPopoverShow}
+          setDropdownPopoverShow={setDropdownPopoverShow}
+          setLoadCart={setLoadCart}
+          loadCart={loadCart}
+        />
       </div>
     </>
   );
 };
 
-export default CartButton;
+export default EstheticBotton;

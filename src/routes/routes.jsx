@@ -8,6 +8,8 @@ import { checkRole } from "../utils/checkRole";
 
 import Loading from "../components/Global/Loading";
 import Breeds from "../pages/Breeds";
+const EstethicService = lazy(() => import("../pages/EstethicService"));
+const AddEstheticService = lazy(() => import("../pages/AddEstheticService"));
 const Product = lazy(() => import("../pages/Product"));
 const Customers = lazy(() => import("../pages/Customers"));
 const Patients = lazy(() => import("../pages/Patients"));
@@ -42,6 +44,11 @@ const HospitalService = lazy(() => import("../pages/HospitalService"));
 const AddOrderService = lazy(() => import("../pages/AddServiceOrder"));
 const OrderService = lazy(() => import("../pages/OrderService"));
 const OrderServiceDetails = lazy(() => import("../pages/OrderServiceDetails"));
+const CompleteOrderEsthetic = lazy(() =>
+  import("../pages/CompleteOrderEsthetic")
+);
+const EstheticDetails = lazy(() => import("../pages/EstheticDetails"));
+const EstheticOrder = lazy(() => import("../pages/EstheticOrder"));
 
 export default function Routes() {
   const dispatch = useDispatch();
@@ -262,11 +269,66 @@ export default function Routes() {
               </>
             )}
           </Route>
+          <Route path="/estethic-service" exact>
+            {user?.users && (
+              <>
+                {checkRole(user?.users) === 1 ? (
+                  <EstethicService />
+                ) : (
+                  <Error404 />
+                )}
+              </>
+            )}
+          </Route>
           <Route path="/add-shopping-history" exact>
             {user?.users && (
               <>
                 {checkRole(user?.users) === 1 ? (
                   <AddShoppingHistory />
+                ) : (
+                  <Error404 />
+                )}
+              </>
+            )}
+          </Route>
+          <Route path="/add-esthetic-service" exact>
+            {user?.users && (
+              <>
+                {checkRole(user?.users) === 1 ? (
+                  <AddEstheticService />
+                ) : (
+                  <Error404 />
+                )}
+              </>
+            )}
+          </Route>
+          <Route path="/history-esthetic" exact>
+            {user?.users && (
+              <>
+                {checkRole(user?.users) === 1 ? (
+                  <EstheticOrder />
+                ) : (
+                  <Error404 />
+                )}
+              </>
+            )}
+          </Route>
+          <Route path="/complete-esthetic" exact>
+            {user?.users && (
+              <>
+                {checkRole(user?.users) === 1 ? (
+                  <CompleteOrderEsthetic />
+                ) : (
+                  <Error404 />
+                )}
+              </>
+            )}
+          </Route>
+          <Route path="/esthetic-details/:id" exact>
+            {user?.users && (
+              <>
+                {checkRole(user?.users) === 1 ? (
+                  <EstheticDetails />
                 ) : (
                   <Error404 />
                 )}

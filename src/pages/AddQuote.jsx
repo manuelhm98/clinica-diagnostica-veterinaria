@@ -9,22 +9,26 @@ import SelectPatient from "../components/Quotes/SelectPatient";
 import { readPatients } from "../redux/actions/patiences";
 import SelectDoctor from "../components/Quotes/SelectDoctor";
 import { readDoctors } from "../redux/actions/doctors";
-import { returnTime, validateDate } from "../utils/dates";
+import { returnTime } from "../utils/dates";
 import { Warning } from "../components/Global/Alerts/Warning";
 import { addNewQuote } from "../services/quotes";
 import { Success } from "../components/Global/Alerts/Success";
 import io from "socket.io-client";
-import { useHistory } from "react-router-dom";
+import {
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import { addQuote } from "../redux/actions/quote";
 import { readQuoteTypes } from "../redux/actions/quote-type";
 import { SOCKET_URL } from "../utils/constants";
 
 const AddQuote = () => {
   //react useStates login
+  const { query } = useLocation();
   const [showModalSelectPat, setShowModalSelectPat] = useState(false);
   const [showModalSelectDoc, setShowModalSelectDoc] = useState(false);
-  const [patientToQuote, setPatientToQuote] = useState();
-  const [doctorToQuote, setDoctorToQuote] = useState();
+  const [patientToQuote, setPatientToQuote] = useState(query?.quote?.patients && query?.quote?.patients);
+  const [doctorToQuote, setDoctorToQuote] = useState(query?.doctor && query?.doctor);
   const [search, setSearch] = useState({ name: "", custom: "" });
   const [page, setPage] = useState(1);
   const [online, setOnline] = useState(false);
@@ -33,8 +37,7 @@ const AddQuote = () => {
   const patients = useSelector((state) => state.patient.data);
   const doctors = useSelector((state) => state.doctor.data);
   const quoteTypes = useSelector((state) => state.quoteType.data);
-  //socket io logic
-
+  
   const serverURL = SOCKET_URL;
   const socket = useMemo(
     () =>
@@ -52,9 +55,12 @@ const AddQuote = () => {
     socket.on("disconnect", () => setOnline(false));
   }, [socket]);
 
-  const callSocket = useCallback(() => {
-    socket.emit("new", "A new order is added");
-  }, [socket]);
+  const callSocket = useCallback(
+    (id) => {
+      socket.emit("new", id);
+    },
+    [socket]
+  );
   //react router dom logic
   const router = useHistory();
 
@@ -80,7 +86,7 @@ const AddQuote = () => {
             doctorsId: doctorToQuote?.id,
           };
           addNewQuote(newData).then(() => {
-            callSocket();
+            callSocket(doctorToQuote?.usersId);
             Success("Se guardo el registro");
             dispatch(addQuote(newData));
             router.push("/quotes");
@@ -97,7 +103,7 @@ const AddQuote = () => {
 
   //react useEffect logic
   useEffect(() => {
-    dispatch(readPatients(page, search.name, search.custom,"", 3));
+    dispatch(readPatients(page, search.name, search.custom, "", 3));
     dispatch(readDoctors(1, ""));
     dispatch(readQuoteTypes());
     return;

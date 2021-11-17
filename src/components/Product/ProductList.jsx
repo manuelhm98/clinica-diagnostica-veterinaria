@@ -25,6 +25,7 @@ export default function ProductList({
         id: prod?.id,
         qt: 1,
         price: prod?.price,
+        total_price: prod?.price,
         img: prod?.img,
         name: prod?.name,
       };
@@ -34,7 +35,7 @@ export default function ProductList({
     }
     return;
   }, [prod, setLoadCart]);
-  console.log(getItems())
+  console.log(getItems());
   return (
     <>
       {typeof products?.products === "undefined" && (

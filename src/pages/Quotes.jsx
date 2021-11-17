@@ -67,7 +67,16 @@ export default function Quotes() {
           />
         </div>
         <button className="bg-blue-600 text-white px-8 ml-4 float-right text-xs py-1 rounded">
-          <Link to="/add-quote">Agregar</Link>
+          <Link
+            to={{
+              pathname: "/add-quote",
+              query:{
+                name:"Daniel"
+              },
+            }}
+          >
+            Agregar
+          </Link>
         </button>
         <Table>
           <TableContent quotes={quotes.quotes} />

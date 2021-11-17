@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { readHospitalServices } from "../redux/actions/hospital-services";
 import ServiceButton from "../components/CartService/ServiceButton";
 import { setItemService } from "../utils/services";
+import Modal from "../components/Global/Modal";
 
 export default function AddOrderService() {
   const dispatch = useDispatch();

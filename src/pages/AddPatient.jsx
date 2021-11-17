@@ -7,7 +7,7 @@ import { listSpecies } from "../redux/actions/species";
 import { listBreed } from "../redux/actions/breeds";
 import { readPatTypes } from "../redux/actions/pat-type";
 import SelectImage from "../components/Patients/Form/SelectImage";
-import { formatAge, getAge, getBirtDay } from "../utils/dates";
+import { ageToDate, dateDiff, formatAge, getAge } from "../utils/dates";
 import Modal from "../components/Global/Modal";
 import SearchCustomer from "../components/Patients/Form/SearchCustomer";
 import { useFormik } from "formik";
@@ -18,7 +18,6 @@ import { Info } from "../components/Global/Alerts/Info";
 import { Error } from "../components/Global/Alerts/Error";
 import { addNewPatient, uploadPetPhoto, validExp } from "../services/patients";
 import { addPatient } from "../redux/actions/patiences";
-import { useHistory } from "react-router-dom";
 
 export default function AddPatient() {
   //react states
@@ -29,7 +28,6 @@ export default function AddPatient() {
   const [newBreeds, setNewBreeds] = useState();
   const [showModal, setShowModal] = useState(false);
   const [clientToPet, setClientToPet] = useState();
-  const route = useHistory();
   const inputBirth = useRef(null);
   const inputDays = useRef(null);
   const inputMonths = useRef(null);
@@ -131,18 +129,19 @@ export default function AddPatient() {
   });
   //set age to the pet with birthday
   const setAgeToInput = (e) => {
+    console.log(dateDiff(e));
     setAge(getAge(e));
-    const r = getAge(e);
-    inputDays.current.value = r.days < 30 ? r.days : 0;
+    const r = dateDiff(e);
+    inputDays.current.value = r.days
     inputMonths.current.value = r.months;
-    inputYears.current.value = r.years;
+    inputYears.current.value = r.years
     setBirthDay(e);
   };
 
   //set birthday to the pet with age
   const setBirthDayToInput = () => {
-    inputBirth.current.value = getBirtDay(age.years, age.months, age.days);
-    setBirthDay(getBirtDay(age.years, age.months, age.days));
+    inputBirth.current.value = ageToDate(age.years, age.months, age.days);
+    setBirthDay(ageToDate(age.years, age.months, age.days));
   };
 
   //set breed with the specie

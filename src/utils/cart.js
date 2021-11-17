@@ -30,12 +30,9 @@ export function removeItem(item, option) {
         cartsItems.splice(index, 1);
       } else if (cartsItems[index].qt > 1) {
         cartsItems[index].price =
-          cartsItems[index].price -
-          cartsItems[index].price / cartsItems[index].qt;
-        cartsItems[index].original_price =
-          cartsItems[index].original_price -
-          cartsItems[index].original_price / cartsItems[index].qt;
-        cartsItems[index].qt--;
+            cartsItems[index].price -
+            cartsItems[index].price / cartsItems[index].qt;
+          cartsItems[index].qt--;
       }
       localStorage.setItem("cart", JSON.stringify(cartsItems));
     }
@@ -46,12 +43,9 @@ export function sumItemCart(product) {
   const cartsItems = getItems();
   const fnd = cartsItems.find((a) => a.id === product.id);
   const index = cartsItems.indexOf(fnd);
-  cartsItems[index].price =
-    cartsItems[index].price + cartsItems[index].price / cartsItems[index].qt;
-  cartsItems[index].original_price =
-    cartsItems[index].original_price +
-    cartsItems[index].original_price / cartsItems[index].qt;
   cartsItems[index].qt++;
+  cartsItems[index].total_price =
+    cartsItems[index].qt * cartsItems[index].price;
   localStorage.setItem("cart", JSON.stringify(cartsItems));
 }
 export function clearCart() {
