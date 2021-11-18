@@ -30,7 +30,7 @@ export const getAllProducts = async (
   category = "",
   species = "",
   brands = "",
-  limit=25
+  limit=8
 ) => {
   const response = await fetch(
     `${API_HOST}/products/list?page=${page}&name=${name}&category=${category}&species=${species}&brands=${brands}&limit=${limit}`,

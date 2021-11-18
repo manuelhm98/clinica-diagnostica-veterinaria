@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { readEstethicServices } from "../redux/actions/estethic-service";
 import EstheticBotton from "../components/CartEsthetic/EstheticButton";
 import { setItemEsthetic } from "../utils/esthetic";
+import Pagination from "../components/Global/Pag";
 
 export default function AddEstheticService() {
   const [page, setPage] = useState(1);
@@ -60,6 +61,14 @@ export default function AddEstheticService() {
               </div>
             ))}
         </div>
+        <Pagination
+          last={estethic?.totalpages}
+          className="pagination-bar"
+          onPageChange={setPage}
+          totalCount={estethic?.totalItems}
+          currentPage={estethic?.currentPage}
+          pageSize={estethic?.take}
+        />
       </div>
     </Layout>
   );

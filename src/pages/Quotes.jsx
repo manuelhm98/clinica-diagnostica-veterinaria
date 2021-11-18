@@ -28,7 +28,7 @@ export default function Quotes() {
   );
   //when a new quote is added use a useCallback with socket
   const callSocket = useCallback(() => {
-    socket.on("reload", () => {
+    socket.on("reloadAdmin", () => {
       Success("Se completo una consulta");
       setReload(true);
     });

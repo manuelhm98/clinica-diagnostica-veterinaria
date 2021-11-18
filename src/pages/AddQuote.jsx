@@ -14,10 +14,7 @@ import { Warning } from "../components/Global/Alerts/Warning";
 import { addNewQuote } from "../services/quotes";
 import { Success } from "../components/Global/Alerts/Success";
 import io from "socket.io-client";
-import {
-  useHistory,
-  useLocation,
-} from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { addQuote } from "../redux/actions/quote";
 import { readQuoteTypes } from "../redux/actions/quote-type";
 import { SOCKET_URL } from "../utils/constants";
@@ -27,17 +24,22 @@ const AddQuote = () => {
   const { query } = useLocation();
   const [showModalSelectPat, setShowModalSelectPat] = useState(false);
   const [showModalSelectDoc, setShowModalSelectDoc] = useState(false);
-  const [patientToQuote, setPatientToQuote] = useState(query?.quote?.patients && query?.quote?.patients);
-  const [doctorToQuote, setDoctorToQuote] = useState(query?.doctor && query?.doctor);
+  const [patientToQuote, setPatientToQuote] = useState(
+    query?.quote?.patients && query?.quote?.patients
+  );
+  const [doctorToQuote, setDoctorToQuote] = useState(
+    query?.doctor && query?.doctor
+  );
   const [search, setSearch] = useState({ name: "", custom: "" });
   const [page, setPage] = useState(1);
   const [online, setOnline] = useState(false);
+  console.log(query);
   //Redux login
   const dispatch = useDispatch();
   const patients = useSelector((state) => state.patient.data);
   const doctors = useSelector((state) => state.doctor.data);
   const quoteTypes = useSelector((state) => state.quoteType.data);
-  
+
   const serverURL = SOCKET_URL;
   const socket = useMemo(
     () =>
@@ -66,7 +68,7 @@ const AddQuote = () => {
 
   //Formik logic
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(query),
     validationSchema: yup.object({
       date: yup.date().required("La fecha de la consulta es requerida"),
       issue: yup
@@ -107,7 +109,7 @@ const AddQuote = () => {
     dispatch(readDoctors(1, ""));
     dispatch(readQuoteTypes());
     return;
-  }, [dispatch, search, page]);
+  }, [dispatch, search, page,online]);
   return (
     <Layout>
       <div className="p-10">
@@ -121,6 +123,7 @@ const AddQuote = () => {
                   name="date"
                   onChange={formik.handleChange}
                   type="date"
+                  defaultValue={query?.next && query?.next}
                   className={
                     "border p-1 text-sm text-gray-500 rounded outline-none hover:border-green-400 " +
                     (formik.errors.date && formik.touched.date
@@ -264,9 +267,9 @@ const AddQuote = () => {
 
 export default AddQuote;
 
-function initialValues() {
+function initialValues(query) {
   return {
-    date: "",
+    date: "" || query?.next,
     issue: "",
     quotesTypeId: "",
   };

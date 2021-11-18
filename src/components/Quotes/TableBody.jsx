@@ -14,7 +14,15 @@ export default function TableBody({ quotes }) {
   };
   return (
     <>
-      {quotes && quotes.length ? (
+      {typeof quotes === "undefined" && (
+        <tr>
+          <span className="px-8 py-6 text-xs font-semibold">
+            No hay consultas disponibles
+          </span>
+        </tr>
+      )}
+      {quotes &&
+        quotes.length &&
         quotes.map((quote) => (
           <tr key={quote.id}>
             <TD name={quote.id} />
@@ -40,12 +48,7 @@ export default function TableBody({ quotes }) {
               )}
             </TD>
           </tr>
-        ))
-      ) : (
-        <p className="text-base font-thin py-3 px-4">
-          No se ah registrado ninguna cita...
-        </p>
-      )}
+        ))}
       <Modal
         title="Resultados"
         setShowModal={setShowModal}

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { readHospitalServices } from "../redux/actions/hospital-services";
 import ServiceButton from "../components/CartService/ServiceButton";
 import { setItemService } from "../utils/services";
-import Modal from "../components/Global/Modal";
+import Pagination from "../components/Global/Pag";
 
 export default function AddOrderService() {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export default function AddOrderService() {
         id: service?.id,
         qt: 1,
         price: service?.price,
-        total_price:service?.price,
+        total_price: service?.price,
         name: service?.name,
       };
       setItemService(values);
@@ -57,6 +57,14 @@ export default function AddOrderService() {
             </div>
           ))}
         </div>
+        <Pagination
+          last={services?.totalpages}
+          className="pagination-bar"
+          onPageChange={setPage}
+          totalCount={services?.totalItems}
+          currentPage={services?.currentPage}
+          pageSize={services?.take}
+        />
       </div>
     </Layout>
   );

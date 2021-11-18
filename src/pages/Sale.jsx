@@ -16,7 +16,6 @@ export default function Sale() {
   useEffect(() => {
     return dispatch(readSaleDetail(id));
   }, [id, dispatch]);
-  console.log(details);
   return (
     <Layout>
       <div className="p-8 flex flex-col">
@@ -37,13 +36,14 @@ export default function Sale() {
               </tr>
             </thead>
             <tbody>
-                {details && details?.map((det)=>(
-                    <tr key={det.id}>
-                        <TD name={det.id}/>
-                        <TD name={det.products?.name}/>
-                        <TD name={det.quantity} />
-                        <TD name={"$" + det.totalUnit} />
-                    </tr>
+              {details &&
+                details?.map((det) => (
+                  <tr key={det.id}>
+                    <TD name={det.id} />
+                    <TD name={det.products?.name} />
+                    <TD name={det.quantity} />
+                    <TD name={"$" + det.totalUnit} />
+                  </tr>
                 ))}
             </tbody>
           </Table>
