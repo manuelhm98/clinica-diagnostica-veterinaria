@@ -49,6 +49,7 @@ const CompleteOrderEsthetic = lazy(() =>
 );
 const EstheticDetails = lazy(() => import("../pages/EstheticDetails"));
 const EstheticOrder = lazy(() => import("../pages/EstheticOrder"));
+const Certifations = lazy(() => import("../pages/Certifations"));
 
 export default function Routes() {
   const dispatch = useDispatch();
@@ -335,7 +336,11 @@ export default function Routes() {
               </>
             )}
           </Route>
+          <Route path="/certification" exact>
+            <Certifations/>
+          </Route>
         </Suspense>
+        
         <Route path="*" component={Error404} />
       </Switch>
     </Router>

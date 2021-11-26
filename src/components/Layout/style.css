@@ -1,3 +1,33 @@
 .dropdown:hover > .dropdown-content {
 	display: block;
 }
+.toggle-button{
+	display: none !important;
+}
+@media screen and (max-width:500px) {
+	.sidebar{
+		display: none !important;
+		transition: all 5s ease-out;
+	}
+	.sidebar-show{
+		display: flex !important;
+		position:absolute;
+		z-index: 2;
+		transition: all 5s ease-out;
+	}
+	.container{
+		margin-left: 0 !important;
+		width: 100% !important;
+	}
+	.toggle-button{
+		display: flex !important;
+		position:absolute;
+		z-index: 1;
+		bottom:4%;
+		left:4%;
+	}
+	.brand{
+		margin-top:30px !important;
+	}
+}
+

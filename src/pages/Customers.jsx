@@ -41,7 +41,7 @@ export default function Customers() {
     <Layout>
       <div className="p-5">
         <Title name="Listado de Clientes" />
-        <div className="grid grid-cols-2 gap-4" style={{ width: "100%" }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ width: "100%" }}>
           <InputSearch
             label="Buscar por nombre"
             placeholder="Escribe el nombre para buscar"

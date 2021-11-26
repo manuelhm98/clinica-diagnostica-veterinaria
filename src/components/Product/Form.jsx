@@ -349,7 +349,7 @@ function initial(product) {
     name: "" || product?.name,
     price: "" || product?.price,
     description: "" || product?.description,
-    stock: "" || product?.price,
+    stock: "" || product?.stock,
     categoryId: "" || product?.categoryId,
     speciesId: "" || product?.speciesId,
     brandsId: "" || product?.brandsId,

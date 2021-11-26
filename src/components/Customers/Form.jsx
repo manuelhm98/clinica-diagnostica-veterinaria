@@ -68,7 +68,7 @@ export default function Form({ setShowModal, customer }) {
     <div>
       <form onSubmit={formik.handleSubmit}>
         <div className="flex flex-col p-1 mt-1">
-          <label className="text-sm text-gray-400">Nombre</label>
+          <label className="text-xs  sm:text-sm text-gray-400">Nombre</label>
           <input
             type="text"
             name="names"
@@ -76,7 +76,7 @@ export default function Form({ setShowModal, customer }) {
             placeholder="Ingresa el nombre completo"
             defaultValue={customer && customer?.names}
             className={
-              "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-full border p-1 text-xs sm:text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.names && formik.touched.names
                 ? "border-red-400"
                 : "border-gray-300")
@@ -89,7 +89,7 @@ export default function Form({ setShowModal, customer }) {
           )}
         </div>
         <div className="flex flex-col p-1 mt-1">
-          <label className="text-sm text-gray-400">Apellido</label>
+          <label className="text-xs sm:text-sm text-gray-400">Apellido</label>
           <input
             type="text"
             name="lastname"
@@ -97,7 +97,7 @@ export default function Form({ setShowModal, customer }) {
             placeholder="Ingresa los apellidos"
             defaultValue={customer && customer?.lastname}
             className={
-              "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-full border p-1 text-xs sm:text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.lastname && formik.touched.lastname
                 ? "border-red-400"
                 : "border-gray-300")
@@ -110,7 +110,7 @@ export default function Form({ setShowModal, customer }) {
           )}
         </div>
         <div className="flex flex-col p-1 mt-1">
-          <label className="text-sm text-gray-400">Direccion</label>
+          <label className="text-xs sm:text-sm text-gray-400">Direccion</label>
           <input
             type="text"
             name="direction"
@@ -118,7 +118,7 @@ export default function Form({ setShowModal, customer }) {
             placeholder="Ingresa la direccion"
             defaultValue={customer && customer?.direction}
             className={
-              "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-full border p-1 text-xs sm:text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.direction && formik.touched.direction
                 ? "border-red-400"
                 : "border-gray-300")
@@ -134,7 +134,7 @@ export default function Form({ setShowModal, customer }) {
           {!customer ? (
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col">
-                <label className="text-sm text-gray-400">
+                <label className="text-xs sm:text-sm text-gray-400">
                   Numero de Celular
                 </label>
                 <input
@@ -149,7 +149,7 @@ export default function Form({ setShowModal, customer }) {
                       : ""
                   }
                   className={
-                    " border p-1 text-sm rounded outline-none hover:border-green-400 " +
+                    " border p-1 text-xs sm:text-sm rounded outline-none hover:border-green-400 " +
                     (formik.errors.cellphone && formik.touched.cellphone
                       ? "border-red-400"
                       : "border-gray-300")
@@ -159,21 +159,21 @@ export default function Form({ setShowModal, customer }) {
               <button
                 onClick={handlecheck}
                 type="button"
-                className="bg-green-500 text-white rounded py-1 mt-4"
+                className="bg-green-500 text-xs sm:text-sm text-white rounded py-1 mt-4"
               >
                 Verificar
               </button>
             </div>
           ) : (
             <div className="flex flex-col p-1 mt-1">
-              <label className="text-sm text-gray-400">Celular</label>
+              <label className="text-xs sm:text-sm text-gray-400">Celular</label>
               <input
                 type="text"
                 name="cellphone"
                 onChange={formik.handleChange}
                 placeholder="Ingresa el numero de celular"
                 className={
-                  "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
+                  "w-full border p-1 text-xs sm:text-sm rounded outline-none hover:border-green-400 " +
                   (formik.errors.cellphone && formik.touched.cellphone
                     ? "border-red-400"
                     : "border-gray-300")
@@ -194,7 +194,7 @@ export default function Form({ setShowModal, customer }) {
           )}
         </div>
         <div className="flex flex-col p-1 mt-1">
-          <label className="text-sm text-gray-400">Numero de telefono</label>
+          <label className="text-xs sm:text-sm text-gray-400">Numero de telefono</label>
           <input
             type="text"
             name="phone"
@@ -204,7 +204,7 @@ export default function Form({ setShowModal, customer }) {
               customer && customer?.phone !== "0" ? customer?.phone : ""
             }
             className={
-              "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-full border p-1 text-xs sm:text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.phone && formik.touched.phone
                 ? "border-red-400"
                 : "border-gray-300")
@@ -217,7 +217,7 @@ export default function Form({ setShowModal, customer }) {
           )}
         </div>
         <div className="flex flex-col p-1 mt-1">
-          <label className="text-sm text-gray-400">Email</label>
+          <label className="text-xs sm:text-sm text-gray-400">Email</label>
           <input
             type="text"
             name="email"
@@ -227,7 +227,7 @@ export default function Form({ setShowModal, customer }) {
               customer && customer?.email !== " " ? customer?.email : ""
             }
             className={
-              "w-full border p-1 text-sm rounded outline-none hover:border-green-400 " +
+              "w-full border p-1 text-xs sm:text-sm rounded outline-none hover:border-green-400 " +
               (formik.errors.email && formik.touched.email
                 ? "border-red-400"
                 : "border-gray-300")
