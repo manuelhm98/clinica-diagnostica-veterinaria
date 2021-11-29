@@ -11,8 +11,6 @@ export default function ResponsabilityForm() {
   const [selectPat, setSelectPat] = useState();
   const [search, setSearch] = useState({ name: "", custom: "" });
   const [page, setPage] = useState(1);
-  const [contry, setContry] = useState();
-  const [custom, setCustom] = useState();
   const dispatch = useDispatch();
   const patients = useSelector((state) => state.patient.data);
   useEffect(() => {
