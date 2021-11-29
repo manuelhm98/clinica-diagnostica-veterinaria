@@ -4,7 +4,7 @@ import { types } from "../types";
 export const addBreed = (data) => {
   return (dispatch) => {
     dispatch(add(data));
-    dispatch(readBreeds(1,""));
+    dispatch(readBreeds(1, ""));
   };
 };
 
@@ -15,9 +15,9 @@ export function add(data) {
   };
 }
 
-export const readBreeds = (page = 1, type = "") => {
+export const readBreeds = (page = 1, type = "", limit = 25) => {
   return (dispatch) => {
-    getAllBreeds(page, type).then((res) => {
+    getAllBreeds(page, type, limit).then((res) => {
       if (!res.ok) {
         dispatch(read({}));
         return;

@@ -15,9 +15,9 @@ export function add(data) {
   };
 }
 
-export const readColors = (page = 1, type = "") => {
+export const readColors = (page = 1, type = "",limit=25) => {
   return (dispatch) => {
-    getAllColors(page, type).then((res) => {
+    getAllColors(page, type,limit).then((res) => {
       if (!res.ok) {
         dispatch(read({}));
         return;

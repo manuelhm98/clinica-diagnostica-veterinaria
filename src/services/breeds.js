@@ -13,9 +13,9 @@ export const addNewBreed = async (data) => {
   return response.json();
 };
 
-export const getAllBreeds = async (page, type) => {
+export const getAllBreeds = async (page, type,limit) => {
   const response = await fetch(
-    `${API_HOST}/breeds?page=${page}&type=${type}&limit=${25}`,
+    `${API_HOST}/breeds?page=${page}&type=${type}&limit=${limit}`,
     { headers: { token: getToken() } }
   );
   return response.json();

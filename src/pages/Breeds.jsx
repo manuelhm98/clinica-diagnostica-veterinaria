@@ -15,6 +15,7 @@ import { listSpecies } from "../redux/actions/species";
 export default function Breeds() {
   const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(25);
   const [type, setType] = useState();
   const dispatch = useDispatch();
   const breeds = useSelector((state) => state.breed.data);
@@ -25,12 +26,16 @@ export default function Breeds() {
     return dispatch(readEmployeById(auth?.user?.userid));
   }, [dispatch, auth]);
   useEffect(() => {
-    dispatch(readBreeds(page, type));
+    dispatch(readBreeds(page, type, limit));
     dispatch(listSpecies());
     return;
-  }, [dispatch, page, type]);
+  }, [dispatch, page, type, limit]);
   const handleChange = (e) => {
     setType(e.currentTarget.value);
+    setPage(1);
+  };
+  const handleLimit = (e) => {
+    setLimit(e);
     setPage(1);
   };
   return (
@@ -50,6 +55,23 @@ export default function Breeds() {
         >
           Agregar
         </button>
+        <div className="flex flex-col mt-3">
+          <label className="text-xs font-semibold text-gray-500">Mostrar</label>
+          <select
+            onChange={(e) => handleLimit(e.currentTarget.value)}
+            className="border w-60 rounded text-xs py-1 outline-none "
+          >
+            <option disabled selected>
+              Cantidad a mostrar
+            </option>
+            <option value={5}>5</option>
+            <option value={20}>10</option>
+            <option value={15}>15</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+          </select>
+        </div>
         <Modal
           title="Agregar Raza"
           showModal={showModal}

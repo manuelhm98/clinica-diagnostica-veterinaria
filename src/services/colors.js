@@ -13,9 +13,9 @@ export const addNewColor = async (data) => {
   return response.json();
 };
 
-export const getAllColors = async (page, type) => {
+export const getAllColors = async (page, type,limit) => {
   const response = await fetch(
-    `${API_HOST}/colors?page=${page}&type=${type}&limit=${25}`,
+    `${API_HOST}/colors?page=${page}&type=${type}&limit=${limit}`,
     { headers: { token: getToken() } }
   );
   return response.json();

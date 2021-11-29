@@ -16,6 +16,7 @@ export default function Colors() {
   const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState(1);
   const [type, setType] = useState();
+  const [limit, setLimit] = useState(25);
   const dispatch = useDispatch();
   const colors = useSelector((state) => state.color.data);
   const user = useSelector((state) => state.user.data);
@@ -24,11 +25,14 @@ export default function Colors() {
     return dispatch(readEmployeById(auth?.user?.userid));
   }, [dispatch, auth]);
   useEffect(() => {
-    return dispatch(readColors(page, type));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, type]);
+    return dispatch(readColors(page, type, limit));
+  }, [page, type, dispatch, limit]);
   const handleChange = (e) => {
     setType(e.currentTarget.value);
+    setPage(1);
+  };
+  const handleLimit = (e) => {
+    setLimit(e);
     setPage(1);
   };
   return (
@@ -50,6 +54,23 @@ export default function Colors() {
         >
           Agregar
         </button>
+        <div className="flex flex-col mt-3">
+          <label className="text-xs font-semibold text-gray-500">Mostrar</label>
+          <select
+            onChange={(e) => handleLimit(e.currentTarget.value)}
+            className="border w-60 rounded text-xs py-1 outline-none "
+          >
+            <option disabled selected>
+              Cantidad a mostrar
+            </option>
+            <option value={5}>5</option>
+            <option value={20}>10</option>
+            <option value={15}>15</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+          </select>
+        </div>
         <Suspense fallback={<Waiting />}>
           <Modal
             title="Agregar Color"

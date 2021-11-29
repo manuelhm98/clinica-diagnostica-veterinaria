@@ -16,6 +16,7 @@ export default function Patients() {
   //react states logic
   const [search, setSearch] = useState({ name: "", custom: "", exp: "" });
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(25);
   const [reload, setReload] = useState(false);
   const [state, setState] = useState(true);
 
@@ -36,15 +37,18 @@ export default function Patients() {
         search.name,
         search.custom,
         search.exp,
-        25,
+        limit,
         state ? 1 : 0
       )
     );
     return;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, search, reload, state]);
+  }, [page, search, reload, state, dispatch, limit]);
   const handleChange = (e) => {
     setSearch({ ...search, [e.currentTarget.name]: e.currentTarget.value });
+    setPage(1);
+  };
+  const handleLimit = (e) => {
+    setLimit(e);
     setPage(1);
   };
   return (
@@ -71,26 +75,51 @@ export default function Patients() {
             handleChange={(e) => handleChange(e)}
           />
         </div>
-        <div>
-          <label className="text-xs">Mostrar</label>
-          <div className="text-xl font-semibold flex mt-1">
-            <div className="relative mt-1 ml-3 inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-              <input
-                type="checkbox"
-                nameName="toggle"
-                id="toggle"
-                checked={state}
-                onClick={() => setState(!state)}
-                className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
-              />
-              <label
-                for="toggle"
-                className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
-              ></label>
+        <div className="flex">
+          <div>
+            <label className="text-xs font-semibold text-gray-500">
+              Mostrar
+            </label>
+            <div className="text-xl font-semibold flex mt-1">
+              <div className="relative ml-3 inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                <input
+                  type="checkbox"
+                  name="toggle"
+                  id="toggle"
+                  checked={state}
+                  onClick={() => setState(!state)}
+                  className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                />
+                <label
+                  htmlFor="toggle"
+                  className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
+                ></label>
+              </div>
+              <span className="text-sm font-normal text-gray-600 mt-1">
+                {state ? "Activos" : "Inactivos"}
+              </span>
             </div>
-            <span className="text-sm font-normal text-gray-600 mt-1">
-              {state ? "Activos" : "Inactivos"}
-            </span>
+          </div>
+          <div>
+            <div className="flex flex-col mt-1 ml-20">
+              <label className="text-xs font-semibold text-gray-500">
+                Mostrar
+              </label>
+              <select
+                onChange={(e) => handleLimit(e.currentTarget.value)}
+                className="border w-60 rounded mt-1 text-xs py-1 outline-none "
+              >
+                <option disabled selected>
+                  Cantidad a mostrar
+                </option>
+                <option value={5}>5</option>
+                <option value={20}>10</option>
+                <option value={15}>15</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+              </select>
+            </div>
           </div>
         </div>
         <button className="bg-blue-600 text-white mt-3 px-8 ml-4 float-right text-xs py-1 rounded">

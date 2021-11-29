@@ -1,6 +1,7 @@
 import {
   faBars,
   faBone,
+  faBook,
   faChevronDown,
   faChevronUp,
   faClipboardList,
@@ -126,7 +127,7 @@ const NavbarOptions = ({ user }) => {
             Clinica de <span style={{ color: "#5CB119" }}>Diagnostico</span>{" "}
             <span>Veterinario</span>
           </p>
-          <div onClick={()=>setToggleShow(false)} className="float-right mt-2">
+          <div onClick={()=>setToggleShow(false)} className=" block sm:hidden float-right mt-2">
             <FontAwesomeIcon className="text-white text-2xl" icon={faTimes}/>
           </div>
           <ul className="mt-2 sm:mt-12">
@@ -294,6 +295,15 @@ const NavbarOptions = ({ user }) => {
             )}
             {checkRole(user) === 1 && (
               <>
+              <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+                  <Link to="/certification">
+                    <div className="flex items-center">
+                      <span className="text-base  ml-2">
+                        <FontAwesomeIcon icon={faBook} /> Certificados
+                      </span>
+                    </div>
+                  </Link>
+                </li>
                 <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
                   <Link to="/sales-history">
                     <div className="flex items-center">
