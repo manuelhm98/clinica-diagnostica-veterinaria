@@ -1,26 +1,33 @@
-import { useEffect, useState } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import Responsability from "../Certifications/Responsability";
+import { useState, useEffect } from "react";
+import Auth from "./Auth";
 import { useDispatch, useSelector } from "react-redux";
 import { readPatients } from "../../redux/actions/patiences";
 import Modal from "../Global/Modal";
 import SelectPatient from "../Quotes/SelectPatient";
+import { listSpecies } from "../../redux/actions/species";
 
-export default function ResponsabilityForm() {
+export default function AuthForm() {
   const [showModalPat, setShowModalPat] = useState(false);
   const [selectPat, setSelectPat] = useState();
-  const [search, setSearch] = useState({ name: "", custom: "" });
   const [tel, setTel] = useState();
   const [custom, setCustom] = useState();
-  const [DUI, setDUI] = useState();
   const [address, setAddress] = useState();
+  const [specie, setSpecie] = useState();
+  const [turno, setTurno] = useState();
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const patients = useSelector((state) => state.patient.data);
+  const species = useSelector((state) => state.specie.data);
+  const [search, setSearch] = useState({ name: "", custom: "" });
   useEffect(() => {
     dispatch(readPatients(page, search.name, search.custom, "", 3));
     return;
   }, [dispatch, search, page]);
+  useEffect(() => {
+    dispatch(listSpecies());
+    return;
+  }, [dispatch]);
   return (
     <div>
       <div className="mb-10">
@@ -45,6 +52,18 @@ export default function ResponsabilityForm() {
           <div className="grid grid-cols-2 gap-8">
             <div>
               <label className="text-xs font-semibold text-gray-500">
+                Turno
+              </label>
+              <div className="flex">
+                <input
+                  placeholder="Escribe el turno"
+                  className="w-full px-2 py-1 rounded border outline-none text-sm"
+                  onChange={(e) => setTurno(e.currentTarget.value)}
+                />
+              </div>
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-gray-500">
                 Propietario
               </label>
               <div className="flex">
@@ -52,16 +71,6 @@ export default function ResponsabilityForm() {
                   placeholder="Escribe el nombre del propietario"
                   className="w-full px-2 py-1 rounded border outline-none text-sm"
                   onChange={(e) => setCustom(e.currentTarget.value)}
-                />
-              </div>
-            </div>
-            <div>
-              <label className="text-xs font-semibold text-gray-500">DUI</label>
-              <div className="flex">
-                <input
-                  placeholder="Escribe el DUI del propietario"
-                  className="w-full px-2 py-1 rounded border outline-none text-sm"
-                  onChange={(e) => setDUI(e.currentTarget.value)}
                 />
               </div>
             </div>
@@ -92,19 +101,39 @@ export default function ResponsabilityForm() {
               </div>
             </div>
           </div>
+          <div>
+            <label className="text-xs font-semibold text-gray-500">Turno</label>
+            <div className="flex">
+              <select
+                className="w-full px-2 py-1 rounded border outline-none text-sm"
+                onChange={(e) => setSpecie(e.currentTarget.value)}
+              >
+                <option disabled value={"DEFAULT"} selected>
+                  Selecciona la especie de la mascota
+                </option>
+                {species?.specie &&
+                  species.specie.map((specie) => (
+                    <option key={specie.id} value={specie.type}>
+                      {specie.type}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          </div>
         </div>
       </div>
       <PDFDownloadLink
         document={
-          <Responsability
-            DUI={DUI}
-            tel={tel}
-            address={address}
+          <Auth
+            specie={specie}
             custom={custom}
-            patient={selectPat && selectPat}
+            address={address}
+            tel={tel}
+            selectPat={selectPat}
+            turno={turno}
           />
         }
-        fileName={`CR-${selectPat?.names}-${selectPat?.exp}.pdf`}
+        fileName={`Auth-${selectPat?.names}-${selectPat?.exp}.pdf`}
         style={{
           textDecoration: "none",
           padding: "5px",

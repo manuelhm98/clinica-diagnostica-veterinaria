@@ -1,17 +1,27 @@
 import { useState } from "react";
-import Sanitary from "../Certifications/Sanitary";
+import Auth from "../Certifications/Auth";
+import AuthForm from "../Certifications/AuthForm";
 import ResponsabilityForm from "../Certifications/ResponsabilityForm";
+import SanitaryForm from "../Certifications/SanitaryForm";
 
 export default function BreadCrumbs() {
-  const [showSanitary, setShowSanitary] = useState(true);
+  const [showSanitary, setShowSanitary] = useState(false);
   const [showResp, setShowResp] = useState(false);
+  const [showAuth, setShowAuth] = useState(true);
   const handleShowSaitary = () => {
     setShowSanitary(true);
     setShowResp(false);
+    setShowAuth(false);
   };
   const handleShowResp = () => {
     setShowSanitary(false);
     setShowResp(true);
+    setShowAuth(false);
+  };
+  const handleShowAuth = () => {
+    setShowSanitary(false);
+    setShowResp(false);
+    setShowAuth(true);
   };
   return (
     <>
@@ -43,15 +53,22 @@ export default function BreadCrumbs() {
           <li>
             <span className="mx-4">/</span>
           </li>
+          <li onClick={handleShowAuth} className="cursor-pointer">
+            <span
+              className={
+                "text-blue-500 text-base " +
+                (showAuth ? " font-semibold" : " sm:font-thin")
+              }
+            >
+              Autorizacion de estetica
+            </span>
+          </li>
         </ol>
       </nav>
       <div>
-        {showSanitary && <Sanitary />}
-        {showResp && (
-          <>
-            <ResponsabilityForm />
-          </>
-        )}
+        {showSanitary && <SanitaryForm />}
+        {showResp && <ResponsabilityForm />}
+        {showAuth && <AuthForm />}
       </div>
     </>
   );
