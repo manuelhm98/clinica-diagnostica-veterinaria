@@ -16,7 +16,6 @@ export default function EstheticDetails() {
   useEffect(() => {
     return dispatch(readEstheticDetails(id));
   }, [id, dispatch]);
-  console.log(esthetic);
   return (
     <Layout>
       <div className="p-8 flex flex-col">

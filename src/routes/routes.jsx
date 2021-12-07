@@ -50,6 +50,7 @@ const CompleteOrderEsthetic = lazy(() =>
 const EstheticDetails = lazy(() => import("../pages/EstheticDetails"));
 const EstheticOrder = lazy(() => import("../pages/EstheticOrder"));
 const Certifations = lazy(() => import("../pages/Certifations"));
+const Reports = lazy(() => import("../pages/Reports"));
 
 export default function Routes() {
   const dispatch = useDispatch();
@@ -336,11 +337,16 @@ export default function Routes() {
               </>
             )}
           </Route>
+          <Route path="/reports" exact>
+            {user?.users && (
+              <>{checkRole(user?.users) === 1 ? <Reports /> : <Error404 />}</>
+            )}
+          </Route>
           <Route path="/certification" exact>
-            <Certifations/>
+            <Certifations />
           </Route>
         </Suspense>
-        
+
         <Route path="*" component={Error404} />
       </Switch>
     </Router>

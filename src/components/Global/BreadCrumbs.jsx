@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Auth from "../Certifications/Auth";
 import AuthForm from "../Certifications/AuthForm";
 import ResponsabilityForm from "../Certifications/ResponsabilityForm";
 import SanitaryForm from "../Certifications/SanitaryForm";
