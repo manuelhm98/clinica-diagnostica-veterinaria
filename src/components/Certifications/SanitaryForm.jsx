@@ -25,7 +25,7 @@ export default function SanitaryForm() {
   const doctors = useSelector((state) => state.doctor.data);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(readPatients(page, search.name, search.custom, "", 3));
+    dispatch(readPatients(page, search.name, search.custom, "", 3,1));
     return;
   }, [dispatch, search, page]);
   useEffect(() => {

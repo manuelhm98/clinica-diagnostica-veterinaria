@@ -21,7 +21,7 @@ export default function AuthForm() {
   const species = useSelector((state) => state.specie.data);
   const [search, setSearch] = useState({ name: "", custom: "" });
   useEffect(() => {
-    dispatch(readPatients(page, search.name, search.custom, "", 3));
+    dispatch(readPatients(page, search.name, search.custom, "", 3,1));
     return;
   }, [dispatch, search, page]);
   useEffect(() => {

@@ -191,7 +191,7 @@ export default function Responsability({ patient, DUI, tel, custom, address }) {
                     marginLeft: 10,
                   }}
                 >
-                  {patient?.customers?.direction}
+                  {address ? address : patient?.customers?.direction}
                 </Text>
               </View>
               <View
@@ -212,7 +212,7 @@ export default function Responsability({ patient, DUI, tel, custom, address }) {
                     marginLeft: 5,
                   }}
                 >
-                  {patient?.customers?.phone}
+                  {tel ? tel : patient?.customers?.phone}
                 </Text>
               </View>
             </View>
@@ -241,8 +241,8 @@ export default function Responsability({ patient, DUI, tel, custom, address }) {
             </Text>
             , propietario(a), de un paciente en la Clinica de Diagnostico
             Veterinario, voluntariamente y con pleno conocimiento, doy mi
-            expresoconsentimiento para que se le practique los procedimientos
-            medico-quirujicos que los medicos que yo eh escogido de Clinica de
+            expreso consentimiento para que se le practique los procedimientos
+            medico-quirugicos que los medicos que yo eh escogido de Clinica de
             Diagnostico Veterinario estimen conveniente.
             Procedimiento:________________________________________________________
           </Text>
@@ -256,7 +256,7 @@ export default function Responsability({ patient, DUI, tel, custom, address }) {
         <View style={{ marginTop: 5 }}>
           <Text style={styles.second_text}>
             Expresamente me obligo,al pago del monto total de la cuenta de
-            dinero que resulte por los servicios medico-quirurjicos a favor del
+            dinero que resulte por los servicios medico-quirurgicos a favor del
             paciente{" "}
             <Text
               style={{

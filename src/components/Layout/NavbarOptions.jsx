@@ -131,7 +131,7 @@ const NavbarOptions = ({ user }) => {
             <FontAwesomeIcon className="text-white text-2xl" icon={faTimes}/>
           </div>
           <ul className="mt-2 sm:mt-12">
-            <li className="flex w-full justify-between cursor-pointer items-center mb-6">
+            <li className="flex w-full justify-between cursor-pointer items-center mb-4">
               <div className="flex items-center text-base">
                 <Link to="/" className="text-gray-300">
                   <span className=" ml-2">
@@ -142,7 +142,7 @@ const NavbarOptions = ({ user }) => {
               </div>
             </li>
 
-            <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+            <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
               <div className="flex items-center text-base">
                 <span
                   onClick={handleShowPatients}
@@ -163,34 +163,34 @@ const NavbarOptions = ({ user }) => {
                     {checkRole(user) === 1 && (
                       <>
                         <Link to="/colors">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Colores</span>
                           </li>
                         </Link>
                         <Link to="/sexes">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Sexos</span>
                           </li>
                         </Link>
                         <Link to="/pat-type">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Tipos de paciente</span>
                           </li>
                         </Link>
                         <Link to="/species">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Especies</span>
                           </li>
                         </Link>
                         <Link to="/breeds">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Razas</span>
                           </li>
                         </Link>
                       </>
                     )}
                     <Link to="/patients">
-                      <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                         <span>● Pacientes</span>
                       </li>
                     </Link>
@@ -199,7 +199,7 @@ const NavbarOptions = ({ user }) => {
               </div>
             </li>
 
-            <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+            <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
               <Link to="/customers">
                 <div className="flex items-center">
                   <span className="text-base  ml-2">
@@ -209,7 +209,7 @@ const NavbarOptions = ({ user }) => {
               </Link>
             </li>
 
-            <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+            <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
               <div className="flex items-center">
                 <span onClick={handleShowHistorial} className="text-base  ml-2">
                   <FontAwesomeIcon icon={faClipboardList} /> Historial Clinico{" "}
@@ -225,34 +225,34 @@ const NavbarOptions = ({ user }) => {
                     }
                   >
                     <Link to="/quotes">
-                      <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                      <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                         <span>● Consultas</span>
                       </li>
                     </Link>
                     {checkRole(user) === 1 && (
                       <>
                         <Link to="/quote-type">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Tipos de consulta</span>
                           </li>
                         </Link>
                         <Link to="/vaccination-type">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Tipo de vacunacion</span>
                           </li>
                         </Link>
                         <Link to="/vaccination-dose">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Dosis de vacunacion</span>
                           </li>
                         </Link>
                         <Link to="/pest-control-type">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Tipo de control de plagas</span>
                           </li>
                         </Link>
                         <Link to="/deworming-type">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Tipo de desparacitacion</span>
                           </li>
                         </Link>
@@ -263,7 +263,7 @@ const NavbarOptions = ({ user }) => {
               </div>
             </li>
             {checkRole(user) === 1 && (
-              <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+              <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
                 <div className="flex items-center">
                   <span onClick={handleShowDoctors} className="text-base  ml-2">
                     <FontAwesomeIcon icon={faUserMd} /> Doctores{" "}
@@ -279,12 +279,12 @@ const NavbarOptions = ({ user }) => {
                       }
                     >
                       <Link to="/specialties">
-                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                        <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                           <span>● Especialidades</span>
                         </li>
                       </Link>
                       <Link to="/doctors">
-                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                        <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                           <span>● Doctores</span>
                         </li>
                       </Link>
@@ -295,7 +295,7 @@ const NavbarOptions = ({ user }) => {
             )}
             {checkRole(user) === 1 && (
               <>
-              <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+              <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
                   <Link to="/certification">
                     <div className="flex items-center">
                       <span className="text-base  ml-2">
@@ -304,7 +304,7 @@ const NavbarOptions = ({ user }) => {
                     </div>
                   </Link>
                 </li>
-                <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+                <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
                   <Link to="/sales-history">
                     <div className="flex items-center">
                       <span className="text-base  ml-2">
@@ -313,7 +313,7 @@ const NavbarOptions = ({ user }) => {
                     </div>
                   </Link>
                 </li>
-                <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+                <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
                   <div className="flex items-center">
                     <span onClick={handleShowHosp} className="text-base  ml-2">
                       <FontAwesomeIcon icon={faStethoscope} /> Hospital{" "}
@@ -332,12 +332,12 @@ const NavbarOptions = ({ user }) => {
                         }
                       >
                         <Link to="/hospital-service">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Tipos de servicio</span>
                           </li>
                         </Link>
                         <Link to="/order-service">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Servicios</span>
                           </li>
                         </Link>
@@ -345,7 +345,7 @@ const NavbarOptions = ({ user }) => {
                     </span>
                   </div>
                 </li>
-                <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+                <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
                   <div className="flex items-center">
                     <span onClick={handleShowPet} className="text-base  ml-2">
                       <FontAwesomeIcon icon={faBone} /> Inventario{" "}
@@ -364,27 +364,27 @@ const NavbarOptions = ({ user }) => {
                         }
                       >
                         <Link to="/vendors">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Proveedores</span>
                           </li>
                         </Link>
                         <Link to="/shopping-history">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Historial de compras</span>
                           </li>
                         </Link>
                         <Link to="/brand">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Marcas</span>
                           </li>
                         </Link>
                         <Link to="/category">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Categorias</span>
                           </li>
                         </Link>
                         <Link to="/product">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Productos</span>
                           </li>
                         </Link>
@@ -392,7 +392,7 @@ const NavbarOptions = ({ user }) => {
                     </span>
                   </div>
                 </li>
-                <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+                <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
                   <div className="flex items-center">
                     <span onClick={handleShowEst} className="text-base  ml-2">
                       <FontAwesomeIcon icon={faShower} /> Estetica{" "}
@@ -411,12 +411,12 @@ const NavbarOptions = ({ user }) => {
                         }
                       >
                         <Link to="/estethic-service">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Servicios Esteticos</span>
                           </li>
                         </Link>
                         <Link to="/history-esthetic">
-                          <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                          <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                             <span>● Historial de estetica</span>
                           </li>
                         </Link>
@@ -427,7 +427,7 @@ const NavbarOptions = ({ user }) => {
               </>
             )}
             {checkRole(user) === 1 && (
-              <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-6">
+              <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
                 <div className="flex items-center">
                   <span
                     onClick={handleShowEmpleado}
@@ -446,17 +446,17 @@ const NavbarOptions = ({ user }) => {
                       }
                     >
                       <Link to="/shifts">
-                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                        <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                           <span>● Turnos</span>
                         </li>
                       </Link>
                       <Link to="/roles">
-                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                        <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                           <span>● Roles</span>
                         </li>
                       </Link>
                       <Link to="/employees">
-                        <li className="text-gray-300 text-sm py-2 font-normal cursor-pointer">
+                        <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                           <span>● Empleados</span>
                         </li>
                       </Link>

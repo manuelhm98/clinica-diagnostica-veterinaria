@@ -8,6 +8,10 @@ import {
   getServicesSales,
 } from "../services/reports";
 import { Link } from "react-router-dom";
+import ProductLineChart from "../components/Home/ProductLineChart";
+import ServicesLineChart from "../components/Home/ServicesLineChart";
+import EstethicLineChart from "../components/Home/EstheticLineChart";
+import TotalSalesLineChart from "../components/Home/TotalSalesLineChart";
 
 export default function Home() {
   const [totalSalesProduct, settotalSalesProduct] = useState(0);
@@ -242,6 +246,10 @@ export default function Home() {
               </p>
             </div>
           </div>
+          <ProductLineChart/>
+          <ServicesLineChart/>
+          <EstethicLineChart/>
+          <TotalSalesLineChart/>
         </div>
       </div>
     </Layout>

@@ -71,8 +71,9 @@ export const filterEst = (
     );
   return salesfilter;
 };
-export const filterNow = (sales) => {
-  const date = new Date();
+export const filterNow = (sales, day) => {
+  const date = day ? new Date(day) : new Date();
+  day && date.setDate(date.getDate() + 1);
   const salesfilter =
     sales &&
     sales.filter(
@@ -84,8 +85,8 @@ export const filterNow = (sales) => {
   return salesfilter;
 };
 
-export const filterEstNow = (sales) => {
-  const date = new Date();
+export const filterEstNow = (sales, day) => {
+  const date = day ? new Date(day) : new Date();
   const salesfilter =
     sales &&
     sales.filter(
@@ -95,4 +96,61 @@ export const filterEstNow = (sales) => {
         new Date(sale.date).getFullYear() === date.getFullYear()
     );
   return salesfilter;
+};
+
+export const filterChart = (sales, numberDay) => {
+  const date = new Date();
+  const salesfilter =
+    sales &&
+    sales.filter(
+      (sale) =>
+        new Date(sale.dateOfSale).getDate() === numberDay &&
+        new Date(sale.dateOfSale).getMonth() === date.getMonth() &&
+        new Date(sale.dateOfSale).getFullYear() === date.getFullYear()
+    );
+  return salesfilter;
+};
+
+export const filterEstChart = (sales, numberDay) => {
+  const date = new Date();
+  const salesfilter =
+    sales &&
+    sales.filter(
+      (sale) =>
+        new Date(sale.date).getDate() === numberDay &&
+        new Date(sale.date).getMonth() === date.getMonth() &&
+        new Date(sale.date).getFullYear() === date.getFullYear()
+    );
+  return salesfilter;
+};
+
+export const returnMonth = (m) => {
+  switch (m) {
+    case 1:
+      return "Enero";
+    case 2:
+      return "Febrero";
+    case 3:
+      return "Marzo";
+    case 4:
+      return "Abril";
+    case 5:
+      return "Mayo";
+    case 6:
+      return "Junio";
+    case 7:
+      return "Julio";
+    case 8:
+      return "Agosto";
+    case 9:
+      return "Septiembre";
+    case 10:
+      return "Octubre";
+    case 11:
+      return "Noviembre";
+    case 12:
+      return "Diciembre";
+    default:
+      break;
+  }
 };

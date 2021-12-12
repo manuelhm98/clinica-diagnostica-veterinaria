@@ -18,7 +18,7 @@ export default function ResponsabilityForm() {
   const dispatch = useDispatch();
   const patients = useSelector((state) => state.patient.data);
   useEffect(() => {
-    dispatch(readPatients(page, search.name, search.custom, "", 3));
+    dispatch(readPatients(page, search.name, search.custom, "", 3,1));
     return;
   }, [dispatch, search, page]);
   return (

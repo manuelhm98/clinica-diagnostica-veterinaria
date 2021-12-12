@@ -41,7 +41,7 @@ export default function Sanitary({
                 MEDICO VETERINARIO
               </Text>
               <Text style={{ fontSize: 11, marginTop: 10 }}>
-                {String(selectDoctor?.jvpmv).toUpperCase()}
+                J.V.P.M.V No. {String(selectDoctor?.jvpmv).toUpperCase()}
               </Text>
             </View>
             <View
