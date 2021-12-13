@@ -15,7 +15,6 @@ export default function EstheticOrder() {
   useEffect(() => {
     return dispatch(readEstethicServicesOrders(page));
   }, [dispatch, page]);
-  console.log(orders);
   return (
     <Layout>
       <div className="p-8 flex flex-col">

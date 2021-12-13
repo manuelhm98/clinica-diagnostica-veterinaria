@@ -19,38 +19,40 @@ export default function CompleteOrderEsthetic() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const patients = useSelector((state) => state.patient.data);
+  const [transport, setTransport] = useState(false);
+  const [wayToPay, setWayToPay] = useState();
   useEffect(() => {
     return dispatch(readPatients(page, search.name, search.custom, "", 3));
   }, [dispatch, search, page]);
   const formik = useFormik({
     initialValues: {
-      transport: false,
+      transport: 0,
       pay: false,
       cage: false,
       consultation: false,
-      wayToPay: "",
       description: "",
+      price: 0,
     },
     validationSchema: yup.object({
       description: yup.string().required("La descripcion es requerida"),
-      wayToPay: yup.string().required("Debes seleccionar el metodo de pago"),
     }),
     onSubmit: (values) => {
       if (patientToQuote) {
         const aesthetic = getEsthetic();
         const newData = {
-          transport: values.transport,
+          transport: Number(values.transport),
+          price: Number(values.price),
           pay: values.pay,
           cage: values.cage,
           consultation: values.consultation,
-          wayToPay: values.wayToPay,
+          wayToPay: wayToPay,
           description: values.description,
           patientsId: patientToQuote?.id,
           aesthetic,
         };
         saveEstheticOrder(newData).then(() => {
           Success("Se completo la orden");
-          clearEsthetic()
+          clearEsthetic();
           window.location.href = "/history-esthetic";
         });
         return;
@@ -66,7 +68,9 @@ export default function CompleteOrderEsthetic() {
           <div className="w-full rounded p-8 border shadow">
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col">
-                <label>Paciente</label>
+                <label className="text-xs font-semibold text-gray-500">
+                  Paciente
+                </label>
                 <div className="flex flex-row w-full">
                   <input
                     disabled
@@ -84,16 +88,15 @@ export default function CompleteOrderEsthetic() {
                 </div>
               </div>
               <div className="flex flex-col">
-                <label>Forma de pago</label>
+                <label className="text-xs font-semibold text-gray-500">
+                  Forma de pago
+                </label>
                 <select
                   name="wayToPay"
-                  onChange={formik.handleChange}
+                  onChange={(e) => setWayToPay(e.currentTarget.value)}
                   defaultValue={"DEFAULT"}
                   className={
-                    "border p-1 text-sm text-gray-500 rounded outline-none hover:border-green-400 " +
-                    (formik.errors.wayToPay && formik.touched.wayToPay
-                      ? "border-red-400"
-                      : "border-gray-300")
+                    "border p-1 text-sm text-gray-500 rounded outline-none hover:border-green-400 "
                   }
                 >
                   <option selected value={"DEFAULT"} disabled>
@@ -102,17 +105,15 @@ export default function CompleteOrderEsthetic() {
                   <option value="Pendiente">Pendiente</option>
                   <option value="Efectivo">Efectivo</option>
                   <option value="Tarjeta de credito">Tarjeta de credito</option>
+                  <option value="Donacion">Donacion</option>
                 </select>
-                {formik.errors.wayToPay && formik.touched.wayToPay && (
-                  <span className="text-xs text-red-400">
-                    {formik.errors.wayToPay}
-                  </span>
-                )}
               </div>
             </div>
 
             <div className="flex flex-col">
-              <label>Descripcion</label>
+              <label className="text-xs font-semibold text-gray-500">
+                Descripcion
+              </label>
               <textarea
                 name="description"
                 onChange={formik.handleChange}
@@ -132,17 +133,49 @@ export default function CompleteOrderEsthetic() {
                 </span>
               )}
             </div>
+            <div className={transport ? " flex flex-col" : "hidden"}>
+              <label className="text-xs font-semibold text-gray-500">
+                Precio de transporte
+              </label>
+              <input
+                name="transport"
+                onChange={formik.handleChange}
+                className={
+                  "border p-1 text-sm text-gray-500 rounded outline-none hover:border-green-400 "
+                }
+                placeholder="Escribe el total a cobrar por el transporte"
+              />
+            </div>
+            <div
+              className={wayToPay === "Donacion" ? " flex flex-col" : "hidden"}
+            >
+              <label className="text-xs font-semibold text-gray-500">
+                Precio de donacion
+              </label>
+              <input
+                name="price"
+                onChange={formik.handleChange}
+                className={
+                  "border p-1 text-sm text-gray-500 rounded outline-none hover:border-green-400 "
+                }
+                placeholder="Escribe el precio total de la donacion"
+              />
+            </div>
             <div className="flex items-start mb-6 mt-6">
               <div className="flex items-center h-5">
                 <input
                   name="transport"
-                  onChange={formik.handleChange}
+                  onChange={() => setTransport(!transport)}
                   type="checkbox"
                   className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
                 />
               </div>
+
               <div class="text-sm ml-3">
-                <label htmlFor="remember" className="font-medium text-gray-900">
+                <label
+                  htmlFor="remember"
+                  className="font-medium text-sm text-gray-900"
+                >
                   Adquirio transporte
                 </label>
               </div>
@@ -157,7 +190,10 @@ export default function CompleteOrderEsthetic() {
                 />
               </div>
               <div class="text-sm ml-3">
-                <label htmlFor="remember" className="font-medium text-gray-900">
+                <label
+                  htmlFor="remember"
+                  className="font-medium text-sm text-gray-900"
+                >
                   Se ah realizado el pago
                 </label>
               </div>
@@ -172,7 +208,10 @@ export default function CompleteOrderEsthetic() {
                 />
               </div>
               <div class="text-sm ml-3">
-                <label htmlFor="remember" className="font-medium text-gray-900">
+                <label
+                  htmlFor="remember"
+                  className="font-medium text-sm text-gray-900"
+                >
                   Adquirio una consulta
                 </label>
               </div>
@@ -188,8 +227,11 @@ export default function CompleteOrderEsthetic() {
                 />
               </div>
               <div class="text-sm ml-3">
-                <label htmlFor="remember" className="font-medium text-gray-900">
-                  Requirio caja
+                <label
+                  htmlFor="remember"
+                  className="font-medium text-sm text-gray-900"
+                >
+                  Requirio jaula
                 </label>
               </div>
             </div>

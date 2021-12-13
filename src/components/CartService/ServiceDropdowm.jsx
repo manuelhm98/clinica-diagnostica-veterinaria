@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Success } from "../Global/Alerts/Success";
 import ItemDetails from "./ServiceDetails";
-import { useDispatch } from "react-redux";
 import { clearServices, getServices } from "../../utils/services";
 import { addNewOrderService } from "../../services/hospital-service";
 import Modal from "../Global/Modal";
@@ -9,11 +8,13 @@ import { Warning } from "../Global/Alerts/Warning";
 
 export default function ServiceDropdowm(props) {
   const { loadCart, setLoadCart, close } = props;
-  const dispatch = useDispatch();
   const [items, setItems] = useState();
   const [total, setTotal] = useState();
   const [wayToPay, setWayToPay] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [transport, setTransport] = useState(false);
+  const [transportPrice, setTransportPrice] = useState(0);
+  const [price, setPrice] = useState(0);
   useEffect(() => {
     setItems(getServices());
     setLoadCart(false);
@@ -34,15 +35,18 @@ export default function ServiceDropdowm(props) {
       if (items) {
         const data = {
           wayToPay,
+          price: Number(price),
+          transport: Number(transportPrice),
           service: items,
         };
         addNewOrderService(data).then((res) => {
           if (res.ok) {
             Success("Se guardo con exito");
-            setShowModal(false)
+            setShowModal(false);
             setLoadCart(true);
             close();
             clearServices();
+            window.location.reload()
           }
         });
       }
@@ -83,7 +87,56 @@ export default function ServiceDropdowm(props) {
             </option>
             <option value="Efectivo">Efectivo</option>
             <option value="Tarjeta de credito">Tarjeta de credito</option>
+            <option value="Donacion">Donacion</option>
           </select>
+          <div className={transport ? "flex flex-col" : "hidden"}>
+            <label className="text-xs font-semibold text-gray-500">
+              Precio del transporte
+            </label>
+            <input
+              name="transport_price"
+              onChange={(e) => setTransportPrice(e.currentTarget.value)}
+              className={
+                "border p-1 text-sm text-gray-500 rounded outline-none hover:border-green-400 "
+              }
+              placeholder="Escribe el precio total de la donacion"
+            />
+          </div>
+          <div
+            className={wayToPay === "Donacion" ? " flex flex-col" : "hidden"}
+          >
+            <label className="text-xs font-semibold text-gray-500">
+              Precio de donacion
+            </label>
+            <input
+              name="price"
+              onChange={(e) => setPrice(e.currentTarget.value)}
+              className={
+                "border p-1 text-sm text-gray-500 rounded outline-none hover:border-green-400 "
+              }
+              placeholder="Escribe el precio total de la donacion"
+            />
+          </div>
+          <div className="flex items-start mb-6 mt-6">
+            <div className="flex items-center h-5">
+              <input
+                name="transport"
+                onChange={() => setTransport(!transport)}
+                type="checkbox"
+                className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
+              />
+            </div>
+
+            <div class="text-sm ml-3">
+              <label
+                htmlFor="remember"
+                className="font-medium text-sm text-gray-900"
+              >
+                Adquirio transporte
+              </label>
+            </div>
+          </div>
+
           <button
             onClick={completeSale}
             className="bg-blue-500 text-white rounded mt-4"
