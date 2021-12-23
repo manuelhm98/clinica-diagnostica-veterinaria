@@ -37,6 +37,7 @@ export default function ProductReport() {
           }
         }
         settotalSalesProduct(0);
+        setfilterSales([])
       });
     };
     return getSalesProduct();
@@ -54,12 +55,34 @@ export default function ProductReport() {
               ?.map((sale) => Number(sale.totalPrice))
               .reduce((a, b) => a + b, 0);
             settotalSalesProduct(total);
+            return
           }
         }
+        settotalSalesProduct(0);
+        setfilterSales([])
       });
     };
     return getSales();
   }, [day]);
+  useEffect(() => {
+    const getSales = () => {
+      getProductSales(1000).then((res) => {
+        if (res.financeProduct) {
+          const filter = filterNow(res.financeProduct);
+          console.log(filter, new Date());
+          setfilterSales(filter);
+          const total = filter
+            ?.map((sale) => Number(sale.totalPrice))
+            .reduce((a, b) => a + b, 0);
+          settotalSalesProduct(total);
+          return
+        }
+        settotalSalesProduct(0);
+        setfilterSales([])
+      });
+    };
+    return getSales();
+  }, []);
 
   const handledetails = (sale) => {
     setSaleDetail(sale);
@@ -98,7 +121,16 @@ export default function ProductReport() {
             </tr>
           </thead>
           <tbody>
-            {filterSales &&
+            {typeof filterSales === "undefined" && (
+              <tr>
+                <p className="p-4">Cargando resultados...</p>
+              </tr>
+            )}
+            {filterSales && filterSales?.length === 0 ? (
+              <tr>
+                <p className="p-4">No hay ventas para mostrar...</p>
+              </tr>
+            ) : (
               filterSales?.map((sale) => (
                 <tr key={sale.id}>
                   <TD name={"$" + Number(sale.totalPrice)} />
@@ -122,37 +154,41 @@ export default function ProductReport() {
                     </button>
                   </TD>
                 </tr>
-              ))}
+              ))
+            )}
           </tbody>
         </Table>
         <p className="mb-6">
           total: <span>${totalSalesProduct}</span>
         </p>
-        <PDFDownloadLink
-          document={
-            <PDFProductSales
-              date={day}
-              initial={initial}
-              final={final}
-              sales={filterSales}
-            />
-          }
-          fileName={`Reporte-productos-${Date.now()}.pdf`}
-          style={{
-            textDecoration: "none",
-            marginTop: 20,
-            padding: "5px",
-            fontWeight: 400,
-            borderRadius: 5,
-            color: "#fff",
-            backgroundColor: "#3b82f6",
-            fontSize: 12,
-            paddingLeft: "40px",
-            paddingRight: "40px",
-          }}
-        >
-          {() => "Descargar Pdf"}
-        </PDFDownloadLink>
+        {totalSalesProduct > 0 && (
+          <PDFDownloadLink
+            document={
+              <PDFProductSales
+                date={day}
+                initial={initial}
+                final={final}
+                sales={filterSales}
+                total={totalSalesProduct}
+              />
+            }
+            fileName={`Reporte-productos-${Date.now()}.pdf`}
+            style={{
+              textDecoration: "none",
+              marginTop: 20,
+              padding: "5px",
+              fontWeight: 400,
+              borderRadius: 5,
+              color: "#fff",
+              backgroundColor: "#3b82f6",
+              fontSize: 12,
+              paddingLeft: "40px",
+              paddingRight: "40px",
+            }}
+          >
+            {() => "Descargar Pdf"}
+          </PDFDownloadLink>
+        )}
         <Modal
           showModal={showModal}
           setShowModal={setShowModal}

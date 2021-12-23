@@ -3,7 +3,7 @@ import { Page, Text, View, Document, Image } from "@react-pdf/renderer";
 import IMG from "../../../assets/logo.png";
 import { styles } from "./options/resp-text";
 
-export default function PDFProductSales({
+export default function PDFEstheticSales({
   sales,
   date,
   initial,
@@ -21,7 +21,7 @@ export default function PDFProductSales({
             <Text style={styles.title}>Clinica de Diagnostico Veterinario</Text>
             <View style={styles.detailView}>
               <Text style={styles.detailTitle}>
-                REPORTE DE VENTAS DE PRODUCTOS
+                REPORTE DE VENTAS DE ESTETICA
               </Text>
             </View>
           </View>
@@ -145,7 +145,7 @@ export default function PDFProductSales({
                     }}
                   >
                     <Text style={{ fontSize: 7, marginLeft: 5 }}>
-                      {new Date(sale.dateOfSale).toLocaleDateString()}
+                      {new Date(sale.date).toLocaleDateString()}
                     </Text>
                   </View>
                   <View

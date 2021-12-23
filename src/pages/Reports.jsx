@@ -20,6 +20,7 @@ export default function Reports() {
   const handleshowproduct = () => {
     setShowSalesProduct(true);
     setShowSalesHospital(false);
+    setShowSalesEsthetic(false);
   };
   const handleshowesthetic = () => {
     setShowSalesProduct(false);

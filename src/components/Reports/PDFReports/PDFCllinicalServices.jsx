@@ -3,7 +3,7 @@ import { Page, Text, View, Document, Image } from "@react-pdf/renderer";
 import IMG from "../../../assets/logo.png";
 import { styles } from "./options/resp-text";
 
-export default function PDFCLinicalSales({ sales, date, initial, final }) {
+export default function PDFCLinicalSales({ sales, date, initial, final,total }) {
   return (
     <Document>
       <Page style={{ padding: 20 }}>
@@ -24,7 +24,7 @@ export default function PDFCLinicalSales({ sales, date, initial, final }) {
           </Text>
         </View>
         <View style={{ marginTop: 10, marginLeft: 20 }}>
-          <Text style={{ fontSize: 10 }}>TOTAL DE VENTAS: $500.50</Text>
+          <Text style={{ fontSize: 10 }}>TOTAL DE VENTAS: ${total}</Text>
         </View>
         {date && (
           <View style={{ marginTop: 10, marginLeft: 20 }}>

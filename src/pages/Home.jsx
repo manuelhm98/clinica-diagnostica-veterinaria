@@ -48,7 +48,8 @@ export default function Home() {
           const total = filter
             ?.map((sale) => Number(sale.totalPrice))
             .reduce((a, b) => a + b, 0);
-          setSalesHospital(total);
+          setSalesHospital(filter);
+          setTotalSalesHospital(total);
           return;
         }
         setTotalSalesHospital(0);
@@ -157,7 +158,7 @@ export default function Home() {
             </div>
             <div className="w-full bg-green-500 rounded shadow p-4">
               <p className="text-white text-xs font-bold">
-                Reportes de ventas de estetica
+                Reportes de ventas de servicios clinicos
               </p>
               <p className="text-white text-sm mt-3 font-semibold">
                 Fecha:{" "}
@@ -192,7 +193,7 @@ export default function Home() {
             </div>
             <div className="w-full bg-yellow-400 rounded shadow p-4">
               <p className="text-white text-xs font-bold">
-                Reportes de ventas de servicios
+                Reportes de ventas de estetica
               </p>
               <p className="text-white text-sm mt-3 font-semibold">
                 Fecha:{" "}
