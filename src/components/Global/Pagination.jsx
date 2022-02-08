@@ -1,38 +1,59 @@
 import { useEffect, useState } from "react";
+import { usePagination, DOTS } from "../../hooks/usePagination";
+import "./Pagination.css";
+const Pagination = (props) => {
+  const {
+    onPageChange,
+    totalCount,
+    siblingCount = 4,
+    currentPage,
+    pageSize,
+    last,
+  } = props;
 
-const Pagination = ({ method, data }) => {
   const [pagination, setPagination] = useState({
-    nextPage: 0,
-    prevPage: 0,
+    totalCount: 0,
     currentPage: 0,
-    totalPages: 0,
+    pageSize: 0,
+    last: 0,
   });
-  const [rangePag, setRangePag] = useState(null);
-  const range = (start, end, length = end - start + 1) => {
-    setRangePag(Array.from({ length }, (_, i) => start + i));
-  };
-  const setPaginationData = () => {
-    setPagination({
-      nextPage: data?.nextPage,
-      prevPage: data?.prevPage,
-      currentPage: data?.currentPage,
-      totalPages: data?.totalpages,
-    });
-    range(1, data?.totalpages);
-  };
+
   useEffect(() => {
-    return setPaginationData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+    return setPagination({
+      totalCount: totalCount,
+      currentPage: currentPage,
+      pageSize: pageSize,
+      last: last,
+    });
+  }, [last, totalCount, currentPage, pageSize]);
+
+  const paginationRange = usePagination({
+    currentPage: pagination.currentPage,
+    totalCount: pagination.totalCount,
+    siblingCount,
+    pageSize: pagination.pageSize,
+  });
+
+  if (pagination.currentPage === 0 || paginationRange?.length < 2) {
+    return null;
+  }
+
+  const onNext = () => {
+    onPageChange(pagination.currentPage + 1);
+  };
+
+  const onPrevious = () => {
+    onPageChange(pagination.currentPage - 1);
+  };
 
   return (
     <div className="flex flex-col items-start my-6">
-      <div className="flex text-gray-700">
+      <ul className="flex text-gray-700">
         <div className="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
           <button
             className="hover:border-0"
-            disabled={pagination?.currentPage === 1}
-            onClick={() => method(pagination?.prevPage)}
+            disabled={pagination.currentPage === 1}
+            onClick={onPrevious}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -51,26 +72,25 @@ const Pagination = ({ method, data }) => {
           </button>
         </div>
         <div className="flex h-8 font-medium rounded-full bg-gray-200">
-          {rangePag?.map((pag, index) => (
-            <div
-              onClick={() => method(pag)}
-              key={index}
-              className={
-                (pagination?.currentPage === pag
-                  ? "bg-green-500 text-white"
-                  : "") +
-                " w-8 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full"
-              }
-            >
-              {pag}
-            </div>
-          ))}
+          {paginationRange?.map((pageNumber) => {
+            return (
+              <li
+                key={pageNumber}
+                className={
+                  (pagination.currentPage === pageNumber
+                    ? "bg-green-500 text-white"
+                    : "") +
+                  " w-8 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full"
+                }
+                onClick={() => pageNumber !== DOTS && onPageChange(pageNumber)}
+              >
+                {pageNumber}
+              </li>
+            );
+          })}
         </div>
         <div className="h-8 w-8 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer">
-          <button
-            disabled={pagination?.currentPage === pagination?.totalPages}
-            onClick={() => method(pagination?.nextPage)}
-          >
+          <button disabled={pagination.currentPage === last} onClick={onNext}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="100%"
@@ -87,7 +107,7 @@ const Pagination = ({ method, data }) => {
             </svg>
           </button>
         </div>
-      </div>
+      </ul>
     </div>
   );
 };

@@ -20,10 +20,10 @@ export default function SelectPatient({
   };
   return (
     <div className="grid grid-cols-1">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-3 gap-3">
         <InputSearch
           label="Buscar por nombre del paciente"
-          placeholder="Escribe el nombre del paciente...."
+          placeholder="Escribe el nombre...."
           handleChange={(e) =>
             setSearch({ ...search, name: e.currentTarget.value })
           }
@@ -35,10 +35,18 @@ export default function SelectPatient({
             setSearch({ ...search, custom: e.currentTarget.value })
           }
         />
+        <InputSearch
+          label="Buscar por expediente"
+          placeholder="Escribe el expediente...."
+          handleChange={(e) =>
+            setSearch({ ...search, exp: e.currentTarget.value })
+          }
+        />
       </div>
       <Table>
         <thead>
           <tr>
+            <TH name="EXP." />
             <TH name="Nombre" />
             <TH name="Dueño" />
             <TH name="Foto" />
@@ -49,11 +57,14 @@ export default function SelectPatient({
           {patients.patients &&
             patients.patients.map((pat) => (
               <tr key={pat.id}>
+                 <TD>
+                   <span className="text-red-500 text-xs font-semibold">{pat.exp}</span>
+                 </TD>
                 <TD name={pat.names} />
                 <TD name={pat.customers?.names} />
                 <TD>
                   <img
-                    className="w-72 rounded"
+                    className=" w-52 rounded"
                     src={showImage(pat.img)}
                     alt="null"
                   />

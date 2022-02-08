@@ -30,10 +30,10 @@ const AddQuote = () => {
   const [doctorToQuote, setDoctorToQuote] = useState(
     query?.doctor && query?.doctor
   );
-  const [search, setSearch] = useState({ name: "", custom: "" });
+  const [search, setSearch] = useState({ name: "", custom: "",exp:"" });
   const [page, setPage] = useState(1);
   const [online, setOnline] = useState(false);
-  console.log(query);
+
   //Redux login
   const dispatch = useDispatch();
   const patients = useSelector((state) => state.patient.data);
@@ -105,7 +105,7 @@ const AddQuote = () => {
 
   //react useEffect logic
   useEffect(() => {
-    dispatch(readPatients(page, search.name, search.custom, "", 3));
+    dispatch(readPatients(page, search.name, search.custom, search.exp, 3));
     dispatch(readDoctors(1, ""));
     dispatch(readQuoteTypes());
     return;
