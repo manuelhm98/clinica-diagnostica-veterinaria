@@ -195,7 +195,7 @@ export default function Form({
             <div className="flex flex-col p-1 mt-1">
               <label className="text-sm text-gray-400">Producto</label>
               <input
-                placeholder="Selecciona el proveedor"
+                placeholder="Selecciona el producto"
                 defaultValue={product && product.name}
                 className="w-full border p-1 text-sm rounded outline-none hover:border-green-400"
                 readOnly

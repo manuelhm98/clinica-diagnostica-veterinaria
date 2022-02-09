@@ -55,7 +55,7 @@ export default function SelectProduct({
           <label className="text-gray-500 text-xs">Buscar por especie</label>
           <select
             onChange={(e) =>
-              setSearchProd({ ...searchProd, specie: e.currentTarget.value })
+              setSearchProd({ ...searchProd, species: e.currentTarget.value })
             }
             defaultValue={"DEFAULT"}
             className="border mr-6 py-1 text-xs px-2 rounded outline-none"
@@ -75,7 +75,7 @@ export default function SelectProduct({
           <label className="text-gray-500 text-xs">Buscar por marca</label>
           <select
             onChange={(e) =>
-              setSearchProd({ ...searchProd, brand: e.currentTarget.value })
+              setSearchProd({ ...searchProd, brands: e.currentTarget.value })
             }
             defaultValue={"DEFAULT"}
             className="border mr-6 py-1 text-xs px-2 rounded outline-none"
