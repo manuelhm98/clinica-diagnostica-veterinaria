@@ -15,9 +15,9 @@ export function add(data) {
   };
 }
 
-export const readDoctors = (page, search) => {
+export const readDoctors = (page, search,take) => {
   return (dispatch) => {
-    getPaginatedDoctors(page, search).then((res) => {
+    getPaginatedDoctors(page, search,take).then((res) => {
       if (!res.ok) {
         dispatch(read({}));
         return;

@@ -92,7 +92,7 @@ export default function Patients() {
                 />
                 <label
                   htmlFor="toggle"
-                  className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
+            className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
                 ></label>
               </div>
               <span className="text-sm font-normal text-gray-600 mt-1">

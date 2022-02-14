@@ -1,6 +1,6 @@
 import React from "react";
 import InputSearch from "../Global/InputSearch";
-import Pagination from "../Global/Pagination";
+import Pagination from "../Global/Pag";
 import Table from "../Global/Table";
 import TD from "../Global/TD";
 import TH from "../Global/TH";
@@ -53,7 +53,14 @@ export default function SelectDoctor({
             ))}
         </tbody>
       </Table>
-      <Pagination data={doctors} method={setPage} />
+      <Pagination
+        pageSize={doctors?.take}
+        currentPage={doctors?.currentPage}
+        data={doctors}
+        totalCount={doctors?.totalItems}
+        last={doctors?.totalpages}
+        onPageChange={setPage}
+      />
     </div>
   );
 }

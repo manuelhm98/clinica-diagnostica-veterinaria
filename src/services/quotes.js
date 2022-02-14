@@ -20,3 +20,12 @@ export const getAllQuotes = async (page, patient) => {
   );
   return response.json();
 };
+
+export const editQuote = async (id, data) => {
+  const response = await fetch(`${API_HOST}/quotes/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", token: getToken() },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};

@@ -101,7 +101,6 @@ export const validateDate = (date) => {
     console.log("error de año");
     return false;
   }
-  console.log(oDay, nowDay);
   return true;
 };
 
@@ -168,4 +167,11 @@ export const ageToDate = (years, months, days) => {
   date.setFullYear(year - years);
   date.setMonth(month - months);
   return date.toISOString().split("T")[0];
+};
+
+export const formatDate = (date) => {
+  const nwDate = new Date(date);
+  return `${nwDate.getFullYear()}-${
+    nwDate.getMonth() < 10 ? "0" + nwDate.getMonth() : nwDate.getMonth()
+  }-${nwDate.getDate() < 10 ? "0" + nwDate.getDate() : nwDate.getDate()}`;
 };
