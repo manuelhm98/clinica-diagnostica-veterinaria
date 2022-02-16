@@ -129,7 +129,6 @@ export default function AddPatient() {
   });
   //set age to the pet with birthday
   const setAgeToInput = (e) => {
-    console.log(dateDiff(e));
     setAge(getAge(e));
     const r = dateDiff(e);
     inputDays.current.value = r.days

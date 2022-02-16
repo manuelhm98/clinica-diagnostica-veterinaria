@@ -161,7 +161,7 @@ export const ageToDate = (years, months, days) => {
 
   const day = date.getDate();
   const year = date.getFullYear();
-  const month = date.getMonth() - 1;
+  const month = date.getMonth();
 
   date.setDate(day - days);
   date.setFullYear(year - years);

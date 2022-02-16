@@ -14,7 +14,7 @@ export const addNewShopping = async (data) => {
 };
 
 export const getAllShopping = async (page) => {
-  const response = await fetch(`${API_HOST}/shopping?page=${page}`, {
+  const response = await fetch(`${API_HOST}/shopping?page=${page}&limit=10`, {
     headers: {
       token: getToken(),
     },

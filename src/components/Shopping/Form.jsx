@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
@@ -8,7 +8,6 @@ import Modal from "../Global/Modal";
 import SelectVendor from "./SelectVendor";
 import SelectProduct from "./SelectProduct";
 import { addNewShopping } from "../../services/shopping-history";
-import { useHistory } from "react-router";
 import { addShopping } from "../../redux/actions/shopping";
 
 export default function Form({
@@ -29,7 +28,6 @@ export default function Form({
   const [vendor, setVendor] = useState();
   const [product, setProduct] = useState();
   const dispatch = useDispatch();
-  const route = useHistory();
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object({
@@ -63,7 +61,7 @@ export default function Form({
       addNewShopping(data).then(() => {
         Success("Se registro la compra con exito");
         dispatch(addShopping(data));
-        route.push("/shopping-history");
+        window.location.reload();
       });
     },
   });

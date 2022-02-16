@@ -9,6 +9,9 @@ import { readVendors } from "../redux/actions/vendors";
 import { listSpecies } from "../redux/actions/species";
 import { readCategories } from "../redux/actions/category";
 import { readBrands } from "../redux/actions/brand";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 export default function AddShoppingHistory() {
   const products = useSelector((state) => state.product.data);
@@ -54,6 +57,12 @@ export default function AddShoppingHistory() {
   return (
     <Layout>
       <div className="p-8">
+        <Link to="/shopping-history">
+          <FontAwesomeIcon
+            className="text-xl cursor-pointer text-gray-700 float-right"
+            icon={faTimes}
+          />
+        </Link>
         <Title name="Nueva compra" />
         <div className="mt-4 p-8 w-full rounded shadow border">
           <Form
