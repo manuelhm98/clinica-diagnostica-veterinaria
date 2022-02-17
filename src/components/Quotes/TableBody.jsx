@@ -5,9 +5,9 @@ import { es } from "date-fns/locale";
 import Modal from "../Global/Modal";
 import Result from "./Result";
 import EditForm from "./EditForm";
-import { getEmployeById } from "../../services/employee";
 import { readDoctors } from "../../redux/actions/doctors";
 import { useDispatch, useSelector } from "react-redux";
+import { getDoctorID } from "../../services/doctor";
 
 export default function TableBody({ quotes }) {
   const [showModal, setShowModal] = useState(false);
@@ -28,8 +28,8 @@ export default function TableBody({ quotes }) {
     setShowModal(true);
   };
   const handleEdit = async (quote) => {
-    await getEmployeById(quote?.doctorsId).then((res) => {
-      setDoctor(res.users);
+    await getDoctorID(quote?.doctorsId).then((res) => {
+      setDoctor(res.doctors);
     });
     setQuote(quote);
     setShowModalEdit(true);

@@ -63,7 +63,7 @@ export default function EditForm({
         <label className="text-xs">Doctor</label>
         {!doctorToQuote && (
           <span className=" font-semibold text-xs mt-3">
-            {doctor?.names + " " + doctor?.lastnames}
+            {doctor?.users?.names + " " + doctor?.users?.lastnames}
           </span>
         )}
         <span className=" font-semibold text-xs mt-3">
