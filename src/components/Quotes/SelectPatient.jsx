@@ -5,6 +5,7 @@ import Pagination from "../Global/Pag";
 import Table from "../Global/Table";
 import TD from "../Global/TD";
 import TH from "../Global/TH";
+import ShowImage from "../Patients/ShowImage";
 
 export default function SelectPatient({
   patients,
@@ -57,17 +58,15 @@ export default function SelectPatient({
           {patients.patients &&
             patients.patients.map((pat) => (
               <tr key={pat.id}>
-                 <TD>
-                   <span className="text-red-500 text-xs font-semibold">{pat.exp}</span>
-                 </TD>
+                <TD>
+                  <span className="text-red-500 text-xs font-semibold">
+                    {pat.exp}
+                  </span>
+                </TD>
                 <TD name={pat.names} />
                 <TD name={pat.customers?.names} />
                 <TD>
-                  <img
-                    className=" w-52 rounded"
-                    src={showImage(pat.img)}
-                    alt="null"
-                  />
+                  <ShowImage cssClass="w-52 rounded" name={pat.img} />
                 </TD>
                 <TD>
                   <button

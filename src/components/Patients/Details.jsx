@@ -1,12 +1,13 @@
 import React from "react";
 import { showImage } from "../../services/patients";
 import moment from "moment";
+import ShowImage from "./ShowImage";
 
 export default function Details({ patient }) {
   return (
     <div className="flex p-4">
       <ul className="w-96">
-      <li className="text-gray-700">
+        <li className="text-gray-700">
           <span className="text-xl font-semibold">N° de expediente: </span>
           <span className="text-red-500 font-semibold">{patient?.exp}</span>
         </li>
@@ -72,11 +73,7 @@ export default function Details({ patient }) {
       </ul>
       <div className="w-96">
         <div className="flex justify-center items-center content-center">
-          <img
-            className="rounded shadow w-72 p-2"
-            src={"https://sfo3.digitaloceanspaces.com/patients/img/" + patient?.img}
-            alt="null"
-          />
+          <ShowImage cssClass="rounded shadow w-72 p-2" name={patient?.img} />
         </div>
       </div>
     </div>

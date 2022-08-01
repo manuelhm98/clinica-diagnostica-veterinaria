@@ -44,7 +44,7 @@ export default function ProductList({
       <div className="grid grid-cols-4 gap-4 mt-6">
         {products?.products &&
           products?.products.map((prod) => (
-            <div key={prod.id} className="border shadow-md h-80 rounded p-5">
+            <div key={prod.id} className="border shadow-md h-auto rounded p-5">
               <div className="grid grid-cols-2">
                 <img src={showImage(prod.img)} alt="" className="w-20 h-20" />
                 <div className="bg-green-500 w-12 h-12 ml-12 rounded-full flex justify-center items-center">

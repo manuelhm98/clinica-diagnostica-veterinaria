@@ -3,12 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useCallback } from "react";
 import Profile from "../../../assets/profile.png";
 import { useDropzone } from "react-dropzone";
-import { showImage } from "../../../services/patients";
+import ShowImage from "../ShowImage";
 
 export default function SelectImage({ setPetfile, patient }) {
-  const [petImage, setPetimage] = useState(
-    patient ? showImage(patient && patient?.img) : Profile
-  );
+  const [petImage, setPetimage] = useState();
   const onDropImage = useCallback((acceptedFile) => {
     const file = acceptedFile[0];
     setPetimage(URL.createObjectURL(file));
@@ -28,7 +26,15 @@ export default function SelectImage({ setPetfile, patient }) {
         {...getRootImgProps()}
         className="flex justify-center shadow rounded p-4 items-center mt-4"
       >
-        <img src={petImage} className="rounded w-40" alt="null" />
+        {patient?.img && !petImage ? (
+          <ShowImage cssClass="rounded w-40" name={patient?.img} />
+        ) : (
+          <img
+            src={petImage ? petImage : Profile}
+            className="rounded w-40"
+            alt="null"
+          />
+        )}
       </div>
       <label className="w-full text-xs py-1 mt-3 p-1 flex items-center bg-white rounded-lg tracking-wide  border cursor-pointer">
         <FontAwesomeIcon className="text-gray-600 ml-2" icon={faFolder} />

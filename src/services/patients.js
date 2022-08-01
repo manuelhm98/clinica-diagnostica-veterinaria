@@ -1,4 +1,5 @@
 import { API_HOST } from "../utils/constants";
+import axios from "axios"
 import { getToken } from "./token";
 
 export const addNewPatient = async (data) => {
@@ -31,7 +32,7 @@ export const getAllPatients = async (
 
 export const uploadPetPhoto = async (id, file) => {
   const formData = new FormData();
-  formData.append("foto", file);
+  formData.append("upload", file);
   const response = await fetch(`${API_HOST}/patients/image/${id}`, {
     method: "POST",
     headers: { token: getToken() },
@@ -47,8 +48,9 @@ export const getPatientById = async (id) => {
   return response.json();
 };
 
-export const showImage = (name) => {
-  return `${API_HOST}/patients/view-image?name=${name}`;
+export const showImage = async (name) => {
+  const res = axios.get(`${API_HOST}/patients/view-img?name=${name}`);
+ return res;
 };
 
 export const putPatient = async (id, data) => {

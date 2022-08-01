@@ -24,6 +24,7 @@ import { readSexes } from "../../redux/actions/sexes";
 import { checkRole } from "../../utils/checkRole";
 import AddPDF from "./Form/AddPDF";
 import { Error } from "../Global/Alerts/Error";
+import ShowImage from "./ShowImage";
 
 export default function TableBody({ patients, setReload, user, setState }) {
   //redux dispatch
@@ -148,11 +149,7 @@ export default function TableBody({ patients, setReload, user, setState }) {
             </TD>
             <TD onclick={() => profilePic(pat)}>
               <div className=" w-16">
-                <img
-                  src={"https://sfo3.digitaloceanspaces.com/patients/img/" + pat.img}
-                  alt="null"
-                  className="w-full rounded"
-                />
+                <ShowImage cssClass="w-full rounded" name={pat.img} />
               </div>
             </TD>
             <TD>
