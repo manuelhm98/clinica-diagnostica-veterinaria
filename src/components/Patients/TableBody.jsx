@@ -149,7 +149,7 @@ export default function TableBody({ patients, setReload, user, setState }) {
             <TD onclick={() => profilePic(pat)}>
               <div className=" w-16">
                 <img
-                  src={showImage(pat.img)}
+                  src={"https://sfo3.digitaloceanspaces.com/patients/img/" + pat.img}
                   alt="null"
                   className="w-full rounded"
                 />
