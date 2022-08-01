@@ -74,7 +74,7 @@ export default function Details({ patient }) {
         <div className="flex justify-center items-center content-center">
           <img
             className="rounded shadow w-72 p-2"
-            src={showImage(patient?.img)}
+            src={"https://sfo3.digitaloceanspaces.com/patients/img/" + patient?.img}
             alt="null"
           />
         </div>
