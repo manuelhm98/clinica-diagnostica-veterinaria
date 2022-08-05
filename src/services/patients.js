@@ -80,7 +80,7 @@ export const changeStatus = async (id, state) => {
 
 export const uploadPetPDF = async (id, file) => {
   const formData = new FormData();
-  formData.append("pdf", file);
+  formData.append("upload", file);
   const response = await fetch(`${API_HOST}/patients/pdf/${id}`, {
     method: "POST",
     headers: { token: getToken() },
