@@ -17,7 +17,6 @@ export default function AddPDF({ patient, setreload, setShowModal }) {
   const dispatch = useDispatch();
   const onDropImage = useCallback((acceptedFile) => {
     const file = acceptedFile[0];
-    console.log(file);
     setPetFile(file);
     setName(file.name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
