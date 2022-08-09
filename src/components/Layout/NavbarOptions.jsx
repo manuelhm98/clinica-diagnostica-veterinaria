@@ -117,7 +117,7 @@ const NavbarOptions = ({ user }) => {
       <div
         style={{ position: "fixed" }}
         className={
-          "w-72 h-screen bg-gray-800 shadow flex-col justify-between sm:flex " +
+          "w-72 h-screen overflow-hidden bg-gray-800 shadow flex-col justify-between sm:flex " +
           (toggleShow ? " sidebar-show" : " sidebar")
         }
       >
@@ -160,7 +160,7 @@ const NavbarOptions = ({ user }) => {
                       (showDpdw ? "block" : "hidden")
                     }
                   >
-                    {checkRole(user) === 1 && (
+                    {checkRole(user) === 1 || checkRole(user) ===2  ? (
                       <>
                         <Link to="/colors">
                           <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
@@ -188,7 +188,7 @@ const NavbarOptions = ({ user }) => {
                           </li>
                         </Link>
                       </>
-                    )}
+                    ) : <></>}
                     <Link to="/patients">
                       <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
                         <span>● Pacientes</span>
@@ -229,7 +229,7 @@ const NavbarOptions = ({ user }) => {
                         <span>● Consultas</span>
                       </li>
                     </Link>
-                    {checkRole(user) === 1 && (
+                    {checkRole(user) === 1 || checkRole(user)===2 ? (
                       <>
                         <Link to="/quote-type">
                           <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
@@ -257,7 +257,7 @@ const NavbarOptions = ({ user }) => {
                           </li>
                         </Link>
                       </>
-                    )}
+                    ) : <></>}
                   </ul>
                 </span>
               </div>
@@ -293,7 +293,7 @@ const NavbarOptions = ({ user }) => {
                 </div>
               </li>
             )}
-            {checkRole(user) === 1 && (
+            {checkRole(user) === 1 || checkRole(user) === 2 ? (
               <>
               <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
                   <Link to="/certification">
@@ -425,7 +425,7 @@ const NavbarOptions = ({ user }) => {
                   </div>
                 </li>
               </>
-            )}
+            ) : <></>}
             {checkRole(user) === 1 && (
               <li className="flex w-full justify-between text-gray-300 cursor-pointer items-center mb-4">
                 <div className="flex items-center">

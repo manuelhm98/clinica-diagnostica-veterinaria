@@ -1,5 +1,4 @@
 import React from "react";
-import { showImage } from "../../services/patients";
 import InputSearch from "../Global/InputSearch";
 import Pagination from "../Global/Pag";
 import Table from "../Global/Table";
