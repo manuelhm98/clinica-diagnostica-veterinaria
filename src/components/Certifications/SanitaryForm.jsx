@@ -13,7 +13,7 @@ export default function SanitaryForm() {
   const [selectPat, setSelectPat] = useState();
   const [showModalDoctor, setShowModalDoctor] = useState(false);
   const [selectDoctor, setSelectDoctor] = useState();
-  const [search, setSearch] = useState({ name: "", custom: "" });
+  const [search, setSearch] = useState({ name: "", custom: "", exp: "" });
   const [page, setPage] = useState(1);
   const [pageDoc, setPageDoc] = useState(1);
   const [searchDoc, setSearchDoc] = useState("");
@@ -25,7 +25,7 @@ export default function SanitaryForm() {
   const doctors = useSelector((state) => state.doctor.data);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(readPatients(page, search.name, search.custom, "", 3,1));
+    dispatch(readPatients(page, search.name, search.custom, search.exp, 3, 1));
     return;
   }, [dispatch, search, page]);
   useEffect(() => {

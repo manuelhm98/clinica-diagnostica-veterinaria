@@ -9,7 +9,7 @@ import SelectPatient from "../Quotes/SelectPatient";
 export default function ResponsabilityForm() {
   const [showModalPat, setShowModalPat] = useState(false);
   const [selectPat, setSelectPat] = useState();
-  const [search, setSearch] = useState({ name: "", custom: "" });
+  const [search, setSearch] = useState({ name: "", custom: "",exp:"" });
   const [tel, setTel] = useState();
   const [custom, setCustom] = useState();
   const [DUI, setDUI] = useState();
@@ -18,7 +18,7 @@ export default function ResponsabilityForm() {
   const dispatch = useDispatch();
   const patients = useSelector((state) => state.patient.data);
   useEffect(() => {
-    dispatch(readPatients(page, search.name, search.custom, "", 3,1));
+    dispatch(readPatients(page, search.name, search.custom, search.exp, 5,1));
     return;
   }, [dispatch, search, page]);
   return (
