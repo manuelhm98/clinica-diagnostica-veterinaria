@@ -3,6 +3,7 @@ import { showImage } from "../../services/product";
 import { getItems, setItemCart } from "../../utils/cart";
 import Modal from "../Global/Modal";
 import Form from "./Form";
+import ShowImage from "./ShowImage";
 
 export default function ProductList({
   products,
@@ -46,7 +47,7 @@ export default function ProductList({
           products?.products.map((prod) => (
             <div key={prod.id} className="border shadow-md h-auto rounded p-5">
               <div className="grid grid-cols-2">
-                <img src={showImage(prod.img)} alt="" className="w-20 h-20" />
+                <ShowImage name={prod?.img} cssClass="h-10 w-10" />
                 <div className="bg-green-500 w-12 h-12 ml-12 rounded-full flex justify-center items-center">
                   <span className="text-white text-xs font-semibold">
                     {"$" + prod.price}

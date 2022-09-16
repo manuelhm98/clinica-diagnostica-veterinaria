@@ -1,3 +1,4 @@
+import axios from "axios";
 import { API_HOST } from "../utils/constants";
 import { getToken } from "./token";
 
@@ -30,7 +31,7 @@ export const getAllProducts = async (
   category = "",
   species = "",
   brands = "",
-  limit=8
+  limit = 8
 ) => {
   const response = await fetch(
     `${API_HOST}/products/list?page=${page}&name=${name}&category=${category}&species=${species}&brands=${brands}&limit=${limit}`,
@@ -43,7 +44,7 @@ export const getAllProducts = async (
 
 export const uploadProductPhoto = async (id, file) => {
   const formData = new FormData();
-  formData.append("foto", file);
+  formData.append("upload", file);
   const response = await fetch(`${API_HOST}/products/image/${id}`, {
     method: "POST",
     headers: { token: getToken() },
@@ -52,13 +53,14 @@ export const uploadProductPhoto = async (id, file) => {
   return response.json();
 };
 
-export const showImage = (name) => {
-  return `${API_HOST}/products/view-image?name=${name}`;
+export const showImage = async (name) => {
+  const res = axios.get(`${API_HOST}/products/view-img?name=${name}`);
+  return res;
 };
-
 export const getProductById = async (id) => {
   const response = await fetch(`${API_HOST}/products/${id}`, {
     headers: { token: getToken() },
   });
   return response.json();
 };
+ 
