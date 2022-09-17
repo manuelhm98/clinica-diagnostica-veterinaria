@@ -9,7 +9,10 @@ export default function IsAuth() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);
   useEffect(() => {
-    return dispatch(readEmployeById(auth?.user?.userid));
+     if(auto?.user){
+      dispatch(readEmployeById(auth?.user?.userid))
+     }
+    return ;
   }, [dispatch, auth]);
   return (
     <>{auth.isLoggedIn ? <Routes user={user?.users} /> : <AuthRoutes />}</>
