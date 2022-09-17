@@ -54,7 +54,7 @@ export const uploadProductPhoto = async (id, file) => {
 };
 
 export const showImage = async (name) => {
-  const res = axios.get(`${API_HOST}/products/view-img?name=${name}`);
+  const res = axios.get(`${API_HOST}/products/view-image?name=${name}`);
   return res;
 };
 export const getProductById = async (id) => {
