@@ -9,7 +9,7 @@ export default function IsAuth() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.data);
   useEffect(() => {
-     if(auto?.user){
+     if(auth?.user){
       dispatch(readEmployeById(auth?.user?.userid))
      }
     return ;
