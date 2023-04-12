@@ -13,13 +13,13 @@ export default function SearchCustomer({
   isAdded,
   setShowModal
 }) {
-  const [search, setSearch] = useState({ name: "", last: "" });
+  const [search, setSearch] = useState({ name: "", last: "",phone:"" });
   const [page, setPage] = useState(1);
   const customers = useSelector((state) => state.customer.data);
   const dispatch = useDispatch();
   useEffect(() => {
     const searchCustom = () => {
-      dispatch(readCustomers(search.name, search.last, page, 5));
+      dispatch(readCustomers(search.name, search.last,search.phone, page, 5));
     };
     return searchCustom();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,6 +45,15 @@ export default function SearchCustomer({
             }
             placeholder="Escribe el apellido para buscar"
             label="Buscar cliente por apelllido"
+          />
+        </div>
+        <div>
+        <InputSearch
+            handleChange={(e) =>
+              setSearch({ ...search, phone: e.currentTarget.value })
+            }
+            placeholder="Escribe el telefono para buscar"
+            label="Buscar cliente por telefono"
           />
         </div>
       </div>

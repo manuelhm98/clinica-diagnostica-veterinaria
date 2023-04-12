@@ -8,6 +8,9 @@ import EditForm from "./EditForm";
 import { readDoctors } from "../../redux/actions/doctors";
 import { useDispatch, useSelector } from "react-redux";
 import { getDoctorID } from "../../services/doctor";
+import { delete_quote } from "../../services/quotes";
+import toast from "react-hot-toast";
+import { readQuotes } from "../../redux/actions/quote";
 
 export default function TableBody({ quotes }) {
   const [showModal, setShowModal] = useState(false);
@@ -34,6 +37,16 @@ export default function TableBody({ quotes }) {
     setQuote(quote);
     setShowModalEdit(true);
   };
+
+  const deleteQuote = async(id)=>{
+    const result = await delete_quote(id)
+    if(result.ok){
+      toast.success("Se elimino la consulta")
+      dispatch(readQuotes(1,""))
+    }else{
+      toast.error("Error al eliminar consulta")
+    }
+  }
   return (
     <>
       {typeof quotes === "undefined" && (
@@ -72,12 +85,20 @@ export default function TableBody({ quotes }) {
                   </button>
                 )}
                 {!quote.state && (
+                 <>
                   <button
                     onClick={() => handleEdit(quote)}
                     className="bg-green-500 text-white text-xs px-4 py-1 font-semibold rounded"
                   >
                     Editar
                   </button>
+                  <button
+                  onClick={() => deleteQuote(quote.id)}
+                  className="bg-red-500 text-white text-xs px-4 mt-2 py-1 font-semibold rounded"
+                >
+                  Eliminar
+                </button>
+                 </>
                 )}
               </>
             </TD>

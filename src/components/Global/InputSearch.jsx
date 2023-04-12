@@ -12,6 +12,7 @@ export default function InputSearch({ handleChange, placeholder, label,name }) {
           name={name}
           className="w-full py-1 text-xs pl-10 rounded border outline-none"
           placeholder={placeholder}
+          autoComplete=""
           onChange={handleChange}
         />
       </div>

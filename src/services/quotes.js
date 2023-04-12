@@ -1,3 +1,4 @@
+import axios from "axios";
 import { API_HOST } from "../utils/constants";
 import { getToken } from "./token";
 
@@ -29,3 +30,13 @@ export const editQuote = async (id, data) => {
   });
   return response.json();
 };
+
+export const delete_quote = async (id)=>{
+  const result = await axios.delete(API_HOST + "/quotes/erase/"+id,{
+    headers:{
+      token: getToken()
+    }
+  })
+
+  return result.data
+}

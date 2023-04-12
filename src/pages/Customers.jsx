@@ -16,7 +16,7 @@ const Table = lazy(() => import("../components/Global/Table"));
 
 export default function Customers() {
   const [showModal, setShowModal] = useState(false);
-  const [search, setSearch] = useState({ name: "", last: "" });
+  const [search, setSearch] = useState({ name: "", last: "",phone:"" });
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(25);
   const [state, setState] = useState(true);
@@ -29,7 +29,7 @@ export default function Customers() {
   }, [dispatch, auth]);
   useEffect(() => {
     return dispatch(
-      readCustomers(search.name, search.last, page, limit, state ? 1 : 0)
+      readCustomers(search.name, search.last,search.phone, page, limit, state ? 1 : 0)
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, page, state]);
@@ -47,7 +47,7 @@ export default function Customers() {
       <div className="p-5">
         <Title name="Listado de Clientes" />
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
           style={{ width: "100%" }}
         >
           <InputSearch
@@ -60,6 +60,12 @@ export default function Customers() {
             label="Buscar por apellido"
             placeholder="Escribe el apellido para buscar"
             name="last"
+            handleChange={(e) => handleChange(e)}
+          />
+           <InputSearch
+            label="Buscar por telefono"
+            placeholder="Escribe el telefono para buscar"
+            name="phone"
             handleChange={(e) => handleChange(e)}
           />
         </div>

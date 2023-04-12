@@ -42,45 +42,50 @@ export default function ProductList({
       {typeof products?.products === "undefined" && (
         <p className="flex mt-8">No hay productos para mostrar</p>
       )}
-      <div className="grid grid-cols-4 gap-4 mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
         {products?.products &&
           products?.products.map((prod) => (
             <div key={prod.id} className="border shadow-md h-auto rounded p-5">
               <div className="grid grid-cols-2">
-                <ShowImage name={prod?.img} cssClass="h-10 w-10" />
-                <div className="bg-green-500 w-12 h-12 ml-12 rounded-full flex justify-center items-center">
-                  <span className="text-white text-xs font-semibold">
-                    {"$" + prod.price}
-                  </span>
+                <div className="relative p-5">
+                <div className="bg-green-500 absolute  w-12 h-12 rounded-full flex flex-col justify-center items-center">
+                    <span className="text-white text-xs font-semibold">
+                      {"$" + prod.price}
+                    </span>
+                  </div>
+                  <ShowImage name={prod?.img} cssClass="w-[60%]" />
+                </div>
+                <div>
+                  
+                  <p
+                    onClick={() => handleEdit(prod)}
+                    className="font-semibold cursor-pointer"
+                  >
+                    {prod.name}
+                  </p>
+                  <p className="mt-2">
+                    <span className="font-semibold">Especie:</span>{" "}
+                    {prod.species?.type}
+                  </p>
+                  <p className="mt-2">
+                    <span className="font-semibold">Categoria:</span>{" "}
+                    {prod.category?.type}
+                  </p>
+                  <p className="mt-2">
+                    <span className="font-semibold">Marca:</span>{" "}
+                    {prod.brands?.brand}
+                  </p>
+                  <p className="mt-2">
+                    <span className="font-semibold">Stock:</span> {prod.stock}
+                  </p>
+                  <button
+                    onClick={() => setProd(prod)}
+                    className="bg-blue-500 text-white rounded px-4 py-1 mt-2"
+                  >
+                    Agregar al carrito
+                  </button>
                 </div>
               </div>
-              <p
-                onClick={() => handleEdit(prod)}
-                className="font-semibold cursor-pointer"
-              >
-                {prod.name}
-              </p>
-              <p className="mt-2">
-                <span className="font-semibold">Especie:</span>{" "}
-                {prod.species?.type}
-              </p>
-              <p className="mt-2">
-                <span className="font-semibold">Categoria:</span>{" "}
-                {prod.category?.type}
-              </p>
-              <p className="mt-2">
-                <span className="font-semibold">Marca:</span>{" "}
-                {prod.brands?.brand}
-              </p>
-              <p className="mt-2">
-                <span className="font-semibold">Stock:</span> {prod.stock}
-              </p>
-              <button
-                onClick={() => setProd(prod)}
-                className="bg-blue-500 text-white rounded px-4 py-1 mt-2"
-              >
-                Agregar al carrito
-              </button>
             </div>
           ))}
         <Modal

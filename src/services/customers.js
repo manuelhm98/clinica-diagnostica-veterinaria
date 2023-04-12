@@ -1,3 +1,4 @@
+import axios from "axios";
 import { API_HOST } from "../utils/constants";
 import { getToken } from "./token";
 
@@ -20,9 +21,9 @@ export const getAllCustomers = async () => {
   return response.json();
 };
 
-export const searchCustomer = async (name, last, page, limit = 25, state) => {
+export const searchCustomer = async (name, last,phone, page, limit = 25, state) => {
   const response = await fetch(
-    `${API_HOST}/customers/search?name=${name}&last=${last}&page=${page}&limit=${limit}&state=${state}`,
+    `${API_HOST}/customers/search?name=${name}&last=${last}&phone=${phone}&page=${page}&limit=${limit}&state=${state}`,
     { headers: { token: getToken() } }
   );
   return response.json();
@@ -64,3 +65,11 @@ export const validPhone = async (data) => {
   });
   return response.json();
 };
+export const changePassword = async (password,user_id) => {
+  const result = await axios.post(API_HOST + "/customers/changePassword/" + user_id, { password }, {
+    headers: {
+      token: getToken()
+    }
+  })
+  return result.data
+}

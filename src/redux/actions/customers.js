@@ -15,9 +15,9 @@ export function add(data) {
   };
 }
 
-export const readCustomers = (name = "", last = "", page = 1,limit=25,state=1) => {
+export const readCustomers = (name = "", last = "",phone="", page = 1,limit=25,state=1) => {
   return (dispatch) => {
-    searchCustomer(name, last, page,limit,state).then((res) => {
+    searchCustomer(name, last,phone, page,limit,state).then((res) => {
       if (!res.ok) {
         dispatch(read({}));
         return;
@@ -32,3 +32,4 @@ export function read(data) {
     payload: data,
   };
 }
+

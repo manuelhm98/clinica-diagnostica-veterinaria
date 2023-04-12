@@ -4,16 +4,29 @@ import Modal from "../Global/Modal";
 import Form from "./Form";
 import { checkRole } from "../../utils/checkRole";
 import { useDispatch } from "react-redux";
-import { changeState } from "../../services/customers";
+import { changePassword, changeState } from "../../services/customers";
 import { addCustomer } from "../../redux/actions/customers";
+import toast from "react-hot-toast";
 
 export default function TableBody({ customers, user, setState }) {
   const [customer, setCustomer] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [showModalP, setShowModalP] = useState(false);
+  const [password, setPassword] = useState("1234");
   const edit = (customer) => {
     setCustomer(customer);
     setShowModal(true);
   };
+
+  const handleChangePassword = async()=>{
+    const result = await changePassword(password,customer?.id)
+    console.log(result)
+    if(result.ok){
+      toast.success("Se cambio correctamente")
+    }else{
+      toast.error("Error al cambiar contraseña")
+    }
+  }
 
   const dispatch = useDispatch();
   const handlechange = (cust, state) => {
@@ -60,18 +73,28 @@ export default function TableBody({ customers, user, setState }) {
                 </span>
               </div>
             </TD>
-            {checkRole(user) === 1 && (
-              <TD>
-                <div className="flex">
+
+            <TD>
+              <div className="flex">
+                {checkRole(user) === 1 && (
                   <button
                     onClick={() => edit(cust)}
                     className="bg-green-500 text-white text-xs px-6 m-1 py-1 rounded"
                   >
                     Editar
                   </button>
-                </div>
-              </TD>
-            )}
+                )}
+                <button
+                  onClick={() => {
+                    setShowModalP(true);
+                    setCustomer(cust);
+                  }}
+                  className="bg-red-500 text-white text-xs px-6 m-1 py-1 rounded"
+                >
+                  Cambiar contraseña
+                </button>
+              </div>
+            </TD>
           </tr>
         ))
       ) : (
@@ -87,6 +110,25 @@ export default function TableBody({ customers, user, setState }) {
         setShowModal={setShowModal}
       >
         <Form setShowModal={setShowModal} customer={customer} />
+      </Modal>
+      <Modal
+        title="Cambiar contraseña"
+        showModal={showModalP}
+        setShowModal={setShowModalP}
+      >
+        <div className="w-96">
+          <label className=" font-semibold">Nueva contraseña</label>
+          <input
+            className="w-full rounded p-3 border"
+            type="password"
+            onChange={(e) => setPassword(e.currentTarget.value)}
+            placeholder="Escribe la nueva contraseña"
+            autoComplete="new-password"
+          ></input>
+          <button onClick={handleChangePassword} className="bg-blue-500 text-white rounded w-full p-3 mt-4">
+            Guardar
+          </button>
+        </div>
       </Modal>
     </>
   );
