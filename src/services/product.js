@@ -64,3 +64,10 @@ export const getProductById = async (id) => {
   return response.json();
 };
  
+
+
+export const deleteQuote = async(id)=>{
+  const result = await axios.put(API_HOST + `/products/delete/${id}`,{state:false},{ headers: { token: getToken() },})
+
+  return result.data
+}

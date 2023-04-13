@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { showImage } from "../../services/product";
+import { showImage, deleteQuote } from "../../services/product";
 import { getItems, setItemCart } from "../../utils/cart";
 import Modal from "../Global/Modal";
 import Form from "./Form";
 import ShowImage from "./ShowImage";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { readProducts } from "../../redux/actions/product";
 
 export default function ProductList({
   products,
@@ -16,6 +19,7 @@ export default function ProductList({
   const [editProd, setEditProd] = useState();
   const [showModal, setShowModal] = useState(false);
   const [prod, setProd] = useState();
+  const dispatch = useDispatch()
   const handleEdit = (prd) => {
     setEditProd(prd);
     setShowModal(true);
@@ -36,7 +40,18 @@ export default function ProductList({
     }
     return;
   }, [prod, setLoadCart]);
-  console.log(getItems());
+
+  const remove = async (id)=>{
+    const result = await deleteQuote(id)
+
+    if(result.ok){
+      toast.success("Se elimino el producto")
+      dispatch(readProducts())
+    }else{
+      toast.error("Error al eliminar producto")
+    }
+  }
+
   return (
     <>
       {typeof products?.products === "undefined" && (
@@ -83,6 +98,9 @@ export default function ProductList({
                     className="bg-blue-500 text-white rounded px-4 py-1 mt-2"
                   >
                     Agregar al carrito
+                  </button>
+                  <button onClick={()=>remove(prod.id)} className="bg-red-500 text-white rounded px-4 py-1 mt-2">
+                    Eliminar producto
                   </button>
                 </div>
               </div>
