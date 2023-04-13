@@ -14,5 +14,5 @@ export default function ShowImage({ name, cssClass }) {
   useEffect(() => {
     return getUrl(name);
   }, [name]);
-  return <img src={imgUrl} className={cssClass} alt="null"></img>;
+  return <img src={imgUrl} className={cssClass + " max-h-44"} alt="null"></img>;
 }
