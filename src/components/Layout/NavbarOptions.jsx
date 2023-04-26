@@ -248,7 +248,7 @@ const NavbarOptions = ({ user }) => {
                         </Link>
                         <Link to="/pest-control-type">
                           <li className="text-gray-300 text-sm py-1 font-normal cursor-pointer">
-                            <span>● Tipo de control de plagas</span>
+                            <span>● Tipo de control de ectoparasitos</span>
                           </li>
                         </Link>
                         <Link to="/deworming-type">

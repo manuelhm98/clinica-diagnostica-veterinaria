@@ -9,7 +9,7 @@ export default function TableContent({ pestControlTypes, user }) {
       <thead>
         <tr>
           <TH name="ID" />
-          <TH name="Tipo de control de plagas" />
+          <TH name="Tipo de control de ectoparasitos" />
           {checkRole(user) === 1 && <TH name="Acciones" />}
         </tr>
       </thead>
