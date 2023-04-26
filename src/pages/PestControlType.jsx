@@ -24,7 +24,7 @@ export default function PestControlType() {
   return (
     <Layout>
       <div className="p-8">
-        <Title name="Listado de control de plagas" />
+        <Title name="Listado de control de ectoparasitos" />
         <button
           onClick={() => setShowModal(true)}
           className="bg-blue-600 text-white px-8 ml-4 float-right text-xs py-1 rounded"
@@ -32,7 +32,7 @@ export default function PestControlType() {
           Agregar
         </button>
         <Modal
-          title="Agregar tipo de control de plagas"
+          title="Agregar tipo de control de ectoparasitos"
           showModal={showModal}
           setShowModal={setShowModal}
         >
